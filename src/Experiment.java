@@ -10,6 +10,8 @@ class Experiment
 {
    public static void main(String[] args)
    {
+	   
+	   //David's change
        int i, NUMRUNS = 30; 
        double startTime=0.0, endTime=660.0;
        Seeds[] sds = new Seeds[NUMRUNS];
