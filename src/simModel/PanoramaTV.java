@@ -3,14 +3,14 @@ package simModel;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 
-import absmodJ.SBNotice;
-import absmodJ.ScheduledActivity;
-import absmodJ.SequelActivity;
-import absmodJ.AOSimulationModel;
-import absmodJ.Behaviour;
+import simulationModelling.SBNotice;
+import simulationModelling.ScheduledActivity;
+import simulationModelling.SequelActivity;
+import simulationModelling.AOSimulationModel;
+import simulationModelling.Behaviour;
 //
 // The Simulation model Class
-public class ModelName extends AOSimulationModel
+public class PanoramaTV extends AOSimulationModel
 {
 	// Constants available from Constants class
 	/* Parameter */
@@ -38,7 +38,7 @@ public class ModelName extends AOSimulationModel
 
 
 	// Constructor
-	public ModelName(double t0time, double tftime, /*define other args,*/ Seeds sd)
+	public PanoramaTV(double t0time, double tftime, /*define other args,*/ Seeds sd)
 	{
 		// Initialise parameters here
 		
@@ -69,7 +69,7 @@ public class ModelName extends AOSimulationModel
 	}
 
 	boolean traceflag = false;
-	protected void eventOccured()
+	public void eventOccured()
 	{
 		if(traceflag)
 		{
@@ -127,7 +127,7 @@ public class ModelName extends AOSimulationModel
 		seqAct.startingEvent();
 		scheduleActivity(seqAct);
 	}	
-	protected double getClock() {return super.getClock();}
+	public double getClock() {return super.getClock();}
 }
 
 
