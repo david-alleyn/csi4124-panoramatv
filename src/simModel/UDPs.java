@@ -1,6 +1,6 @@
 package simModel;
 
-class UDPs 
+public class UDPs 
 {
 	PanoramaTV model;  // for accessing the clock
 	
@@ -24,6 +24,22 @@ class UDPs
         	return -1;
         }
 	------------------------------------------------------------*/
+	/**
+	 * Returns the type of TV mould to load when OP10 queries this procedure.
+	 * The type returned follows the production schedule. 
+	 * The type will go to the next type when OP10 releases the last of the series of the current type. 
+	 * When the last of the series of the last type is released from OP10, 
+	 * the cycle starts at the beginning of the production schedule again.
+	 * @param procedure
+	 */
+	protected void uTvType(DVPs procedure){
+		
+	}
+	protected void ConveyerReady(){
+		
+	}
+	protected void ConveyorSegmentReadyForTV(){
 	
+	}
 	
 }
