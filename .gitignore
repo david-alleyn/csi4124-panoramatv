@@ -12,3 +12,10 @@
 hs_err_pid*
 /bin/
 *.directory
+/nbproject/private/
+/nbproject/project.xml
+/nbproject/genfiles.properties
+/nbproject/build-impl.xml
+/build.xml
+/manifest.mf
+/nbproject/project.properties
