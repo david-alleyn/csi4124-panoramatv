@@ -27,5 +27,25 @@ public class RepairEquipment extends ScheduledActivity {
 		// TODO Auto-generated method stub
 
 	}
-
+	/**
+	 * RC.AutoNode[ID].busy = FALSE
+	 * R.Maintenance.currentNode = RC.AutoNode[ID]
+	 * RC.AutoNode[ID].timeUntilFailure = 0
+	 */
+	public void PreCondition(Boolean AutoNode )
+	{
+		
+	}
+	/*
+	 * RC.AutoNode[ID].busy = TRUE
+	 */
+	public void EventRepair(Boolean AutoNode){
+		
+	}
+	public void Duraiton (){
+		
+	}
+	public void EventRepair(AutoNode timeUntilFailure, Boolean Busy ){
+		
+	}
 }

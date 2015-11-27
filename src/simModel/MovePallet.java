@@ -21,5 +21,19 @@ public class MovePallet extends ConditionalActivity {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public void Precondiiton()
+	{
+		
+	}
+	public Event AutoProcessing(){
+		return null;
+		
+	}
+	
+	public void Duration()
+	{
+		
+	}
 
 }
