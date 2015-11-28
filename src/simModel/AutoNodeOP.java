@@ -7,7 +7,7 @@ import simModel.*;
 
 public class AutoNodeOP extends ScheduledActivity {
 	/**
-	 * 
+	 * Autonode OP should be Autonode processing... 
 	 */
 	private PanoramaTV local; 
 	public AutoNodeOP(PanoramaTV localTV){

@@ -4,7 +4,10 @@ class DVPs
 {
 	PanoramaTV model;  // for accessing the clock
 	
-	// Constructor
+	/**
+	 * 
+	 * @param model : 
+	 */
 	protected DVPs(PanoramaTV model) { this.model = model; }
 
 	// Translate deterministic value procedures into methods
