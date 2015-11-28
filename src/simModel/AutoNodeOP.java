@@ -1,9 +1,18 @@
 package simModel;
-
+/**
+ * 
+ */
 import simulationModelling.ScheduledActivity;
+import simModel.*;
 
 public class AutoNodeOP extends ScheduledActivity {
-
+	/**
+	 * 
+	 */
+	private PanoramaTV local; 
+	public AutoNodeOP(PanoramaTV localTV){
+		local = localTV; // a local instance of PanoramaTV.
+	}
 	@Override
 	protected double timeSequence() {
 		// TODO Auto-generated method stub

@@ -1,5 +1,6 @@
 package simModel;
 
+import cern.jet.random.engine.MersenneTwister;
 class Constants 
 {
 	/* Constants */

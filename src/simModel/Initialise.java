@@ -2,7 +2,12 @@ package simModel;
 
 import simulationModelling.ScheduledAction;
 
-
+/**
+ * action event...
+ *  
+ * @author mush
+ *
+ */
 class Initialise extends ScheduledAction
 {
 	PanoramaTV model;

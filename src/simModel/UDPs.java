@@ -3,6 +3,8 @@ package simModel;
 public class UDPs 
 {
 	PanoramaTV model;  // for accessing the clock
+	Boolean palletAvailable = true;
+	Pallet type ;
 	
 	// Constructor
 	protected UDPs(PanoramaTV model) { this.model = model; }
@@ -32,14 +34,26 @@ public class UDPs
 	 * the cycle starts at the beginning of the production schedule again.
 	 * @param procedure
 	 */
-	protected void uTvType(DVPs procedure){
-		
+	protected Pallet uTvType(DVPs procedure){
+		return null;
 	}
 	protected void ConveyerReady(){
-		
+		if (!RepairCheck() && !SetUp() && !Busy())
+		{
+			// do conveyer activity.
+		}
 	}
 	protected void ConveyorSegmentReadyForTV(){
 	
+	}
+	private Boolean  RepairCheck( ){
+		return false;
+	}
+	private Boolean  SetUp( ){
+		return false;
+	}
+	private Boolean  Busy( ){
+		return false;
 	}
 	
 }

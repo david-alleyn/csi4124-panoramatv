@@ -1,13 +1,19 @@
 // File: Experiment.java
 // Description:
 
+import java.util.*;
 import simModel.*;
 import cern.jet.random.engine.*;
 
-// Main Method: Experiments
-// 
+/** Main Method: Experiments
+ *  
+ */
 class Experiment
 {
+	/**
+	 * 
+	 * @param args
+	 */
    public static void main(String[] args)
    {
 	   
