@@ -23,5 +23,21 @@ capacity :: Total number of positions
 	{
 		position = new ArrayList<Pallet>() ;
 	}
+	public int size()
+	{
+		return position.size();
+	}
+	public void set(Pallet local)
+	{
+		position.add(local);
+	}
+	public Pallet get(int index)
+	{
+		return position.get(index);
+	}
+	public Pallet last()
+	{
+		return get((size()-1));
+	}
 }
 

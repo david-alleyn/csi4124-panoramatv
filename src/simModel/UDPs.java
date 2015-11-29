@@ -46,14 +46,16 @@ public class UDPs
 	protected void ConveyorSegmentReadyForTV(){
 	
 	}
-	private Boolean  RepairCheck( ){
+	public Boolean  RepairCheck( ){
 		return false;
 	}
-	private Boolean  SetUp( ){
+	public Boolean  SetUp( ){
 		return false;
 	}
-	private Boolean  Busy( ){
+	public Boolean  Busy( ){
 		return false;
 	}
-	
+	public int ManualNodesReadyForProcessing(){
+		return -1;
+	}
 }

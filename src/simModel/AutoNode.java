@@ -22,7 +22,7 @@ public class AutoNode {
 	 */	
 	private double timeUntilFailure;
 	/**Time left until next breakdown. This time is re-initialised 
-	 * after a repair and decremented after each processing of TV on the automatic node. */
+	 * after a repair and decremented after each processing of TV on the automatic node.	 */
 	private double processTimeAfterFailure;
 	
 	public void setBusy(Boolean busy){

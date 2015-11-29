@@ -1,5 +1,6 @@
 package simModel;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.PriorityQueue;
 
@@ -12,6 +13,7 @@ import simulationModelling.Behaviour;
 // The Simulation model Class
 public class PanoramaTV extends AOSimulationModel
 {
+	
 	// Constants available from Constants class
 	/* Parameter */
         // Define the parameters
@@ -29,7 +31,8 @@ public class PanoramaTV extends AOSimulationModel
 	protected RVPs rvp;  // Reference to rvp object - object created in constructor
 	protected DVPs dvp = new DVPs(this);  // Reference to dvp object
 	protected UDPs udp = new UDPs(this);
-
+	public ManualNode [] ManualNodes;
+	public Conveyor [] ConveyorSeg;
 	// Output object
 	protected Output output = new Output(this);
 	

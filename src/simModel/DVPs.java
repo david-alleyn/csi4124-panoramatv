@@ -24,4 +24,13 @@ class DVPs
 	   return(nextTime);
 	}
 	------------------------------------------------------------*/
+	
+	public double uManualProcessTime(int index)
+	{
+		return -0.1;
+	}
+	public Type uTvType()
+	{
+		return null;
+	}
 }
