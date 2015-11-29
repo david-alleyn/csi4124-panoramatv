@@ -1,7 +1,11 @@
 package simModel;
 
 import simulationModelling.ConditionalActivity;
-
+/**
+ * 
+ * @author mush
+ *
+ */
 public class MovePallet extends ConditionalActivity {
 
 	@Override
