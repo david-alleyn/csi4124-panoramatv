@@ -2,7 +2,7 @@ package simModel;
 
 import simulationModelling.ScheduledActivity;
 
-public class SetupEquipment extends ScheduledActivity {
+public class ConveyorOP extends ScheduledActivity {
 
 	@Override
 	protected double timeSequence() {

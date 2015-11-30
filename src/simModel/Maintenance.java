@@ -2,7 +2,12 @@ package simModel;
 
 import simulationModelling.ScheduledActivity;
 
-public class SetupEquipment extends ScheduledActivity {
+/**
+ * 
+ * @author mush
+ *
+ */
+public class Maintenance extends ScheduledActivity{
 
 	@Override
 	protected double timeSequence() {
@@ -19,13 +24,13 @@ public class SetupEquipment extends ScheduledActivity {
 	@Override
 	public void startingEvent() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
 	protected void terminatingEvent() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }
