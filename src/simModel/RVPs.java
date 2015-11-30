@@ -1,7 +1,9 @@
 package simModel;
 
 import cern.jet.random.Exponential;
+import cern.jet.random.Normal;
 import cern.jet.random.engine.MersenneTwister;
+import cern.jet.random.engine.RandomEngine;
 
 class RVPs 
 {
@@ -34,4 +36,24 @@ class RVPs
 	    return(nxtInterArr+model.getClock());
 	}
 
+	/**
+	 * Returns time to load a pallet and mould.
+	 * @return NORMAL(MEAN, STDDEV), MEAN: 1.9; STDDEV: 0.19
+	 */
+	public Normal uLoadTv(){
+		
+		return new Normal (1.9, 0.19, new MersenneTwister()); // not sure about it.. 
+	}
+	/**
+	public int uTimeUntilFailure(AutoNode OP){
+		NEGEXPO(OP);
+		if(OP = OP20)  MEAN = 30
+		else if (OP = OP30)  MEAN = 450
+		else if(OP = OP50) MEAN = 370
+		else if (OP = TEST) MEAN = 250
+		
+	}
+	
+	I had problem understading.. how do Autonode get hold of OP.. there should be a local copy of it.. I will come back to it.. 
+	*/
 }
