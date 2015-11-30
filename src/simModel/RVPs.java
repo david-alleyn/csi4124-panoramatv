@@ -56,4 +56,53 @@ class RVPs
 	
 	I had problem understading.. how do Autonode get hold of OP.. there should be a local copy of it.. I will come back to it.. 
 	*/
+	/**
+	 * 
+	 * @return Returns time to rework a TV.
+	 */
+	public int uReworkTime(){
+		/**
+		 * NEGEXPO(MEAN), Where MEAN = 35
+		 */
+		return 35;
+	}
+	/**
+	 * Returns the time to unload a completed TV from a pallet and send it to packaging.
+	 * @return NORMAL(MEAN, STDDEV), MEAN: 1.9; STDDEV: 0.19 */
+	public Normal uUnLoadTv(){
+		
+		return new Normal (1.9, 0.19, new MersenneTwister()); // not sure about it.. 
+	}
+	/**
+	 * Returns time to repair the equipment at OP20.
+	 * @return TRIANGLE(MIN, MODE, MAX), Where MIN = 5, MODE = 25, MAX = 60	 */
+	public int uOP20RepairTime(){
+		return -1;
+	}
+	/**
+	 * Returns time to repair the equipment at OP30.
+	 * @return ERLANG(MEAN, k), Where MEAN = 35, k = 3 	 */
+	public int uO30RepairTime(){
+		return -1;
+	}
+	/**
+	 * Returns time to repair the equipment at OP50.
+	 * @return TRIANGLE(MIN, MODE, MAX), Where MIN = 10, MODE = 30, MAX = 80 */
+	public int uOP50RepairTime(){
+		return -1;
+	}
+	/**
+	 * 
+	 */
+	public void uTESTRepairTime(){
+		
+	}
+	/**
+	 * 
+	 * @param node
+	 * @return Returns time to setup 
+	 */
+	public int SetupProcedTime(Type node){
+		return -1;
+	}
 }
