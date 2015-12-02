@@ -5,6 +5,7 @@ public class UDPs
 	PanoramaTV model;  // for accessing the clock
 	Boolean palletAvailable = true;
 	Pallet type ;
+	AutoNode localNode;
 	
 	// Constructor
 	protected UDPs(PanoramaTV model) { this.model = model; }
@@ -37,25 +38,67 @@ public class UDPs
 	protected Pallet uTvType(DVPs procedure){
 		return null;
 	}
+	/**
+	 * 
+	 */
 	protected void ConveyerReady(){
 		if (!RepairCheck() && !SetUp() && !Busy())
 		{
 			// do conveyer activity.
 		}
 	}
+	/**
+	 * 
+	 */
 	protected void ConveyorSegmentReadyForTV(){
 	
 	}
+	/**
+	 * 
+	 * @return
+	 */
 	public Boolean  RepairCheck( ){
 		return false;
 	}
+	/**
+	 * 
+	 * @return
+	 */
 	public Boolean  SetUp( ){
 		return false;
 	}
+	/**
+	 * 
+	 * @return
+	 */
 	public Boolean  Busy( ){
 		return false;
 	}
+	/**
+	 * 
+	 * @return
+	 */
+	
 	public int ManualNodesReadyForProcessing(){
 		return -1;
 	}
+	/**
+	 * 
+	 * @return
+	 */
+	public double uAutomaticProcessTime( ){
+		if (localNode.equals("OP20")) return 2.1;
+		else if (localNode.equals("OP30")) return 2.0;
+		else if (localNode.equals("OP40")) return 1.5;
+		else if (localNode.equals("OP50")) return 2.1;
+		else return 1.5;
+	}
+
+	public AutoNode GetAutoNodeForPartialProcessing() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+
 }
+

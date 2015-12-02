@@ -4,15 +4,17 @@ import cern.jet.random.Exponential;
 import cern.jet.random.Normal;
 import cern.jet.random.engine.MersenneTwister;
 import cern.jet.random.engine.RandomEngine;
+import dataModelling.*;
 
-class RVPs 
+
+class RVPs extends java.lang.Object
 {
 	PanoramaTV model; // for accessing the clock
     // Data Models - i.e. random veriate generators for distributions
 	// are created using Colt classes, define 
 	// reference variables here and create the objects in the
 	// constructor with seeds
-
+	TriangularVariate localTriangularVariate;
 
 	// Constructor
 	protected RVPs(PanoramaTV model, Seeds sd) 
@@ -21,6 +23,8 @@ class RVPs
 		// Set up distribution functions
 		interArrDist = new Exponential(1.0/WMEAN1,  
 				                       new MersenneTwister(sd.seed1));
+		localTriangularVariate = new TriangularVariate(10, 30, 10, new MersenneTwister());
+
 	}
 	
 	/* Random Variate Procedure for Arrivals */
@@ -88,8 +92,8 @@ class RVPs
 	/**
 	 * Returns time to repair the equipment at OP50.
 	 * @return TRIANGLE(MIN, MODE, MAX), Where MIN = 10, MODE = 30, MAX = 80 */
-	public int uOP50RepairTime(){
-		return -1;
+	public double uOP50RepairTime(){
+		return localTriangularVariate.next(); // its in absmodj... 
 	}
 	/**
 	 * 
@@ -102,7 +106,7 @@ class RVPs
 	 * @param node
 	 * @return Returns time to setup 
 	 */
-	public int SetupProcedTime(Type node){
+	public int SetupProcedTime(TvType node){
 		return -1;
 	}
 }
