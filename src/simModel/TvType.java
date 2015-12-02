@@ -5,7 +5,7 @@ package simModel;
  * @author mush
  *
  */
-public enum Type {
+public enum TvType {
 	Small,
 	Medium,
 	Large,

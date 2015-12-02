@@ -30,8 +30,7 @@ public class MovePallet extends ConditionalActivity {
 	{
 		
 	}
-	public Event AutoProcessing(){
-		return null;
+	public void AutoProcessing(){
 		
 	}
 	

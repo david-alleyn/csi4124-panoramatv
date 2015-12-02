@@ -7,7 +7,7 @@ package simModel;
  */
 public class Pallet {
 	
-	Type TuType;
+	TvType TuType;
 	Boolean inMotion = false;
 	Boolean finishedProcessing = false;
 	Boolean moveRework = false;

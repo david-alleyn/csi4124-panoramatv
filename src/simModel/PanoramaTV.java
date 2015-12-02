@@ -32,7 +32,7 @@ public class PanoramaTV extends AOSimulationModel
 	protected DVPs dvp = new DVPs(this);  // Reference to dvp object
 	protected UDPs udp = new UDPs(this);
 	public ManualNode [] ManualNodes;
-	public Conveyor [] ConveyorSeg;
+	public ConveyorSegment [] ConveyorSeg;
 	// Output object
 	protected Output output = new Output(this);
 	
