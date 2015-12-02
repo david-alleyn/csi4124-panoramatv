@@ -4,6 +4,9 @@ class DVPs
 {
 	PanoramaTV model;  // for accessing the clock
 	
+	TvType tvType = TvType.Small;
+	int numCurrentTVType;
+	
 	/**
 	 * 
 	 * @param model : 
@@ -29,8 +32,16 @@ class DVPs
 	{
 		return -0.1;
 	}
-	public Type uTvType()
+	public TvType uTvType()
 	{
+		if(tvType == TvType.Small)
+		{
+			if(numCurrentTVType <= 20)
+			{
+				return tvType;
+			}
+		}
+		
 		return null;
 	}
 }

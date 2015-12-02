@@ -13,10 +13,10 @@ public class AutoNode {
 	/**	Set to TRUE when the Automatic Segment begins one of the following activities: CRTAssembly, 
 	CoilAssembly, Test and BackAssembly: otherwise set to FALSE.*/
 	private Boolean busy;
-	/** Used to compare the machine’s current configuration with the one required for 
+	/** Used to compare the machineï¿½s current configuration with the one required for 
 	 * processing the next TV. Is set to the correct type by SetupEquipment during operation. 
 	 * Is set by Initialize action during initialization. */
-	private Type lastTVtype;
+	private TvType lastTVtype;
 	/**Time left until next breakdown. This time is re-initialised 
 	 * after a repair and decremented after each processing of TV on the automatic node
 	 */	
@@ -27,7 +27,7 @@ public class AutoNode {
 	
 	public void setBusy(Boolean busy){
 		this.busy = busy;
-	}public void setlastTVtype(Type lastTVtype){
+	}public void setlastTVtype(TvType lastTVtype){
 		this.lastTVtype = lastTVtype;
 	}public void setprocessTimeAfterFailure(double timeUntilFailure) {
 		this.timeUntilFailure = timeUntilFailure;
@@ -37,7 +37,7 @@ public class AutoNode {
 	
 	public Boolean getBusy(){
 		return this.busy;
-	}public Type getlastTVtype(){
+	}public TvType getlastTVtype(){
 		return this.lastTVtype;
 	}public double getprocessTimeAfterFailure() {
 		return this.timeUntilFailure;

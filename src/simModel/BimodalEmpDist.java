@@ -17,8 +17,28 @@ import cern.jet.random.engine.MersenneTwister;
  *
  * @author ODUNADE SEGUN
  */
-public class Emp {
+public class BimodalEmpDist {
+	double[] histogram;
+	double scaleFactor;
+	double xMax;
+	Empirical empDM;
+	
+	public BimodalEmpDist(double[] histogram, double scaleFactor, double xMax)
+	{
+		this.histogram = histogram;
+		this.scaleFactor = scaleFactor; // Width of the histogram
+		this.xMax = xMax; // Maximum data value
+		
+		// Create Empirical Object
+		empDM = new Empirical(histogram, Empirical.LINEAR_INTERPOLATION, new MersenneTwister());
+	}
+	
+	public double getNext()
+	{
+		return xMax * empDM.nextDouble();
+	}
 
+	// Used for testing the Bimodal Empirical Distribution
     public static void main(String[] args) {
         double randomValue;
         double[] histogram = {

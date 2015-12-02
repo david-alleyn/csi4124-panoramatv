@@ -7,15 +7,15 @@ import java.util.ArrayList;
  * @author mush
  *
  */
-public class Conveyor {
+public class ConveyorSegment {
 /**
  * 
-numPallet The number of Pallet’s on the conveyor segment
+numPallet The number of Palletï¿½s on the conveyor segment
 positions :: The array of Pallet entities on the conveyor segment
 capacity :: Total number of positions
 
  */
-	/** The number of Pallet’s on the conveyor segment
+	/** The number of Palletï¿½s on the conveyor segment
 	 */
 	private int numPallets;
 	/** The index of the next logical default segment which follows from this one.
@@ -25,7 +25,7 @@ capacity :: Total number of positions
 	/** Total number of positions */
 	private int Capacity;
 	
-	public Conveyor()
+	public ConveyorSegment()
 	{
 		position = new ArrayList<Pallet>() ;
 	}
