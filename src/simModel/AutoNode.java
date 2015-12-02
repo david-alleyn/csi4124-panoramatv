@@ -31,8 +31,8 @@ public class AutoNode {
 		this.lastTVtype = lastTVtype;
 	}public void setprocessTimeAfterFailure(double timeUntilFailure) {
 		this.timeUntilFailure = timeUntilFailure;
-	}public void settimeUntilFailure(double processTimeAfterFailure){
-		this.processTimeAfterFailure = processTimeAfterFailure;
+	}public void settimeUntilFailure(double object){
+		this.processTimeAfterFailure = object;
 	}
 	
 	public Boolean getBusy(){
@@ -44,6 +44,7 @@ public class AutoNode {
 	}public double gettimeUntilFailure(){
 		return this.processTimeAfterFailure;
 	}
+	
 	
 
 }

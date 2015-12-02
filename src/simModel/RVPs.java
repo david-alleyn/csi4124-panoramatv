@@ -109,4 +109,13 @@ class RVPs extends java.lang.Object
 	public int SetupProcedTime(TvType node){
 		return -1;
 	}
+
+	
+
+	public double uTimeUntilFailure(PanoramaTV local) {
+		// TODO Auto-generated method stub
+		return -0.0;
+	}
+
+	
 }

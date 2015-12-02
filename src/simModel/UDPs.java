@@ -98,6 +98,16 @@ public class UDPs
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public void GetNodeRepairTime(AutoNode local) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public AutoNode GetAutoNodeRequiringRepair() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }
