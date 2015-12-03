@@ -58,5 +58,12 @@ capacity :: Total number of positions
 	public void setnumPallets(int numPallets){
 		this.numPallets = numPallets;
 	}
+	public int getCapacity() {
+		// TODO Auto-generated method stub
+		return this.Capacity;
+	}
+	public void setCapacity(int capacity){
+		this.Capacity = capacity;
+	}
 }
 

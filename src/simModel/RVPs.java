@@ -117,5 +117,10 @@ class RVPs extends java.lang.Object
 		return -0.0;
 	}
 
+	public double uSetupProcedTime(int autoNodeId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	
 }

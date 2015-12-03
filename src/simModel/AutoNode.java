@@ -24,6 +24,7 @@ public class AutoNode {
 	/**Time left until next breakdown. This time is re-initialised 
 	 * after a repair and decremented after each processing of TV on the automatic node.	 */
 	private double processTimeAfterFailure;
+	public TvType lastTVType;
 	
 	public void setBusy(Boolean busy){
 		this.busy = busy;
@@ -33,9 +34,13 @@ public class AutoNode {
 		this.timeUntilFailure = timeUntilFailure;
 	}public void settimeUntilFailure(double object){
 		this.processTimeAfterFailure = object;
+	}public void setlastTVType(TvType tvtype){
+		this.lastTVType = tvtype;
 	}
 	
-	public Boolean getBusy(){
+	public TvType getlastTVType(){
+		return this.lastTVType;
+	}public Boolean getBusy(){
 		return this.busy;
 	}public TvType getlastTVtype(){
 		return this.lastTVtype;
