@@ -1,8 +1,9 @@
 package simModel;
 
+import simulationModelling.ConditionalActivity;
 import simulationModelling.ScheduledActivity;
 
-public class SetupEquipment extends ScheduledActivity {
+public class SetupEquipment extends ConditionalActivity {
 
     private PanoramaTV model; //This represents the entire system
     private static int autoNodeId;
