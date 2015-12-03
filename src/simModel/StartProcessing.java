@@ -1,50 +1,50 @@
 package simModel;
 
-import simulationModelling.ConditionalActivity;
+import com.sun.javafx.tk.Toolkit.PaintAccessor;
+import com.sun.xml.internal.ws.dump.LoggingDumpTube.Position;
+
 import simulationModelling.ScheduledActivity;
 
-public class StartProcessing extends ConditionalActivity {
-	PanoramaTV localmodel;
-	public StartProcessing(PanoramaTV localmodel) {
-		// TODO Auto-generated constructor stub
-		this.localmodel = localmodel;
+public class StartProcessing extends ScheduledActivity {
+    
+    
+    private PanoramaTV model; //This represents the entire system
+	private static int autoNodeId;
+         private double timeUntilFailure;
+         private double processTime;
+         
+                 public static boolean preconditions(PanoramaTV model){
+            
+//            autoNodeId = model.udp.GetAutoNodeForPartialProcessing();
+//            return (autoNodeId != -1);
+                     return false;
+        }
+   
+	@Override
+	protected double timeSequence() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
 	protected double duration() {
-		// TODO Auto-generated method stub
-		AutoNode local =  (AutoNode) localmodel.udp.GetAutoNodeForPartialProcessing();
-		return local.getprocessTimeAfterFailure();
+            
+        return timeUntilFailure; //This is just returning the time until auto node segment fails
+	
 	}
-/**
- * autoNode ← UDP.GetAutoNodeForPartialProcessing();
- * processTime ← DVP.uAutomaticProcessTime() - timeUntilFailure
- * RC.AutoNode[autoNode].busy = TRUE;
- */
+
 	@Override
 	public void startingEvent() {
-		// TODO Auto-generated method stub
-		AutoNode local =  (AutoNode) localmodel.udp.GetAutoNodeForPartialProcessing();
-		double processTime = this.localmodel.udp.uAutomaticProcessTime() - local.gettimeUntilFailure();
 		
+//            autoNodeId = model.udp.GetAutoNodeForPartialProcessing();
+//            processTime = DVPs.uAutomaticProcessTime() - timeUntilFailure;
+//            model.AutoNode[autoNodeId].setBusy(true);
 	}
-	/**
-	 * imeUntilFailure ← 0
-	 */
+
 	@Override
 	protected void terminatingEvent() {
 		// TODO Auto-generated method stub
-		AutoNode local =  (AutoNode) localmodel.udp.GetAutoNodeForPartialProcessing();
-		local.setprocessTimeAfterFailure(0.0);
-		this.localmodel.AutoNodeArray[-1].setBusy(true); // -1 cause the funciton is yet to be set.. 
+            timeUntilFailure = 0; //
 	}
-	/**
-	 * autoNode ← UDP.GetAutoNodeForPartialProcessing()
-	 * @return
-	 */
-	public boolean PreCondiiton(PanoramaTV localmodel)
-	{
-		return (localmodel.udp.GetAutoNodeForPartialProcessing() != null) ;
-	 
-	}
+
 }
