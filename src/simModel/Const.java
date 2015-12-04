@@ -11,37 +11,58 @@ public class Const
 	/**
 	 * Conveyer ID.
 	 */
-	final static int OP10_ID   = 0;
-	final static int OP20_ID   = 1;
-	final static int OP30_ID   = 2;
+	final static int CS_OP10   = 0;
+	final static int CS_OP20   = 1;
+	final static int CS_OP30   = 2;
 	
-	final static int OP40A_ID  = 3;
-	final static int OP40B_ID  = 4;
-	final static int OP40C_ID  = 5;
-	final static int OP40D_ID  = 6;
-	final static int OP40E_ID  = 7;
+	final static int CS_OP40A  = 3;
+	final static int CS_OP40B  = 4;
+	final static int CS_OP40C  = 5;
+	final static int CS_OP40D  = 6;
+	final static int CS_OP40E  = 7;
 	
-	final static int TEST_ID   = 8;
+	final static int CS_TEST   = 8;
 	
-	final static int REWORK_ID = 9;
+	final static int CS_REWORK = 9;
 	
-	final static int OP50_ID   = 10;
-	final static int OP60_ID   = 11;
+	final static int CS_OP50   = 10;
+	final static int CS_OP60   = 11;
+	
+	/**
+	 * AutoNode ID.
+	 */
+	final static int CS_OP20   = 1;
+	final static int CS_OP30   = 2;
+	final static int CS_TEST   = 3;
+	final static int CS_OP50   = 4;
+	
+	/**
+	 * ManualNode ID.
+	 */
+	final static int OP10   = 1;
+	final static int OP40a   = 2;
+	final static int OP40b   = 3;
+	final static int OP40c   = 4;
+	final static int OP40d   = 5;
+	final static int OP40e   = 6;
+	final static int REWORK = 7;
+	final static int OP60 = 8;
 	
 	final static int[] CAPACITY = 
 		{
-			40, // OP10_ID ~ 40 - 120
-			5,  // OP20_ID ~ 5-15
-			5,  // OP30_ID ~ 5-15
-			5,  // OP40ACID
-			1,  // OP40BCID
-			1,  // OP40CCID
-			1,  // OP40DCID
-			1,  // OP40ECID
-			5,  // TEST_ID ~ 5-15
-			10, // REWORK_ID ~ 10-30
-			5,  // OP50_ID ~ 5-15
-			5   // OP60_ID ~ 5-15
+			40, // CS_OP10 ~ 40 - 120
+			5,  // CS_OP20 ~ 5-15
+			5,  // CS_OP30 ~ 5-15
+			5,  // CS_OP40A
+			1,  // CS_OP40B
+			1,  // CS_OP40C
+			1,  // CS_OP40D
+			1,  // CS_OP40E
+			5,  // CS_TEST ~ 5-15
+			10, // CS_REWORK ~ 10-30
+			5,  // CS_RETEST
+			5,  // CS_OP50 ~ 5-15
+			5   // CS_OP60 ~ 5-15
 		};
 
 }
