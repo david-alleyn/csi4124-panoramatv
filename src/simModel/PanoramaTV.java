@@ -34,6 +34,7 @@ public class PanoramaTV extends AOSimulationModel
 	public ManualNode [] ManualNodes;
 	public ConveyorSegment [] ConveyorSeg;
 	public AutoNode [] AutoNodeArray;
+	
 	// Output object
 	protected Output output = new Output(this);
 	

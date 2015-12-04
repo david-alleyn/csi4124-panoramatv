@@ -55,9 +55,5 @@ public class AutoProcessing extends ConditionalActivity {
 		
 		
 	}
-	public static void preconditions(){
-		return ;
-		
-	}
-
+	
 }
