@@ -4,6 +4,8 @@ import cern.jet.random.Exponential;
 import cern.jet.random.Normal;
 import cern.jet.random.engine.MersenneTwister;
 import cern.jet.random.engine.RandomEngine;
+import cern.jet.random.Distributions;
+
 import dataModelling.*;
 
 
@@ -15,6 +17,13 @@ class RVPs extends java.lang.Object
 	// reference variables here and create the objects in the
 	// constructor with seeds
 	TriangularVariate localTriangularVariate;
+	Const localConstantClass;
+	
+	private Exponential Mean20 = new Exponential( 20, new MersenneTwister() );
+	private Exponential Mean30 = new Exponential( 450, new MersenneTwister() );
+	private Exponential Mean50 = new Exponential( 370, new MersenneTwister() );
+	private Exponential MeanTEST = new Exponential( 250, new MersenneTwister() );
+	private Normal localNorm = new Normal (1.9, 0.19, new MersenneTwister());
 
 	// Constructor
 	protected RVPs(PanoramaTV model, Seeds sd) 
@@ -44,9 +53,9 @@ class RVPs extends java.lang.Object
 	 * Returns time to load a pallet and mould.
 	 * @return NORMAL(MEAN, STDDEV), MEAN: 1.9; STDDEV: 0.19
 	 */
-	public Normal uLoadTv(){
+	public double uLoadTv(){
 		
-		return new Normal (1.9, 0.19, new MersenneTwister()); // not sure about it.. 
+		return this.localNorm.nextDouble(); // not sure about it.. 
 	}
 	/**
 	public int uTimeUntilFailure(AutoNode OP){
@@ -54,52 +63,56 @@ class RVPs extends java.lang.Object
 		if(OP = OP20)  MEAN = 30
 		else if (OP = OP30)  MEAN = 450
 		else if(OP = OP50) MEAN = 370
-		else if (OP = TEST) MEAN = 250
-		
-	}
-	
+		else if (OP = TEST) MEAN = 250		
+	}	
 	I had problem understading.. how do Autonode get hold of OP.. there should be a local copy of it.. I will come back to it.. 
 	*/
 	/**
 	 * 
 	 * @return Returns time to rework a TV.
 	 */
-	public int uReworkTime(){
+	public double uReworkTime(){
 		/**
 		 * NEGEXPO(MEAN), Where MEAN = 35
 		 */
-		return 35;
+		Exponential reworkExpo = new Exponential( 35, new MersenneTwister() );
+		return reworkExpo.nextDouble();
 	}
 	/**
 	 * Returns the time to unload a completed TV from a pallet and send it to packaging.
 	 * @return NORMAL(MEAN, STDDEV), MEAN: 1.9; STDDEV: 0.19 */
-	public Normal uUnLoadTv(){
+	public double uUnLoadTv(){
 		
-		return new Normal (1.9, 0.19, new MersenneTwister()); // not sure about it.. 
+		return this.localNorm.nextDouble(); // not sure about it.. 
 	}
 	/**
 	 * Returns time to repair the equipment at OP20.
 	 * @return TRIANGLE(MIN, MODE, MAX), Where MIN = 5, MODE = 25, MAX = 60	 */
-	public int uOP20RepairTime(){
-		return -1;
+	public double uOP20RepairTime(){
+		localTriangularVariate = new TriangularVariate(5, 25, 60, new MersenneTwister());
+
+		return localTriangularVariate.next();
 	}
 	/**
 	 * Returns time to repair the equipment at OP30.
 	 * @return ERLANG(MEAN, k), Where MEAN = 35, k = 3 	 */
-	public int uO30RepairTime(){
-		return -1;
+	public double uO30RepairTime(){
+		
+		return  Distributions.nextErlang(35, 3, new MersenneTwister());
 	}
 	/**
 	 * Returns time to repair the equipment at OP50.
 	 * @return TRIANGLE(MIN, MODE, MAX), Where MIN = 10, MODE = 30, MAX = 80 */
 	public double uOP50RepairTime(){
-		return localTriangularVariate.next(); // its in absmodj... 
+		localTriangularVariate = new TriangularVariate(10, 30, 10, new MersenneTwister());
+		return localTriangularVariate.next(); 
 	}
 	/**
 	 * 
+	 * @return Returns time to repair the equipment at OPTEST.
 	 */
-	public void uTESTRepairTime(){
-		
+	public double uTESTRepairTime(){
+		return -1;
 	}
 	/**
 	 * 
@@ -111,10 +124,24 @@ class RVPs extends java.lang.Object
 	}
 
 	
-
+	/**
+	 * 
+	 * @param local <-- panaroma tv
+	 * @return  Returns time until failure of specified automatic node.
+	 */
 	public double uTimeUntilFailure(PanoramaTV local) {
 		// TODO Auto-generated method stub
-		return -0.0;
+		
+		Exponential localExpo = new Exponential( WMEAN1, new MersenneTwister() );
+		if (localExpo.nextDouble() == localConstantClass.OP20)
+			return Mean20.nextDouble();
+		else if (localExpo.nextDouble() == localConstantClass.OP30)
+			return Mean30.nextDouble();
+		else if (localExpo.nextDouble() == localConstantClass.OP50)
+			return Mean50.nextDouble();
+		else if (localExpo.nextDouble() == localConstantClass.TEST)
+			return MeanTEST.nextDouble();
+		return -1;
 	}
 
 	public double uSetupProcedTime(int autoNodeId) {
