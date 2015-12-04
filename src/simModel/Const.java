@@ -31,10 +31,10 @@ public class Const
 	/**
 	 * AutoNode ID.
 	 */
-	final static int CS_OP20   = 1;
-	final static int CS_OP30   = 2;
-	final static int CS_TEST   = 3;
-	final static int CS_OP50   = 4;
+	final static int OP20   = 1;
+	final static int OP30   = 2;
+	final static int TEST   = 3;
+	final static int OP50   = 4;
 	
 	/**
 	 * ManualNode ID.
