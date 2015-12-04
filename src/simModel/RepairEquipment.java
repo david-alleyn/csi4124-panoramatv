@@ -10,7 +10,7 @@ public class RepairEquipment extends ConditionalActivity {
 	public RepairEquipment(PanoramaTV local) {
 		// TODO Auto-generated constructor stub
 		this.local = local;
-		this.localnode = local.udp.GetAutoNodeForPartialProcessing();
+		this.localnode = local.AutoNodeArray[local.udp.GetAutoNodeForPartialProcessing()];
 	}
 	/** t <-- UDP.GetNodeRepairTime(autoNode)
 	 * */
@@ -26,11 +26,11 @@ public class RepairEquipment extends ConditionalActivity {
 	@Override
 	public void startingEvent() {
 		// TODO Auto-generated method stub
-		this.localnode = local.udp.GetAutoNodeRequiringRepair();
+		this.localnode = local.AutoNodeArray[local.udp.GetAutoNodeRequiringRepair()];
 	}
 	/**
 	 * RC.AutoNode[autoNode].timeUntilFailure <-- RVP.uTimeUntilFailure(autonode);
-	 * RC.AutoNode[autoNode].busy ← FALSE;
+	 * RC.AutoNode[autoNode].busy â†� FALSE;
 	 */
 	@Override
 	protected void terminatingEvent() {

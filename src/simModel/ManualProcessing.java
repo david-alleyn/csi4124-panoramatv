@@ -18,14 +18,14 @@ public class ManualProcessing extends ConditionalActivity {
 
 	@Override
 	protected double duration() {
-		manualNodeId = model.udp.ManualNodesReadyForProcessing();
+		manualNodeId = model.udp.GetManualNodeReadyForProcessing();
 		// TODO Auto-generated method stub
 		return model.dvp.uManualProcessTime(manualNodeId);
 	}
 
 	@Override
 	public void startingEvent() {
-		manualNodeId = model.udp.ManualNodesReadyForProcessing();
+		manualNodeId = model.udp.GetManualNodeReadyForProcessing();
 		model.ManualNodes[manualNodeId].setBusy(false);
 	}
 
@@ -36,7 +36,7 @@ public class ManualProcessing extends ConditionalActivity {
 	 */
 	@Override
 	protected void terminatingEvent() {
-		manualNodeId = model.udp.ManualNodesReadyForProcessing();
+		manualNodeId = model.udp.GetManualNodeReadyForProcessing();
 		// TODO OP10, OP60 and CS_ID
 		int CS_ID = 0;
 		int OP10 = -1;
@@ -52,7 +52,7 @@ public class ManualProcessing extends ConditionalActivity {
 	}
 
 	private void setManaulNode(PanoramaTV model) {
-		manualNodeId = model.udp.ManualNodesReadyForProcessing();
+		manualNodeId = model.udp.GetManualNodeReadyForProcessing();
 	}
 
 	/**
@@ -60,7 +60,7 @@ public class ManualProcessing extends ConditionalActivity {
 	 * NULL) return TRUE else return FALSE;
 	 */
 	public static Boolean PreCondition(PanoramaTV model) {
-		manualNodeId = model.udp.ManualNodesReadyForProcessing();
+		manualNodeId = model.udp.GetManualNodeReadyForProcessing();
 		return (manualNodeId != -1);
 	}
 

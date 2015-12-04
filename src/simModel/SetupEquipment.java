@@ -8,6 +8,7 @@ public class SetupEquipment extends ConditionalActivity {
     private PanoramaTV model; //This represents the entire system
     private static int autoNodeId;
     private int segmentID;
+    private int localcapacity;
 
     public static boolean preconditions(PanoramaTV model) {
 
@@ -16,11 +17,6 @@ public class SetupEquipment extends ConditionalActivity {
 
     }
 
-    @Override
-    protected double timeSequence() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
 
     @Override
     protected double duration() {
@@ -33,7 +29,7 @@ public class SetupEquipment extends ConditionalActivity {
         // TODO Auto-generated method stub
         autoNodeId = model.udp.GetAutoNodeRequiringRetooling();
         segmentID = model.udp.GetAssociatedSegmentID(autoNodeId);
-        int capacity = model.ConveyorSeg[segmentID].capacity;
+        localcapacity = model.ConveyorSeg[segmentID].getCapacity();
         model.AutoNodeArray[autoNodeId].setBusy(true);
 
     }
@@ -42,7 +38,7 @@ public class SetupEquipment extends ConditionalActivity {
     protected void terminatingEvent() {
         // TODO Auto-generated method stub
         model.AutoNodeArray[autoNodeId].lastTVType
-                = model.ConveyorSeg[segmentID].positions[capacity - 1].tvType;
+                = model.ConveyorSeg[segmentID].get(localcapacity - 1).TuType;
         model.AutoNodeArray[autoNodeId].setBusy(false);
     }
 
