@@ -35,7 +35,7 @@ public class RepairEquipment extends ConditionalActivity {
 	@Override
 	protected void terminatingEvent() {
 		// TODO Auto-generated method stub
-		local.AutoNodeArray[local.udp.GetAutoNodeRequiringRepair()].settimeUntilFailure(local.rvp.uTimeUntilFailure(local));
+		local.AutoNodeArray[local.udp.GetAutoNodeRequiringRepair()].settimeUntilFailure(local.rvp.uTimeUntilFailure(this.local));
 		local.AutoNodeArray[local.udp.GetAutoNodeRequiringRepair()].setBusy(false);
 		
 

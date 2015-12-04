@@ -18,37 +18,16 @@ class RVPs extends java.lang.Object
 	// constructor with seeds
 	TriangularVariate localTriangularVariate;
 	Const localConstantClass;
-	
+	private BimodalEmpDist localbinomialEmpDist = new BimodalEmpDist(this.histogram);
+	private double[] histogram = {0, 10, 20, 30, 40, 50, 60, 70};
 	private Exponential Mean20 = new Exponential( 20, new MersenneTwister() );
 	private Exponential Mean30 = new Exponential( 450, new MersenneTwister() );
 	private Exponential Mean50 = new Exponential( 370, new MersenneTwister() );
 	private Exponential MeanTEST = new Exponential( 250, new MersenneTwister() );
 	private Normal localNorm = new Normal (1.9, 0.19, new MersenneTwister());
 
-	// Constructor
-	protected RVPs(PanoramaTV model, Seeds sd) 
-	{ 
-		this.model = model; 
-		// Set up distribution functions
-		interArrDist = new Exponential(1.0/WMEAN1,  
-				                       new MersenneTwister(sd.seed1));
-		localTriangularVariate = new TriangularVariate(10, 30, 10, new MersenneTwister());
-
-	}
 	
-	/* Random Variate Procedure for Arrivals */
-	private Exponential interArrDist;  // Exponential distribution for interarrival times
-	private final double WMEAN1=10.0;
-	protected double duInput()  // for getting next value of duInput
-	{
-	    double nxtInterArr;
-
-        nxtInterArr = interArrDist.nextDouble();
-	    // Note that interarrival time is added to current
-	    // clock value to get the next arrival time.
-	    return(nxtInterArr+model.getClock());
-	}
-
+	
 	/**
 	 * Returns time to load a pallet and mould.
 	 * @return NORMAL(MEAN, STDDEV), MEAN: 1.9; STDDEV: 0.19
@@ -112,7 +91,9 @@ class RVPs extends java.lang.Object
 	 * @return Returns time to repair the equipment at OPTEST.
 	 */
 	public double uTESTRepairTime(){
-		return -1;
+		
+		
+		return localbinomialEmpDist.getNext();
 	}
 	/**
 	 * 
@@ -129,24 +110,32 @@ class RVPs extends java.lang.Object
 	 * @param local <-- panaroma tv
 	 * @return  Returns time until failure of specified automatic node.
 	 */
-	public double uTimeUntilFailure(PanoramaTV local) {
+	public double uTimeUntilFailure(int OperationNode) {
 		// TODO Auto-generated method stub
 		
-		Exponential localExpo = new Exponential( WMEAN1, new MersenneTwister() );
-		if (localExpo.nextDouble() == localConstantClass.OP20)
+	
+		if (OperationNode == Const.OP20)
 			return Mean20.nextDouble();
-		else if (localExpo.nextDouble() == localConstantClass.OP30)
+		else if (OperationNode == Const.OP30)
 			return Mean30.nextDouble();
-		else if (localExpo.nextDouble() == localConstantClass.OP50)
+		else if (OperationNode == Const.OP50)
 			return Mean50.nextDouble();
-		else if (localExpo.nextDouble() == localConstantClass.TEST)
+		else if (OperationNode == Const.TEST)
 			return MeanTEST.nextDouble();
 		return -1;
 	}
 
-	public double uSetupProcedTime(int autoNodeId) {
+	public double uSetupProcedTime(int OperationNode) {
 		// TODO Auto-generated method stub
-		return 0;
+		if (OperationNode == Const.OP20)
+			return new Normal (5, 0.5, new MersenneTwister()).nextDouble();		
+		else if (OperationNode == Const.OP30)
+			return new Normal (5, 0.5, new MersenneTwister()).nextDouble();
+		else if (OperationNode == Const.OP50)
+			return new Normal (5, 0.5, new MersenneTwister()).nextDouble();
+		else if (OperationNode == Const.TEST)
+			return new Normal (3, 0.3, new MersenneTwister()).nextDouble();
+		return -1;
 	}
 
 	

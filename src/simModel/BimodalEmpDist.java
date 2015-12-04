@@ -32,7 +32,15 @@ public class BimodalEmpDist {
 		// Create Empirical Object
 		empDM = new Empirical(histogram, Empirical.LINEAR_INTERPOLATION, new MersenneTwister());
 	}
-	
+	public BimodalEmpDist(double[] histogram)
+	{
+		this.histogram = histogram;
+		this.scaleFactor = 10; // Width of the histogram
+		this.xMax = 70; // Maximum data value
+		
+		// Create Empirical Object
+		empDM = new Empirical(histogram, Empirical.LINEAR_INTERPOLATION, new MersenneTwister());
+	}
 	public double getNext()
 	{
 		return xMax * empDM.nextDouble();
