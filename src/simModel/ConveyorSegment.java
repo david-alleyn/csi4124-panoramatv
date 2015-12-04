@@ -65,5 +65,8 @@ capacity :: Total number of positions
 	public void setCapacity(int capacity){
 		this.Capacity = capacity;
 	}
+	public ArrayList<Pallet> getPosition() {
+		return position;
+	}
 }
 

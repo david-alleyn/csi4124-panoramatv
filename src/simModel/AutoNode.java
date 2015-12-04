@@ -25,6 +25,7 @@ public class AutoNode {
 	 * after a repair and decremented after each processing of TV on the automatic node.	 */
 	private double processTimeAfterFailure;
 	public TvType lastTVType;
+	public int processTime;
 	
 	public void setBusy(Boolean busy){
 		this.busy = busy;
@@ -48,6 +49,15 @@ public class AutoNode {
 		return this.timeUntilFailure;
 	}public double gettimeUntilFailure(){
 		return this.processTimeAfterFailure;
+	}
+	public double getTimeUntilFailure() {
+		// TODO Auto-generated method stub
+		return timeUntilFailure;
+	}
+	public void setTimeUntilFailure(double d) {
+		// TODO Auto-generated method stub
+		timeUntilFailure = d;
+		
 	}
 	
 	
