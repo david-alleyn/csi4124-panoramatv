@@ -44,4 +44,9 @@ class DVPs
 		
 		return null;
 	}
+
+	public int uAutomaticProcessTime(int autoNodeId) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
