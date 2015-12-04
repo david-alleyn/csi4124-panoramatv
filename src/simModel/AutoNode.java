@@ -39,6 +39,8 @@ public class AutoNode {
 		this.lastTVType = tvtype;
 	}
 	
+	
+	
 	public TvType getlastTVType(){
 		return this.lastTVType;
 	}public Boolean getBusy(){

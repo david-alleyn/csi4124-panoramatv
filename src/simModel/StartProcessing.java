@@ -3,9 +3,10 @@ package simModel;
 import com.sun.javafx.tk.Toolkit.PaintAccessor;
 import com.sun.xml.internal.ws.dump.LoggingDumpTube.Position;
 
+import simulationModelling.ConditionalActivity;
 import simulationModelling.ScheduledActivity;
 
-public class StartProcessing extends ScheduledActivity {
+public class StartProcessing extends ConditionalActivity {
     
     
     private PanoramaTV model; //This represents the entire system
@@ -20,11 +21,7 @@ public class StartProcessing extends ScheduledActivity {
                      return false;
         }
    
-	@Override
-	protected double timeSequence() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 
 	@Override
 	protected double duration() {
@@ -45,6 +42,11 @@ public class StartProcessing extends ScheduledActivity {
 	protected void terminatingEvent() {
 		// TODO Auto-generated method stub
             timeUntilFailure = 0; //
+	}
+	
+	public static void preconditions(){
+		return ;
+		
 	}
 
 }

@@ -1,11 +1,12 @@
 package simModel;
+import simulationModelling.ConditionalActivity;
 /**
  * 
  */
 import simulationModelling.ScheduledActivity;
 import simModel.*;
 
-public class AutoProcessing extends ScheduledActivity {
+public class AutoProcessing extends ConditionalActivity {
 	/**
 	 * Autonode OP should be Autonode processing... 
 	 */
@@ -18,11 +19,7 @@ public class AutoProcessing extends ScheduledActivity {
 	public AutoProcessing(PanoramaTV localTV){
 		model = localTV; // a local instance of PanoramaTV.
 	}
-	@Override
-	protected double timeSequence() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	
 
 	@Override
 	protected double duration() {
@@ -56,6 +53,10 @@ public class AutoProcessing extends ScheduledActivity {
 		model.AutoNodeArray[autoNodeId].processTime = 0;
 		model.ConveyorSeg[segmentID].getPosition().get(model.ConveyorSeg[segmentID].getCapacity() - 1).finishedProcessing = true;
 		
+		
+	}
+	public static void preconditions(){
+		return ;
 		
 	}
 

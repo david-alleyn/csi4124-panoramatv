@@ -21,7 +21,7 @@ public class RepairEquipment extends ConditionalActivity {
 		return 0;
 	}
 	/**
-	 * autoNode <-- UDP.GetAutoNodeRequiringRepair()
+	 * autoNode ← UDP.GetAutoNodeRequiringRepair()
 	 */
 	@Override
 	public void startingEvent() {
@@ -35,18 +35,18 @@ public class RepairEquipment extends ConditionalActivity {
 	@Override
 	protected void terminatingEvent() {
 		// TODO Auto-generated method stub
-		local.AutoNodeArray[-1].settimeUntilFailure(local.rvp.uTimeUntilFailure(local));
-		local.AutoNodeArray[-1].setBusy(false);
+		local.AutoNodeArray[local.udp.GetAutoNodeRequiringRepair()].settimeUntilFailure(local.rvp.uTimeUntilFailure(local));
+		local.AutoNodeArray[local.udp.GetAutoNodeRequiringRepair()].setBusy(false);
 		
 
 	}
 	/**
-	 * RC.AutoNode[ID].busy = FALSE
-	 * R.Maintenance.currentNode = RC.AutoNode[ID]
-	 * RC.AutoNode[ID].timeUntilFailure = 0
+	 * autoNode ← UDP.GetAutoNodeRequiringRepair()
+	 * TRUE if autoNode is NOT -1
+	 * FALSE if autoNode is -1
 	 */
-	public void PreCondition(Boolean AutoNode ){
-		
+	public static boolean PreCondition(PanoramaTV TVmodel ){
+		return (TVmodel.udp.GetAutoNodeRequiringRepair() != -1);		
 	}
 	
 	

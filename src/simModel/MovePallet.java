@@ -26,17 +26,10 @@ public class MovePallet extends ConditionalActivity {
 
 	}
 	
-	public void Precondiiton()
+	public static void Preconditon()
 	{
-		
-	}
-	public void AutoProcessing(){
 		
 	}
 	
-	public void Duration()
-	{
-		
-	}
 
 }
