@@ -22,10 +22,10 @@ capacity :: Total number of positions
 	private int numPallets;
 	/** The index of the next logical default segment which follows from this one.
 	 */
-	private int nextConveyor = -1;
+	public int nextConveyor = -1;
 	private ArrayList<Pallet> position ;
 	/** Total number of positions */
-	private int Capacity;
+	private int capacity;
 	
 	public ConveyorSegment()
 	{
@@ -62,10 +62,10 @@ capacity :: Total number of positions
 	}
 	public int getCapacity() {
 		// TODO Auto-generated method stub
-		return this.Capacity;
+		return this.capacity;
 	}
 	public void setCapacity(int capacity){
-		this.Capacity = capacity;
+		this.capacity = capacity;
 	}
 	public ArrayList<Pallet> getPosition() {
 		return position;

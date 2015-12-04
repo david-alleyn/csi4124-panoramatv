@@ -7,7 +7,7 @@ package simModel;
  */
 public class Pallet {
 	
-	TvType TvType;
+	TvType tvType;
 	Boolean inMotion = false;
 	Boolean finishedProcessing = false;
 	Boolean moveRework = false;
@@ -15,4 +15,16 @@ public class Pallet {
 	int currPosition = 0; 
 	/** The current conveyor that the pallet is occupying */
 	int currConveyor = -1;
+	public void setTVtype(TvType tv) {
+		// TODO Auto-generated method stub
+		tvType = tv;
+	}
+	public boolean moveRework(boolean b) {
+		// TODO Auto-generated method stub
+		
+		return false;//currently a dummy
+		
+	}
+	
+
 }

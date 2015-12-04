@@ -3,7 +3,6 @@ package simModel;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-import simulationModelling.ScheduledActivity;
 
 /**
  * @author mush
@@ -27,5 +26,15 @@ public class Maintenance {
 		return Setup.remove();
 	}
 	
+
+	public void setBusy(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean getBusy() {
+		// TODO Auto-generated method stub
+		return busy;
+	}
 
 }

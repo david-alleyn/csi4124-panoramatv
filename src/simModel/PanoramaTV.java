@@ -116,6 +116,8 @@ public class PanoramaTV extends AOSimulationModel
 	}
 
 	boolean traceflag = false;
+	
+	
 	public void eventOccured()
 	{
 		if(traceflag)
