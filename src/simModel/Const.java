@@ -14,19 +14,16 @@ public class Const
 	final static int CS_OP10   = 0;
 	final static int CS_OP20   = 1;
 	final static int CS_OP30   = 2;
-	
 	final static int CS_OP40A  = 3;
 	final static int CS_OP40B  = 4;
 	final static int CS_OP40C  = 5;
 	final static int CS_OP40D  = 6;
 	final static int CS_OP40E  = 7;
-	
 	final static int CS_TEST   = 8;
-	
 	final static int CS_REWORK = 9;
-	
-	final static int CS_OP50   = 10;
-	final static int CS_OP60   = 11;
+	final static int CS_RETEST = 10;
+	final static int CS_OP50   = 11;
+	final static int CS_OP60   = 12;
 	
 	/**
 	 * AutoNode ID.
@@ -40,11 +37,11 @@ public class Const
 	 * ManualNode ID.
 	 */
 	final static int OP10   = 0;
-	final static int OP40a   = 1;
-	final static int OP40b   = 2;
-	final static int OP40c   = 3;
-	final static int OP40d   = 4;
-	final static int OP40e   = 5;
+	final static int OP40A   = 1;
+	final static int OP40B   = 2;
+	final static int OP40C   = 3;
+	final static int OP40D   = 4;
+	final static int OP40E   = 5;
 	final static int REWORK = 6;
 	final static int OP60 = 7;
 	
