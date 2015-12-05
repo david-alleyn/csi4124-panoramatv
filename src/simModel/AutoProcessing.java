@@ -1,7 +1,8 @@
 package simModel;
 import simulationModelling.ConditionalActivity;
 /**
- * 
+ * The activity performs the necessary automatic assembly on the TV.
+ * @author mush
  */
 import simulationModelling.ScheduledActivity;
 import simModel.*;

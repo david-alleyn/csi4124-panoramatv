@@ -1,6 +1,7 @@
 package simModel;
 /**
- * 
+ * The 4 automatic segments in the system.  OP20, OP30, OPTest, OP50 are the four identifiers of the segment
+
  * @author mush
  *
 busy

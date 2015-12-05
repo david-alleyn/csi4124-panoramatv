@@ -1,5 +1,7 @@
 package simModel;
-
+/**
+ * @author mush
+ */
 import cern.jet.random.engine.RandomSeedGenerator;
 
 public class Seeds 

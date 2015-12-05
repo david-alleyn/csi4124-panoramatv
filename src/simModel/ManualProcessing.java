@@ -6,7 +6,7 @@ import com.sun.xml.internal.ws.dump.LoggingDumpTube.Position;
 import simulationModelling.ConditionalActivity;
 import simulationModelling.ScheduledActivity;
 
-/*
+/**
  * @author: mush
  * @version : 1.0
  * @since : 21 nov

@@ -1,5 +1,8 @@
 package simModel;
-
+/**
+ * The activity changes the equipment to match the type of TV being worked on.
+ * @author mush
+ */
 import simulationModelling.ConditionalActivity;
 import simulationModelling.ScheduledActivity;
 

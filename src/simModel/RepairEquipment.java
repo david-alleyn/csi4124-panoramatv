@@ -1,5 +1,8 @@
 package simModel;
-
+/**
+ * This activity performs repairs on the broken equipment.
+ * @author mush
+ */
 import simulationModelling.ConditionalActivity;
 import simulationModelling.ScheduledActivity;
 

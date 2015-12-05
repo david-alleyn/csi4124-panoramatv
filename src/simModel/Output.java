@@ -1,5 +1,9 @@
 package simModel;
-
+/**
+ * 
+ * @author mush
+ *
+ */
 class Output 
 {
 	PanoramaTV model;

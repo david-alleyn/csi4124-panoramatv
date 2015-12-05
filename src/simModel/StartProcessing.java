@@ -1,5 +1,9 @@
 package simModel;
-
+/**
+ * This activity performs the assembly until the process it broken, 
+ * then the failure time is reached and the activity terminates.
+ * @author mush
+ */
 import com.sun.javafx.tk.Toolkit.PaintAccessor;
 import com.sun.xml.internal.ws.dump.LoggingDumpTube.Position;
 

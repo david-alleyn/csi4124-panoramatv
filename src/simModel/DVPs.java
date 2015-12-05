@@ -1,5 +1,9 @@
 package simModel;
-
+/**
+ * 
+ * @author mush
+ *
+ */
 class DVPs 
 {
 	PanoramaTV model;  // for accessing the clock

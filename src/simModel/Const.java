@@ -1,5 +1,9 @@
 package simModel;
-
+/**
+ * Constants that will be used thoughout the code
+ * @author mush
+ *
+ */
 public class Const 
 {
 	/* Constants */
