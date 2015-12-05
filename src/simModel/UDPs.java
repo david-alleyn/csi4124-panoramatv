@@ -65,6 +65,40 @@ public class UDPs
 	}
 	
 	public int GetAutoNodeReadyForProcessing(){
+		
+
+//For every RC.AutoNode (nodeID) in the system which is not busy:
+//segmentID ← GetAssociatedSegmentID(nodeID)
+//capacity ← RQ.ConveyorSegment[segmentID].capacity
+//palletID ← RQ.ConveyorSegment[segmentID].positions[capacity - 1]
+//
+//If (node.timeUntilFailure > RVP.uAutomaticProcessTime()
+//AND RQ.ConveyorSegment[SegmentID].positions[capacity - 1].lastTVType = RQ.ConveyorSegment[SegmentID].positions[palletID].tvType
+//AND RQ.ConveyorSegment[SegmentID].positions[palletID].inMotion = FALSE
+//
+//Then return the nodeID
+//
+//Else Return -1
+		
+		
+		//Iterate from the end to the beginning of the array.
+		for(int i = model.AutoNodeArray.length - 1; i >= 0; i--)
+		{
+			if(!model.AutoNodeArray[i].getBusy())
+			{
+				int segmentID = model.udp.GetAssociatedSegmentID(i, true);
+				int capacity = model.ConveyorSeg[segmentID].getCapacity();
+				int palletID = i;
+				
+				if(model.AutoNodeArray[palletID].gettimeUntilFailure() > model.dvp.uAutomaticProcessTime(palletID)
+					&& model.ConveyorSeg[segmentID].getPosition().get(capacity - 1).TvType == model.ConveyorSeg[segmentID].getPosition().get(palletID).TvType
+					&& model.ConveyorSeg[segmentID].getPosition().get(palletID).inMotion == false)
+				{
+					return i;
+				}
+			}
+		}
+		
 		return -1;
 	}
 	
@@ -94,12 +128,12 @@ public class UDPs
 	public int GetAutoNodeRequiringRetooling(){
 		for (int index = 0; index < model.AutoNodeArray.length ; index++){
 			int segmentID = GetAssociatedSegmentID(index, true);
-			ConveyorSegment capacity = model.ConveyorSeg[segmentID];
-			Pallet palletID = model.ConveyorSeg[segmentID].get(model.AutoNodeArray.length -1);
+			int capacity = model.ConveyorSeg[segmentID].getCapacity();
+			int palletID = index;
 			
 			if((model.AutoNodeArray[index].gettimeUntilFailure() > model.dvp.uManualProcessTime(index))
 					&&(false)
-					&&(palletID.inMotion == false)
+					&&(model.AutoNodeArray[index].inMotion == false)
 					&&(false))
 				return index;
 		}
@@ -171,6 +205,9 @@ public class UDPs
 	}
 	
 	public int GetPalletReadyForMoving(){
+		
+		//for(int i = model.AutoNodeArray.length - 1; i >= 0; i--)
+		
 		return -1;
 	}
 

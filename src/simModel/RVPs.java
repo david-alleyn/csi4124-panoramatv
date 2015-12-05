@@ -26,7 +26,8 @@ class RVPs extends java.lang.Object
 	private Exponential Mean50 = new Exponential( 370, new MersenneTwister() );
 	private Exponential MeanTEST = new Exponential( 250, new MersenneTwister() );
 	private Normal localNorm = new Normal (1.9, 0.19, new MersenneTwister());
-
+	
+	
 	
 	
 	public RVPs(PanoramaTV panoramaTV, Seeds sd) {

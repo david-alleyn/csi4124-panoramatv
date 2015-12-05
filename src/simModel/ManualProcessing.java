@@ -42,9 +42,9 @@ public class ManualProcessing extends ConditionalActivity {
 		int OP10 = -1;
 		int OP60 = -1;
 		if (manualNodeId == OP10) {
-			model.ConveyorSeg[CS_ID].last().TuType = model.dvp.uTvType();
+			model.ConveyorSeg[CS_ID].last().TvType = model.dvp.uTvType();
 		} else if (manualNodeId == OP60) {
-			model.ConveyorSeg[CS_ID].last().TuType = null;
+			model.ConveyorSeg[CS_ID].last().TvType = null;
 		}
 
 		model.ManualNodes[manualNodeId].setBusy(false);

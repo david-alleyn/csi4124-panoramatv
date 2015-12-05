@@ -26,6 +26,7 @@ public class AutoNode {
 	private double processTimeAfterFailure;
 	public TvType lastTVType;
 	public int processTime;
+	public boolean inMotion;
 	
 	public void setBusy(Boolean busy){
 		this.busy = busy;

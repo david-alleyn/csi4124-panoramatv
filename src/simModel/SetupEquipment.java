@@ -38,7 +38,7 @@ public class SetupEquipment extends ConditionalActivity {
     protected void terminatingEvent() {
         // TODO Auto-generated method stub
         model.AutoNodeArray[autoNodeId].lastTVType
-                = model.ConveyorSeg[segmentID].get(localcapacity - 1).TuType;
+                = model.ConveyorSeg[segmentID].get(localcapacity - 1).TvType;
         model.AutoNodeArray[autoNodeId].setBusy(false);
     }
 
