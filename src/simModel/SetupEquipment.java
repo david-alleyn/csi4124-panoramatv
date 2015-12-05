@@ -28,7 +28,7 @@ public class SetupEquipment extends ConditionalActivity {
     public void startingEvent() {
         // TODO Auto-generated method stub
         autoNodeId = model.udp.GetAutoNodeRequiringRetooling();
-        segmentID = model.udp.GetAssociatedSegmentID(autoNodeId);
+        segmentID = model.udp.GetAssociatedSegmentID(autoNodeId, true);
         localcapacity = model.ConveyorSeg[segmentID].getCapacity();
         model.AutoNodeArray[autoNodeId].setBusy(true);
 

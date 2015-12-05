@@ -11,15 +11,15 @@ public class UDPs
 	protected UDPs(PanoramaTV model) { this.model = model; }
 
 
-	public int GetManualNodeProcessTime(int manualNode){
+	public double GetManualNodeProcessTime(int manualNode){
 		if (manualNode == Const.OP10) { return model.rvp.uLoadTv(); }
 		else if (manualNode == Const.OP40A || 
 				manualNode == Const.OP40B || 
 				manualNode == Const.OP40C || 
 				manualNode == Const.OP40D || 
-				manualNode == Const.OP40E) {  return model.rvp.uElectronicAssemblyTime(); }
+				manualNode == Const.OP40E) {  return model.dvp.uElectronicAssemblyTime(); }
 		else if (manualNode == Const.REWORK) { return model.rvp.uReworkTime(); }
-		else if (manualNode == Const.OP60) { return model.dvp.uUnLoadTv(); }
+		else if (manualNode == Const.OP60) { return model.rvp.uUnLoadTv(); }
 		
 		return -1;
 	}

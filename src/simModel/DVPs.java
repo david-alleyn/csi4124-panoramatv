@@ -49,4 +49,9 @@ class DVPs
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	public double uElectronicAssemblyTime() {
+		// TODO Auto-generated method stub
+		return 1.5;
+	}
 }

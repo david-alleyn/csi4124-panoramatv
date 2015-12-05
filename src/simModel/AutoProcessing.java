@@ -48,7 +48,7 @@ public class AutoProcessing extends ConditionalActivity {
 	protected void terminatingEvent() {
 		// TODO Auto-generated method stub
 		model.AutoNodeArray[autoNodeId].setBusy(false);
-		segmentID = model.udp.GetAssociatedSegmentID(autoNodeId);
+		segmentID = model.udp.GetAssociatedSegmentID(autoNodeId, true);
 		model.AutoNodeArray[autoNodeId].setTimeUntilFailure(model.AutoNodeArray[autoNodeId].getTimeUntilFailure() - model.AutoNodeArray[autoNodeId].processTime);
 		model.AutoNodeArray[autoNodeId].processTime = 0;
 		model.ConveyorSeg[segmentID].getPosition().get(model.ConveyorSeg[segmentID].getCapacity() - 1).finishedProcessing = true;

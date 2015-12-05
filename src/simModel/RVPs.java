@@ -11,7 +11,8 @@ import dataModelling.*;
 
 class RVPs extends java.lang.Object
 {
-	PanoramaTV model; // for accessing the clock
+	private PanoramaTV model; // for accessing the clock
+	private Seeds localSeeds;
     // Data Models - i.e. random veriate generators for distributions
 	// are created using Colt classes, define 
 	// reference variables here and create the objects in the
@@ -28,6 +29,11 @@ class RVPs extends java.lang.Object
 
 	
 	
+	public RVPs(PanoramaTV panoramaTV, Seeds sd) {
+		// TODO Auto-generated constructor stub
+		this.model = panoramaTV;
+		this.localSeeds = sd;
+	}
 	/**
 	 * Returns time to load a pallet and mould.
 	 * @return NORMAL(MEAN, STDDEV), MEAN: 1.9; STDDEV: 0.19

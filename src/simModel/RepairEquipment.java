@@ -34,8 +34,12 @@ public class RepairEquipment extends ConditionalActivity {
 	 */
 	@Override
 	protected void terminatingEvent() {
+		int indexOflocalnode = -1;
+		for (int index = 0; index < local.AutoNodeArray.length ; index++){
+			if (local.AutoNodeArray[index].equals(localnode)) indexOflocalnode = index;
+		}
 		// TODO Auto-generated method stub
-		local.AutoNodeArray[local.udp.GetAutoNodeRequiringRepair()].settimeUntilFailure(local.rvp.uTimeUntilFailure(this.local));
+		local.AutoNodeArray[local.udp.GetAutoNodeRequiringRepair()].settimeUntilFailure(local.rvp.uTimeUntilFailure(indexOflocalnode));
 		local.AutoNodeArray[local.udp.GetAutoNodeRequiringRepair()].setBusy(false);
 		
 
