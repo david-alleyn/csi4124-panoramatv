@@ -77,7 +77,7 @@ public class UDPs
 				int capacity = model.conveyorSegments[segmentID].getCapacity();
 				int palletID = i;
 				
-				if(model.autoNodes[palletID].gettimeUntilFailure() > model.dvp.uAutomaticProcessTime(palletID)
+				if(model.autoNodes[palletID].getTimeUntilFailure() > model.dvp.uAutomaticProcessTime(palletID)
 					&& model.autoNodes[i].getlastTVType() == model.conveyorSegments[segmentID].getPosition().get(palletID).TvType
 					&& model.conveyorSegments[segmentID].getPosition().get(palletID).inMotion == false)
 				{
@@ -99,7 +99,7 @@ public class UDPs
 				int capacity = model.conveyorSegments[segmentID].getCapacity();
 				int palletID = i;
 				
-				if(model.autoNodes[palletID].gettimeUntilFailure() < model.dvp.uAutomaticProcessTime(palletID)
+				if(model.autoNodes[palletID].getTimeUntilFailure() < model.dvp.uAutomaticProcessTime(palletID)
 					&& model.autoNodes[i].getlastTVType() == model.conveyorSegments[segmentID].getPosition().get(palletID).TvType
 					&& model.conveyorSegments[segmentID].getPosition().get(palletID).inMotion == false)
 				{
@@ -135,8 +135,8 @@ public class UDPs
 			int segmentID = GetAssociatedSegmentID(index, true);
 			int capacity = model.conveyorSegments[segmentID].getCapacity();
 			
-			if((model.autoNodes[index].gettimeUntilFailure() > model.dvp.uAutomaticProcessTime(index))
-					&&(model.autoNodes[index].getlastTVtype() != model.conveyorSegments[segmentID].getPosition().get(capacity - 1).TvType)
+			if((model.autoNodes[index].getTimeUntilFailure() > model.dvp.uAutomaticProcessTime(index))
+					&&(model.autoNodes[index].getlastTVType() != model.conveyorSegments[segmentID].getPosition().get(capacity - 1).TvType)
 					&&(model.conveyorSegments[segmentID].getPosition().get(capacity - 1).inMotion == false)
 					&&(model.maintenance.busy == false))
 				return index;
@@ -155,7 +155,7 @@ public class UDPs
 	 */
 	public int GetAutoNodeRequiringRepair(){
 		for (int index = model.autoNodes.length - 1; index >= 0 ; index--){
-			if (model.autoNodes[index].getprocessTimeAfterFailure() <= 0 && 
+			if (model.autoNodes[index].getTimeUntilFailure() <= 0 && 
 				(model.maintenance.busy))
 				return index;
 		}

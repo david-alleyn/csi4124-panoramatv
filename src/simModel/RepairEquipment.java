@@ -42,7 +42,7 @@ public class RepairEquipment extends ConditionalActivity {
 			if (local.autoNodes[index].equals(localnode)) indexOflocalnode = index;
 		}
 		// TODO Auto-generated method stub
-		local.autoNodes[local.udp.GetAutoNodeRequiringRepair()].settimeUntilFailure(local.rvp.uTimeUntilFailure(indexOflocalnode));
+		local.autoNodes[local.udp.GetAutoNodeRequiringRepair()].setTimeUntilFailure(local.rvp.uTimeUntilFailure(indexOflocalnode));
 		local.autoNodes[local.udp.GetAutoNodeRequiringRepair()].setBusy(false);
 		
 

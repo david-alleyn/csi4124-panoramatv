@@ -31,15 +31,7 @@ public class AutoNode {
 		this.busy = busy;
 	}
 	
-	public void setlastTVtype(TvType lastTVtype){
-		this.lastTVtype = lastTVtype;
-	}
-	
-	public void setprocessTimeAfterFailure(double timeUntilFailure) {
-		this.timeUntilFailure = timeUntilFailure;
-	}
-	
-	public void setlastTVType(TvType tvtype){
+	public void setLastTVType(TvType tvtype){
 		this.lastTVType = tvtype;
 	}
 	
@@ -47,20 +39,12 @@ public class AutoNode {
 		return this.lastTVType;
 	}
 	
-	public Boolean getBusy(){
+	public boolean getBusy(){
 		return this.busy;
 	}
 	
-	public TvType getlastTVtype(){
-		return this.lastTVtype;
-	}
-	
-	public double getprocessTimeAfterFailure() {
+	public double getTimeUntilFailure() {
 		return this.timeUntilFailure;
-	}
-	
-	public double gettimeUntilFailure(){
-		return this.processTimeAfterFailure;
 	}
 	
 	public void setTimeUntilFailure(double d) {
