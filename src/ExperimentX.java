@@ -12,7 +12,7 @@ import java.io.*;
 public class ExperimentX
 {
 	static boolean debug = false;
-	static boolean writeToCSV = true;
+	static boolean writeToCSV = false;
 
 	
 	public static void main(String[] args)

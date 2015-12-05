@@ -11,27 +11,61 @@ import simulationModelling.ConditionalActivity;
  */
 public class MovePallet extends ConditionalActivity {
 
+	private PanoramaTV model;
+	private int pallet;
 	@Override
 	protected double duration() {
 		// TODO Auto-generated method stub
-		return 0;
+		return 0.5;
 	}
-
+	/**
+	 * pallet ← UDP.GetPalletReadyForMoving()
+	 * currPosition ← RC.Pallets[pallet].currPosition;
+	 * RC.Pallets[pallet].inMotion ← TRUE
+	 */
 	@Override
 	public void startingEvent() {
+		pallet = this.model.udp.GetPalletReadyForMoving();
+		int currPosition = model.pallets[pallet].currPosition;
+		model.pallets[pallet].inMotion = true;
+		
 		// TODO Auto-generated method stub
 
 	}
+	/**
+	 * 
+IF(RC.Pallets[pallet].moveRework = TRUE)
 
+     RC.Pallets[pallet].currConveyor.positions[currPosition] ←  NULL
+     RQ.ConveyorSegment[CS_REWORK].positions[0] ←  RC.Pallets[pallet]
+     RC.Pallets[pallet].currConveyor = CS_REWORK;
+     RC.Pallets[pallet].currPosition = 0;
+ENDIF
+
+ELSE
+RC.Pallets[pallet].currConveyor.positions[currPosition] ←  NULL;
+RC.Pallets[pallet].currConveyor ← RC.Pallets[pallet].currConveyor.nextConveyor;
+RQ.ConveyorSegment[RC.Pallets[pallet].currConveyor].positions[0] ←  RC.Pallets[pallet];
+RC.Pallets[pallet].currPosition = 0;
+
+	 */
 	@Override
 	protected void terminatingEvent() {
+		
 		// TODO Auto-generated method stub
 
 	}
-	
-	public static void Preconditon()
+	/**
+	 * moveablePallet ← UDP.GetPalletReadyForMoving()
+	 * TRUE if moveablePallet is NOT -1
+	 * FALSE if moveablePallet is -1
+
+	 * @param model
+	 */
+	public static boolean preconditon(PanoramaTV model)
 	{
-		
+		int moveablePallet = model.udp.GetPalletReadyForMoving();
+		return (moveablePallet != -1);
 	}
 	
 
