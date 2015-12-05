@@ -29,17 +29,17 @@ public class SetupEquipment extends ConditionalActivity {
         // TODO Auto-generated method stub
         autoNodeId = model.udp.GetAutoNodeRequiringRetooling();
         segmentID = model.udp.GetAssociatedSegmentID(autoNodeId, true);
-        localcapacity = model.ConveyorSeg[segmentID].getCapacity();
-        model.AutoNodeArray[autoNodeId].setBusy(true);
+        localcapacity = model.conveyorSegments[segmentID].getCapacity();
+        model.autoNodes[autoNodeId].setBusy(true);
 
     }
 
     @Override
     protected void terminatingEvent() {
         // TODO Auto-generated method stub
-        model.AutoNodeArray[autoNodeId].lastTVType
-                = model.ConveyorSeg[segmentID].get(localcapacity - 1).TvType;
-        model.AutoNodeArray[autoNodeId].setBusy(false);
+        model.autoNodes[autoNodeId].lastTVType
+                = model.conveyorSegments[segmentID].get(localcapacity - 1).TvType;
+        model.autoNodes[autoNodeId].setBusy(false);
     }
 
 }

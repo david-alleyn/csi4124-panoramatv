@@ -26,7 +26,7 @@ public class ManualProcessing extends ConditionalActivity {
 	@Override
 	public void startingEvent() {
 		manualNodeId = model.udp.GetManualNodeReadyForProcessing();
-		model.ManualNodes[manualNodeId].setBusy(false);
+		model.manualNodes[manualNodeId].setBusy(false);
 	}
 
 	/**
@@ -42,12 +42,12 @@ public class ManualProcessing extends ConditionalActivity {
 		int OP10 = -1;
 		int OP60 = -1;
 		if (manualNodeId == OP10) {
-			model.ConveyorSeg[CS_ID].last().TvType = model.dvp.uTvType();
+			model.conveyorSegments[CS_ID].last().TvType = model.dvp.uTvType();
 		} else if (manualNodeId == OP60) {
-			model.ConveyorSeg[CS_ID].last().TvType = null;
+			model.conveyorSegments[CS_ID].last().TvType = null;
 		}
 
-		model.ManualNodes[manualNodeId].setBusy(false);
+		model.manualNodes[manualNodeId].setBusy(false);
 
 	}
 

@@ -10,7 +10,7 @@ public class RepairEquipment extends ConditionalActivity {
 	public RepairEquipment(PanoramaTV local) {
 		// TODO Auto-generated constructor stub
 		this.local = local;
-		this.localnode = local.AutoNodeArray[local.udp.GetAutoNodeForPartialProcessing()];
+		this.localnode = local.autoNodes[local.udp.GetAutoNodeForPartialProcessing()];
 	}
 	/** t <-- UDP.GetNodeRepairTime(autoNode)
 	 * */
@@ -26,7 +26,7 @@ public class RepairEquipment extends ConditionalActivity {
 	@Override
 	public void startingEvent() {
 		// TODO Auto-generated method stub
-		this.localnode = local.AutoNodeArray[local.udp.GetAutoNodeRequiringRepair()];
+		this.localnode = local.autoNodes[local.udp.GetAutoNodeRequiringRepair()];
 	}
 	/**
 	 * RC.AutoNode[autoNode].timeUntilFailure <-- RVP.uTimeUntilFailure(autonode);
@@ -35,12 +35,12 @@ public class RepairEquipment extends ConditionalActivity {
 	@Override
 	protected void terminatingEvent() {
 		int indexOflocalnode = -1;
-		for (int index = 0; index < local.AutoNodeArray.length ; index++){
-			if (local.AutoNodeArray[index].equals(localnode)) indexOflocalnode = index;
+		for (int index = 0; index < local.autoNodes.length ; index++){
+			if (local.autoNodes[index].equals(localnode)) indexOflocalnode = index;
 		}
 		// TODO Auto-generated method stub
-		local.AutoNodeArray[local.udp.GetAutoNodeRequiringRepair()].settimeUntilFailure(local.rvp.uTimeUntilFailure(indexOflocalnode));
-		local.AutoNodeArray[local.udp.GetAutoNodeRequiringRepair()].setBusy(false);
+		local.autoNodes[local.udp.GetAutoNodeRequiringRepair()].settimeUntilFailure(local.rvp.uTimeUntilFailure(indexOflocalnode));
+		local.autoNodes[local.udp.GetAutoNodeRequiringRepair()].setBusy(false);
 		
 
 	}

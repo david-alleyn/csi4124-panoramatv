@@ -67,17 +67,17 @@ public class UDPs
 	public int GetAutoNodeReadyForProcessing(){		
 		
 		//Iterate from the end to the beginning of the array.
-		for(int i = model.AutoNodeArray.length - 1; i >= 0; i--)
+		for(int i = model.autoNodes.length - 1; i >= 0; i--)
 		{
-			if(!model.AutoNodeArray[i].getBusy())
+			if(!model.autoNodes[i].getBusy())
 			{
 				int segmentID = model.udp.GetAssociatedSegmentID(i, true);
-				int capacity = model.ConveyorSeg[segmentID].getCapacity();
+				int capacity = model.conveyorSegments[segmentID].getCapacity();
 				int palletID = i;
 				
-				if(model.AutoNodeArray[palletID].gettimeUntilFailure() > model.dvp.uAutomaticProcessTime(palletID)
-					&& model.ConveyorSeg[segmentID].getPosition().get(capacity - 1).TvType == model.ConveyorSeg[segmentID].getPosition().get(palletID).TvType
-					&& model.ConveyorSeg[segmentID].getPosition().get(palletID).inMotion == false)
+				if(model.autoNodes[palletID].gettimeUntilFailure() > model.dvp.uAutomaticProcessTime(palletID)
+					&& model.conveyorSegments[segmentID].getPosition().get(capacity - 1).TvType == model.conveyorSegments[segmentID].getPosition().get(palletID).TvType
+					&& model.conveyorSegments[segmentID].getPosition().get(palletID).inMotion == false)
 				{
 					return i;
 				}
@@ -89,17 +89,17 @@ public class UDPs
 	
 	public int GetAutoNodeForPartialProcessing(){
 		//Iterate from the end to the beginning of the array.
-		for(int i = model.AutoNodeArray.length - 1; i >= 0; i--)
+		for(int i = model.autoNodes.length - 1; i >= 0; i--)
 		{
-			if(!model.AutoNodeArray[i].getBusy())
+			if(!model.autoNodes[i].getBusy())
 			{
 				int segmentID = model.udp.GetAssociatedSegmentID(i, true);
-				int capacity = model.ConveyorSeg[segmentID].getCapacity();
+				int capacity = model.conveyorSegments[segmentID].getCapacity();
 				int palletID = i;
 				
-				if(model.AutoNodeArray[palletID].gettimeUntilFailure() < model.dvp.uAutomaticProcessTime(palletID)
-					&& model.ConveyorSeg[segmentID].getPosition().get(capacity - 1).TvType == model.ConveyorSeg[segmentID].getPosition().get(palletID).TvType
-					&& model.ConveyorSeg[segmentID].getPosition().get(palletID).inMotion == false)
+				if(model.autoNodes[palletID].gettimeUntilFailure() < model.dvp.uAutomaticProcessTime(palletID)
+					&& model.conveyorSegments[segmentID].getPosition().get(capacity - 1).TvType == model.conveyorSegments[segmentID].getPosition().get(palletID).TvType
+					&& model.conveyorSegments[segmentID].getPosition().get(palletID).inMotion == false)
 				{
 					return i;
 				}
@@ -129,14 +129,14 @@ public class UDPs
 	 * 
 	 */
 	public int GetAutoNodeRequiringRetooling(){
-		for (int index = 0; index < model.AutoNodeArray.length ; index++){
+		for (int index = 0; index < model.autoNodes.length ; index++){
 			int segmentID = GetAssociatedSegmentID(index, true);
-			int capacity = model.ConveyorSeg[segmentID].getCapacity();
+			int capacity = model.conveyorSegments[segmentID].getCapacity();
 			int palletID = index;
 			
-			if((model.AutoNodeArray[index].gettimeUntilFailure() > model.dvp.uManualProcessTime(index))
+			if((model.autoNodes[index].gettimeUntilFailure() > model.dvp.uManualProcessTime(index))
 					&&(false)
-					&&(model.AutoNodeArray[index].inMotion == false)
+					&&(model.autoNodes[index].inMotion == false)
 					&&(false))
 				return index;
 		}
@@ -153,8 +153,8 @@ public class UDPs
 	 * @return
 	 */
 	public int GetAutoNodeRequiringRepair(){
-		for (int index = 0; index < model.AutoNodeArray.length ; index++){
-			if (model.AutoNodeArray[index].getprocessTimeAfterFailure() <= 0 && 
+		for (int index = 0; index < model.autoNodes.length ; index++){
+			if (model.autoNodes[index].getprocessTimeAfterFailure() <= 0 && 
 				(false)	)
 				return index;
 		}
@@ -172,13 +172,13 @@ public class UDPs
 	 * @return
 	 */
 	public int GetManualNodeReadyForProcessing(){
-		for (int index = 0; index < model.ManualNodes.length ; index++){
-			if (model.ManualNodes[index].getBusy() == false){
+		for (int index = 0; index < model.manualNodes.length ; index++){
+			if (model.manualNodes[index].getBusy() == false){
 				int segmentID = this.GetAssociatedSegmentID(index, false);
-				ConveyorSegment capacity = model.ConveyorSeg[segmentID];
+				ConveyorSegment capacity = model.conveyorSegments[segmentID];
 				
-				if (model.ConveyorSeg[index].get(model.ManualNodes.length-1) != null) 
-						if(model.ConveyorSeg[index].get(model.ManualNodes.length-1).inMotion == false)
+				if (model.conveyorSegments[index].get(model.manualNodes.length-1) != null) 
+						if(model.conveyorSegments[index].get(model.manualNodes.length-1).inMotion == false)
 							return index;
 				
 			}
@@ -209,7 +209,7 @@ public class UDPs
 	
 	public int GetPalletReadyForMoving(){
 		
-		//for(int i = model.AutoNodeArray.length - 1; i >= 0; i--)
+		//for(int i =  - 1; i >= 0; i--)
 		
 		return -1;
 	}

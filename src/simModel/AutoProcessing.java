@@ -24,7 +24,7 @@ public class AutoProcessing extends ConditionalActivity {
 	@Override
 	protected double duration() {
 		// TODO Auto-generated method stub
-		return model.AutoNodeArray[autoNodeId].processTime;
+		return model.autoNodes[autoNodeId].processTime;
 		
 	}
 
@@ -32,10 +32,10 @@ public class AutoProcessing extends ConditionalActivity {
 	public void startingEvent() {
 		// TODO Auto-generated method stub
 		autoNodeId = model.udp.GetAutoNodeReadyForProcessing();
-		model.AutoNodeArray[autoNodeId].setBusy(true);
+		model.autoNodes[autoNodeId].setBusy(true);
 		
-		if(model.AutoNodeArray[autoNodeId].processTime == 0){			
-			model.AutoNodeArray[autoNodeId].processTime = model.dvp.uAutomaticProcessTime(autoNodeId);
+		if(model.autoNodes[autoNodeId].processTime == 0){			
+			model.autoNodes[autoNodeId].processTime = model.dvp.uAutomaticProcessTime(autoNodeId);
 		}
 	}
 	
@@ -47,11 +47,11 @@ public class AutoProcessing extends ConditionalActivity {
 	@Override
 	protected void terminatingEvent() {
 		// TODO Auto-generated method stub
-		model.AutoNodeArray[autoNodeId].setBusy(false);
+		model.autoNodes[autoNodeId].setBusy(false);
 		segmentID = model.udp.GetAssociatedSegmentID(autoNodeId, true);
-		model.AutoNodeArray[autoNodeId].setTimeUntilFailure(model.AutoNodeArray[autoNodeId].getTimeUntilFailure() - model.AutoNodeArray[autoNodeId].processTime);
-		model.AutoNodeArray[autoNodeId].processTime = 0;
-		model.ConveyorSeg[segmentID].getPosition().get(model.ConveyorSeg[segmentID].getCapacity() - 1).finishedProcessing = true;
+		model.autoNodes[autoNodeId].setTimeUntilFailure(model.autoNodes[autoNodeId].getTimeUntilFailure() - model.autoNodes[autoNodeId].processTime);
+		model.autoNodes[autoNodeId].processTime = 0;
+		model.conveyorSegments[segmentID].getPosition().get(model.conveyorSegments[segmentID].getCapacity() - 1).finishedProcessing = true;
 		
 		
 	}
