@@ -13,7 +13,7 @@ public class SetupEquipment extends ConditionalActivity {
     private int segmentID;
     private int localcapacity;
 
-    public static boolean preconditions(PanoramaTV model) {
+    public static boolean precondition(PanoramaTV model) {
 
         autoNodeId = model.udp.GetAutoNodeRequiringRetooling();
         return (autoNodeId != -1);

@@ -72,6 +72,45 @@ public class PanoramaTV extends AOSimulationModel
 	{
 		reschedule (behObj);
 		// Check preconditions of Conditional Activities
+		
+		// Check preconditions of Conditional Activities
+		if (MovePallet.precondition(this)){
+			MovePallet act = new MovePallet(this);
+			act.startingEvent();
+			scheduleActivity(act);
+		}
+
+		if (AutoProcessing.precondition(this)){
+			AutoProcessing act = new AutoProcessing(this);
+			act.startingEvent();
+			scheduleActivity(act);
+		}
+		
+		if (StartProcessing.precondition(this)){
+			StartProcessing act = new StartProcessing(this);
+			act.startingEvent();
+			scheduleActivity(act);
+		}
+		
+		if (RepairEquipment.precondition(this)){
+			RepairEquipment act = new RepairEquipment(this);
+			act.startingEvent();
+			scheduleActivity(act);
+		}
+		
+		if (SetupEquipment.precondition(this)){
+			SetupEquipment act = new SetupEquipment(this);
+			act.startingEvent();
+			scheduleActivity(act);
+		}
+		
+		if (ManualProcessing.precondition(this)){
+			ManualProcessing act = new ManualProcessing(this);
+			act.startingEvent();
+			scheduleActivity(act);
+		}
+
+		
 
 		// Check preconditions of Interruptions in Extended Activities
 	}

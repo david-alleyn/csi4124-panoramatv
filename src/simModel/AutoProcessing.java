@@ -40,7 +40,7 @@ public class AutoProcessing extends ConditionalActivity {
 		}
 	}
 	
-	public static boolean preconditions(PanoramaTV model){
+	public static boolean precondition(PanoramaTV model){
 		autoNodeId = model.udp.GetAutoNodeReadyForProcessing();
 		return autoNodeId != -1;
 	}

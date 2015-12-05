@@ -59,7 +59,7 @@ public class ManualProcessing extends ConditionalActivity {
 	 * manualNodeId â†� UDP.ManualNodesReadyForProcessing() if(manualNodeId !=
 	 * NULL) return TRUE else return FALSE;
 	 */
-	public static Boolean PreCondition(PanoramaTV model) {
+	public static boolean precondition(PanoramaTV model) {
 		manualNodeId = model.udp.GetManualNodeReadyForProcessing();
 		return (manualNodeId != -1);
 	}
