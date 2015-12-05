@@ -12,7 +12,6 @@ import cern.jet.random.engine.*;
 class Experiment
 {
 	/**
-	 * 
 	 * @param args
 	 */
    public static void main(String[] args)

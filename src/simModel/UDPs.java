@@ -1,5 +1,8 @@
 package simModel;
 
+import cern.jet.random.Normal;
+import cern.jet.random.engine.MersenneTwister;
+
 public class UDPs 
 {
 	PanoramaTV model;  // for accessing the clock
@@ -80,8 +83,25 @@ public class UDPs
 	public int GetManualNodeReadyForProcessing(){
 		return -1;
 	}
-	
-	public int GetNodeRepairTime(int autoNodeID){
+	/**
+	 * If (autoNodeID = OP20) THEN Return RVP.uOP20RepairTime()
+	 * Else If (autoNodeID = OP30) THEN Return RVP.uOP30RepairTime()
+	 * Else If (autoNodeID = OP50) THEN Return RVP.uOP50RepairTime()
+	 * Else If (autoNodeID = TEST) THEN Return RVP.uTESTRepairTime()
+
+	 * @param autoNodeID
+	 * @return 
+	 */
+	public double GetNodeRepairTime(int autoNodeID){
+		if (autoNodeID == Const.OP20)
+			return model.rvp.uOP20RepairTime();		
+		else if (autoNodeID == Const.OP30)
+			return model.rvp.uO30RepairTime();
+		else if (autoNodeID == Const.OP50)
+			return model.rvp.uOP50RepairTime();
+		else if (autoNodeID == Const.TEST)
+			return model.rvp.uTESTRepairTime();
+		
 		return -1;
 	}
 	
