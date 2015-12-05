@@ -12,6 +12,7 @@ public class Maintenance {
 	
 	private Queue<AutoNode>   Repair;
 	private Queue<AutoNode>   Setup;
+	public boolean busy = false;
 	
 	public void addRepair(AutoNode current){
 		Repair.add(current);

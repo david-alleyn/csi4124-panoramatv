@@ -24,44 +24,47 @@ public class AutoNode {
 	private double timeUntilFailure;
 	/**Time left until next breakdown. This time is re-initialised 
 	 * after a repair and decremented after each processing of TV on the automatic node.	 */
-	private double processTimeAfterFailure;
 	public TvType lastTVType;
 	public int processTime;
-	public boolean inMotion;
 	
 	public void setBusy(Boolean busy){
 		this.busy = busy;
-	}public void setlastTVtype(TvType lastTVtype){
+	}
+	
+	public void setlastTVtype(TvType lastTVtype){
 		this.lastTVtype = lastTVtype;
-	}public void setprocessTimeAfterFailure(double timeUntilFailure) {
+	}
+	
+	public void setprocessTimeAfterFailure(double timeUntilFailure) {
 		this.timeUntilFailure = timeUntilFailure;
-	}public void settimeUntilFailure(double object){
-		this.processTimeAfterFailure = object;
-	}public void setlastTVType(TvType tvtype){
+	}
+	
+	public void setlastTVType(TvType tvtype){
 		this.lastTVType = tvtype;
 	}
 	
-	
-	
 	public TvType getlastTVType(){
 		return this.lastTVType;
-	}public Boolean getBusy(){
+	}
+	
+	public Boolean getBusy(){
 		return this.busy;
-	}public TvType getlastTVtype(){
+	}
+	
+	public TvType getlastTVtype(){
 		return this.lastTVtype;
-	}public double getprocessTimeAfterFailure() {
+	}
+	
+	public double getprocessTimeAfterFailure() {
 		return this.timeUntilFailure;
-	}public double gettimeUntilFailure(){
+	}
+	
+	public double gettimeUntilFailure(){
 		return this.processTimeAfterFailure;
 	}
-	public double getTimeUntilFailure() {
-		// TODO Auto-generated method stub
-		return timeUntilFailure;
-	}
+	
 	public void setTimeUntilFailure(double d) {
-		// TODO Auto-generated method stub
 		timeUntilFailure = d;
-		
 	}
 	
 	
