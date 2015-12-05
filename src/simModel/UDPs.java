@@ -79,9 +79,30 @@ public class UDPs
 	public int GetAutoNodeRequiringRepair(){
 		return -1;
 	}
-	
+	/**
+	 * For every R.ManualNode (nodeID) in the system which is not busy:
+	 * segmentID ← GetAssociatedSegmentID(nodeID, isAutoNode)
+	 * capacity ← RQ.ConveyorSegment[segmentID].capacity
+	 * if(RQ.ConveyorSegment[segmentID].positions[capacity - 1] is NOT NULL
+	 * AND
+	 * RQ.ConveyorSegment[segmentID].positions[capacity - 1].inMotion = FALSE)
+	 * Return nodeID
+	 * Else Return -1;
+	 * @return
+	 */
 	public int GetManualNodeReadyForProcessing(){
-		return -1;
+		for (int index = 0; index < model.ManualNodes.length ; index++){
+			if (model.ManualNodes[index].getBusy() == false){
+				int segmentID = this.GetAssociatedSegmentID(index, false);
+				ConveyorSegment capacity = model.ConveyorSeg[segmentID];
+				
+				if (model.ConveyorSeg[index].get(model.ManualNodes.length-1) != null) 
+						if(model.ConveyorSeg[index].get(model.ManualNodes.length-1).inMotion == false)
+							return index;
+				
+			}
+		}
+				return -1;
 	}
 	/**
 	 * If (autoNodeID = OP20) THEN Return RVP.uOP20RepairTime()
