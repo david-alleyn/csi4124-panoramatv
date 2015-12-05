@@ -1,5 +1,8 @@
 package simModel;
 
+import java.util.PriorityQueue;
+import java.util.Queue;
+
 import simulationModelling.ScheduledActivity;
 
 /**
@@ -7,13 +10,21 @@ import simulationModelling.ScheduledActivity;
  */
 public class Maintenance {
 	
-	private AutoNode currentNode;
+	private Queue<AutoNode>   Repair;
+	private Queue<AutoNode>   Setup;
 	
-	public void setCurrentNode(AutoNode current){
-		this.currentNode = current;
+	public void addRepair(AutoNode current){
+		Repair.add(current);
 	}
-	public AutoNode getCurrentNode(){
-		return this.currentNode;
+	public void addSetup(AutoNode current){
+		Setup.add(current);
 	}
+	public AutoNode getRepair(){
+		return Repair.remove();
+	}
+	public AutoNode getSetup(){
+		return Setup.remove();
+	}
+	
 
 }

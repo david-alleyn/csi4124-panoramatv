@@ -71,12 +71,56 @@ public class UDPs
 	public int GetAutoNodeForPartialProcessing(){
 		return -1;
 	}
-	
+	/**
+	 * For every RC.AutoNode (nodeID) in the system which is not busy:
+	 * segmentID ← GetAssociatedSegmentID(nodeID)
+	 * capacity ← RQ.ConveyorSegment[segmentID].capacity
+	 * palletID ← RQ.ConveyorSegment[segmentID].positions[capacity - 1]
+	 * If (node.timeUntilFailure > RVP.uAutomaticProcessTime()
+	 * 
+	 * AND RQ.ConveyorSegment[SegmentID].positions[capacity - 1].lastTVType 
+	 * 
+	 * NOT EQUAL TO RQ.ConveyorSegment[SegmentID].positions[palletID].tvType
+	 * 
+	 * AND RQ.ConveyorSegment[SegmentID].positions[palletID].inMotion = FALSE
+	 * 
+	 * AND R.Maintenance.busy = FALSE) 
+	 * 
+	 * Then @return the nodeID
+	 * 
+	 * Else @return -1	 
+	 * 
+	 */
 	public int GetAutoNodeRequiringRetooling(){
+		for (int index = 0; index < model.AutoNodeArray.length ; index++){
+			int segmentID = GetAssociatedSegmentID(index, true);
+			ConveyorSegment capacity = model.ConveyorSeg[segmentID];
+			Pallet palletID = model.ConveyorSeg[segmentID].get(model.AutoNodeArray.length -1);
+			
+			if((model.AutoNodeArray[index].gettimeUntilFailure() > model.dvp.uManualProcessTime(index))
+					&&(false)
+					&&(palletID.inMotion == false)
+					&&(false))
+				return index;
+		}
 		return -1;
 	}
-	
+	/**
+	 * For every RC.AutoNode (nodeID) in the system which is busy:
+	 * If (node.timeUntilFailure LESS THAN OR EQUAL TO 0 
+	 * AND
+	 * R.Maintenance.busy = FALSE)
+	 * Then return the nodeID
+	 * Else Return -1
+
+	 * @return
+	 */
 	public int GetAutoNodeRequiringRepair(){
+		for (int index = 0; index < model.AutoNodeArray.length ; index++){
+			if (model.AutoNodeArray[index].getprocessTimeAfterFailure() <= 0 && 
+				(false)	)
+				return index;
+		}
 		return -1;
 	}
 	/**
