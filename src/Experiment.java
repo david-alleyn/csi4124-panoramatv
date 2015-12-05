@@ -7,7 +7,7 @@ import cern.jet.random.engine.*;
 
 
 /** Main Method: Experiments
- *  
+ *  @author mush
  */
 class Experiment
 {

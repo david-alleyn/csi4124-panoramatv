@@ -39,7 +39,7 @@ public class PanoramaTV extends AOSimulationModel
 	public AutoNode [] autoNodes;
 	public Maintenance maintenance;
 	// Output object
-	protected Output output = new Output(this);
+	private Output output = new Output(this);
 	
 	// Output values - define the public methods that return values
 	// required for experimentation.
@@ -136,6 +136,14 @@ public class PanoramaTV extends AOSimulationModel
 		scheduleActivity(seqAct);
 	}	
 	public double getClock() {return super.getClock();}
+
+	public Output getOutput() {
+		return output;
+	}
+
+	public void setOutput(Output output) {
+		this.output = output;
+	}
 }
 
 

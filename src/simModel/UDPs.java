@@ -207,7 +207,10 @@ public class UDPs
 		
 		return -1;
 	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public int GetPalletReadyForMoving(){
 		for(int i = model.pallets.length - 1; i >= 0; i--)
 		{
