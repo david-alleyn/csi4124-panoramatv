@@ -12,12 +12,12 @@ import java.util.ArrayList;
 public class ConveyorSegment {
 /**
  * 
-numPallet The number of Pallet�s on the conveyor segment
+numPallet The number of Pallets on the conveyor segment
 positions :: The array of Pallet entities on the conveyor segment
 capacity :: Total number of positions
 
  */
-	/** The number of Pallet�s on the conveyor segment
+	/** The number of Pallets on the conveyor segment
 	 */
 	private int numPallets;
 	/** The index of the next logical default segment which follows from this one.

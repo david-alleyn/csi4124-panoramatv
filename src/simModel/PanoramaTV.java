@@ -258,7 +258,7 @@ public class PanoramaTV extends AOSimulationModel
 		seqAct.startingEvent();
 		scheduleActivity(seqAct);
 	}	
-	public double getClock() {return super.getClock();}
+	public double getClock() {return Math.abs( super.getClock());}
 
 	public Output getOutput() {
 		return output;

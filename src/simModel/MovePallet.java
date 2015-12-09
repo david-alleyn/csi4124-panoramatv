@@ -13,6 +13,8 @@ public class MovePallet extends ConditionalActivity {
 
 	private PanoramaTV model;
 	private int pallet;
+	private int segmentID;
+	private int capacity;
 	public MovePallet(PanoramaTV panoramaTV) {
 		model = panoramaTV;
 		// TODO Auto-generated constructor stub
@@ -30,7 +32,8 @@ public class MovePallet extends ConditionalActivity {
 	@Override
 	public void startingEvent() {
 		pallet = this.model.udp.GetPalletReadyForMoving();
-		int currPosition = model.pallets[pallet].currPosition;
+		segmentID = this.model.pallets[pallet].currConveyor;
+		capacity = this.model.conveyorSegments[segmentID].getCapacity();
 		model.pallets[pallet].inMotion = true;
 		
 		// TODO Auto-generated method stub
@@ -57,6 +60,13 @@ RC.Pallets[pallet].currPosition = 0;
 	protected void terminatingEvent() {
 		
 		// TODO Auto-generated method stub
+		if(this.model.pallets[pallet].moveRework){
+			this.model.conveyorSegments[segmentID].positions[capacity-1]= null;
+			
+		}else{
+			
+		}
+	
 
 	}
 	/**

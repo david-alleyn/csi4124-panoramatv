@@ -45,16 +45,14 @@ class RVPs extends java.lang.Object
 		
 		return this.localNorm.nextDouble(); // not sure about it.. 
 	}
+	
 	/**
-	public int uTimeUntilFailure(AutoNode OP){
-		NEGEXPO(OP);
-		if(OP = OP20)  MEAN = 30
-		else if (OP = OP30)  MEAN = 450
-		else if(OP = OP50) MEAN = 370
-		else if (OP = TEST) MEAN = 250		
-	}	
-	I had problem understading.. how do Autonode get hold of OP.. there should be a local copy of it.. I will come back to it.. 
-	*/
+	 * public int uTimeUntilFailure(AutoNode OP){ NEGEXPO(OP); if(OP = OP20)
+	 * MEAN = 30 else if (OP = OP30) MEAN = 450 else if(OP = OP50) MEAN = 370
+	 * else if (OP = TEST) MEAN = 250 } I had problem understading.. how do
+	 * Autonode get hold of OP.. there should be a local copy of it.. I will
+	 * come back to it..
+	 */
 	/**
 	 * 
 	 * @return Returns time to rework a TV.
