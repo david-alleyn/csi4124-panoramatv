@@ -52,7 +52,8 @@ public class AutoProcessing extends ConditionalActivity {
 		segmentID = model.udp.GetAssociatedSegmentID(autoNodeId, true);
 		model.autoNodes[autoNodeId].setTimeUntilFailure(model.autoNodes[autoNodeId].getTimeUntilFailure() - model.autoNodes[autoNodeId].processTime);
 		model.autoNodes[autoNodeId].processTime = 0;
-		model.conveyorSegments[segmentID].positions[model.conveyorSegments[segmentID].getCapacity() - 1].finishedProcessing = true;
+		int capacity = model.conveyorSegments[segmentID].getCapacity();
+		model.conveyorSegments[segmentID].positions[capacity - 1].finishedProcessing = true;
 		
 		
 	}
