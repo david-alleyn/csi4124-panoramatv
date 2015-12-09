@@ -15,6 +15,7 @@ public class MovePallet extends ConditionalActivity {
 	private int pallet;
 	private int segmentID;
 	private int capacity;
+	
 	public MovePallet(PanoramaTV panoramaTV) {
 		model = panoramaTV;
 		// TODO Auto-generated constructor stub
@@ -60,7 +61,9 @@ RC.Pallets[pallet].currPosition = 0;
 	protected void terminatingEvent() {
 		
 		// TODO Auto-generated method stub
-		if(true/*if at head of segment*/){
+		if(this.model.pallets[pallet].currPosition == (capacity-1)){
+			
+			
 			if(this.model.pallets[pallet].moveRework){
 				this.model.conveyorSegments[segmentID].positions[capacity-1]= null;
 				this.model.conveyorSegments[Const.CS_REWORK].positions[0] = this.model.pallets[pallet];
@@ -75,7 +78,12 @@ RC.Pallets[pallet].currPosition = 0;
 				
 			}
 		} else {
-			
+			int tempVar =this.model.pallets[pallet].currPosition;
+			this.model.conveyorSegments[segmentID].positions[tempVar]=null;
+			this.model.pallets[pallet].currPosition++;
+			tempVar = this.model.pallets[pallet].currPosition;
+			this.model.conveyorSegments[segmentID].positions[tempVar]= 
+					this.model.pallets[pallet];
 		}
 
 		this.model.pallets[pallet].inMotion = false;
