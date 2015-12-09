@@ -65,5 +65,10 @@ public class Const
 			5,  // CS_OP50 ~ 5-15
 			5   // CS_OP60 ~ 5-15
 		};
+	
+	final static int numSmallTvs = 20;
+	final static int numMediumTvs = 30;
+	final static int numLargeTvs = 40;
+	final static int numFlatTvs = 20;
 
 }

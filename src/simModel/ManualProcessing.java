@@ -53,6 +53,9 @@ public class ManualProcessing extends ConditionalActivity {
 		}
 
 		model.manualNodes[manualNodeId].setBusy(false);
+		int segmentID = model.udp.GetAssociatedSegmentID(manualNodeId, false);
+		int capacity = model.conveyorSegments[segmentID].getCapacity();
+		model.conveyorSegments[segmentID].positions[capacity - 1].finishedProcessing = true;
 
 	}
 
