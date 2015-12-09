@@ -91,7 +91,22 @@ public class PanoramaTV extends AOSimulationModel
 		conveyorSegments = new ConveyorSegment[numConveyorSegments];
 		for(int i = 0; i < numConveyorSegments; i++)
 		{
-			conveyorSegments[i] = new ConveyorSegment(segmentCapacities[i]);
+			if(i != 0) //NOT Segment OP10
+			{
+				conveyorSegments[i] = new ConveyorSegment(segmentCapacities[i]);
+			}
+			else // Segment OP10
+			{
+				conveyorSegments[i] = new ConveyorSegment(numPallets); //Set conveyor segment to number of pallets
+			}
+		}
+		
+		//Install the pallets onto Segment OP10
+		for(int i = 0; i < numPallets; i++)
+		{
+			conveyorSegments[Const.CS_OP10].positions[i] = pallets[i];
+			pallets[i].currConveyor = Const.CS_OP10;
+			pallets[i].currPosition = i;
 		}
 		
 		//Initialize Maintenance

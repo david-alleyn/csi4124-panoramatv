@@ -46,6 +46,8 @@ class Initialise extends ScheduledAction
 			model.pallets[i].setTVtype(TvType.Small);
 			model.pallets[i].moveRework(false);
 			model.pallets[i].currConveyor = Const.CS_OP10;
+			model.pallets[i].finishedProcessing = false;
+			model.pallets[i].inMotion = false;
 		}
 		
 		for(int i = 0; i < model.conveyorSegments.length; i++)
