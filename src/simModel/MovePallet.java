@@ -60,17 +60,26 @@ RC.Pallets[pallet].currPosition = 0;
 	protected void terminatingEvent() {
 		
 		// TODO Auto-generated method stub
-		if(this.model.pallets[pallet].moveRework){
-			this.model.conveyorSegments[segmentID].positions[capacity-1]= null;
-			this.model.conveyorSegments[Const.CS_REWORK].positions[0] = this.model.pallets[pallet];
-			this.model.pallets[pallet].currConveyor = Const.CS_REWORK;
-			this.model.pallets[pallet].currPosition = 0;
-		}else{
-			this.model.conveyorSegments[segmentID].positions[capacity-1]= null;
-			this.model.pallets[pallet].currConveyor =
-					this.model.conveyorSegments[this.model.pallets[pallet].currConveyor].nextConveyor;
-			this.model.pallets[pallet].currPosition = 0;
+		if(true/*if at head of segment*/){
+			if(this.model.pallets[pallet].moveRework){
+				this.model.conveyorSegments[segmentID].positions[capacity-1]= null;
+				this.model.conveyorSegments[Const.CS_REWORK].positions[0] = this.model.pallets[pallet];
+				this.model.pallets[pallet].currConveyor = Const.CS_REWORK;
+				this.model.pallets[pallet].currPosition = 0;
+			}else{
+				this.model.conveyorSegments[segmentID].positions[capacity-1]= null;
+				int nextSeg = this.model.conveyorSegments[segmentID].nextConveyor;
+				this.model.conveyorSegments[nextSeg].positions[0] = this.model.pallets[pallet];
+				this.model.pallets[pallet].currConveyor = nextSeg;
+				this.model.pallets[pallet].currPosition = 0;
+				
+			}
+		} else {
+			
 		}
+
+		this.model.pallets[pallet].inMotion = false;
+		this.model.pallets[pallet].finishedProcessing = false;
 	
 
 	}
