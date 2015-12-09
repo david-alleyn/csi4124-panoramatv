@@ -27,38 +27,38 @@ class Initialise extends ScheduledAction
 		// System Initialisation
                 // Add initilisation instructions 
 		
-		for(int i = 0; i < model.AutoNodeArray.length; i++)
+		for(int i = 0; i < model.autoNodes.length; i++)
 		{
-			model.AutoNodeArray[i].setBusy(false);
-			model.AutoNodeArray[i].setlastTVtype(TvType.Small);
-			model.AutoNodeArray[i].setprocessTime(0.0);
+			model.autoNodes[i].setBusy(false);
+			model.autoNodes[i].setLastTVType(TvType.Small);
+			model.autoNodes[i].processTime = 0.0;
 			
 		}
-		for(int i = 0; i < model.ManualNodes.length; i++)
+		for(int i = 0; i < model.manualNodes.length; i++)
 		{
-			model.ManualNodes[i].setBusy(false);
+			model.manualNodes[i].setBusy(false);
 		}
-		for(int i = 0; i < model.pallet.length; i++)
+		for(int i = 0; i < model.pallets.length; i++)
 		{
-			model.pallet[i].setTVtype(TvType.Small);
-			model.pallet[i].moveRework(false);
+			model.pallets[i].setTVtype(TvType.Small);
+			model.pallets[i].moveRework(false);
 		}
 		
 		model.maintenance.setBusy(false);
 		
-		model.ConveyorSeg[Const.OP10_ID].nextConveyor = Const.OP20_ID;
-		model.ConveyorSeg[Const.OP20_ID].nextConveyor = Const.OP30_ID;
-		model.ConveyorSeg[Const.OP30_ID].nextConveyor = Const.OP40A_ID;
-		model.ConveyorSeg[Const.OP40A_ID].nextConveyor = Const.OP40B_ID;
-		model.ConveyorSeg[Const.OP40B_ID].nextConveyor = Const.OP40C_ID;
-		model.ConveyorSeg[Const.OP40C_ID].nextConveyor = Const.OP40D_ID;
-		model.ConveyorSeg[Const.OP40D_ID].nextConveyor = Const.OP40E_ID;
-		model.ConveyorSeg[Const.OP40E_ID].nextConveyor = Const.TEST_ID;
-		model.ConveyorSeg[Const.TEST_ID].nextConveyor = Const.OP50_ID;
-		model.ConveyorSeg[Const.REWORK_ID].nextConveyor = Const.RETEST_ID;
-		model.ConveyorSeg[Const.RETEST_ID].nextConveyor = Const.TEST_ID;
-		model.ConveyorSeg[Const.OP50_ID].nextConveyor = Const.OP60_ID;
-		model.ConveyorSeg[Const.OP60_ID].nextConveyor = Const.OP10_ID;
+		model.conveyorSegments[Const.CS_OP10].nextConveyor = Const.CS_OP20;
+		model.conveyorSegments[Const.CS_OP20].nextConveyor = Const.CS_OP30;
+		model.conveyorSegments[Const.CS_OP30].nextConveyor = Const.CS_OP40A;
+		model.conveyorSegments[Const.CS_OP40A].nextConveyor = Const.CS_OP40B;
+		model.conveyorSegments[Const.CS_OP40B].nextConveyor = Const.CS_OP40C;
+		model.conveyorSegments[Const.CS_OP40C].nextConveyor = Const.CS_OP40D;
+		model.conveyorSegments[Const.CS_OP40D].nextConveyor = Const.CS_OP40E;
+		model.conveyorSegments[Const.CS_OP40E].nextConveyor = Const.CS_TEST;
+		model.conveyorSegments[Const.CS_TEST].nextConveyor = Const.CS_OP50;
+		model.conveyorSegments[Const.CS_REWORK].nextConveyor = Const.CS_RETEST;
+		model.conveyorSegments[Const.CS_RETEST].nextConveyor = Const.CS_TEST;
+		model.conveyorSegments[Const.CS_OP50].nextConveyor = Const.CS_OP60;
+		model.conveyorSegments[Const.CS_OP60].nextConveyor = Const.CS_OP10;
 		
 	}
 	
