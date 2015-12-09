@@ -165,17 +165,37 @@ public class PanoramaTV extends AOSimulationModel
 	boolean traceflag = false;
 	
 	
+	int days = 0;
+	int nextDay = 1440;
+	private boolean writeToCSV = true;
+	private boolean debug = true;
+	
 	public void eventOccured()
 	{
-		if(traceflag)
-		{
-			// Can add other trace/log code to monitor the status of the system
-			// See examples for suggestions on setup logging
-			this.showSBL();
-		    // PriorityQueue<SBNotice> sbl = this.getCopySBL();
-			// explicitShowSBL(sbl);
-
+		if ((int)getClock() == nextDay){
+			if (nextDay == 1440)
+				output.numTVAssembled = 0;
+			else {
+				System.out.print(output.numTVAssembled / days + "\t\t\t");
+				if (this.writeToCSV)
+					output.printCSV(days);
+			}
+			days += 30;
+			nextDay = days * 1440;
 		}
+
+		if (this.debug)
+			output.printConveyors(this.getClock());
+		
+//		if(traceflag)
+//		{
+//			// Can add other trace/log code to monitor the status of the system
+//			// See examples for suggestions on setup logging
+//			this.showSBL();
+//		    // PriorityQueue<SBNotice> sbl = this.getCopySBL();
+//			// explicitShowSBL(sbl);
+//
+//		}
 
 		// Setup an updateTrjSequences() method in the Output class
 		// and call here if you have Trajectory Sets
@@ -232,6 +252,7 @@ public class PanoramaTV extends AOSimulationModel
 	public void setOutput(Output output) {
 		this.output = output;
 	}
+	
 }
 
 
