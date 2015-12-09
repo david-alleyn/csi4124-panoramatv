@@ -62,9 +62,14 @@ RC.Pallets[pallet].currPosition = 0;
 		// TODO Auto-generated method stub
 		if(this.model.pallets[pallet].moveRework){
 			this.model.conveyorSegments[segmentID].positions[capacity-1]= null;
-			
+			this.model.conveyorSegments[Const.CS_REWORK].positions[0] = this.model.pallets[pallet];
+			this.model.pallets[pallet].currConveyor = Const.CS_REWORK;
+			this.model.pallets[pallet].currPosition = 0;
 		}else{
-			
+			this.model.conveyorSegments[segmentID].positions[capacity-1]= null;
+			this.model.pallets[pallet].currConveyor =
+					this.model.conveyorSegments[this.model.pallets[pallet].currConveyor].nextConveyor;
+			this.model.pallets[pallet].currPosition = 0;
 		}
 	
 
