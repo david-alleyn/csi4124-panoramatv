@@ -23,29 +23,18 @@ capacity :: Total number of positions
 	/** The index of the next logical default segment which follows from this one.
 	 */
 	public int nextConveyor = -1;
-	private ArrayList<Pallet> position ;
+	public Pallet[] positions;
 	/** Total number of positions */
 	private int capacity;
 	
-	public ConveyorSegment()
+	public ConveyorSegment(int capacity)
 	{
-		position = new ArrayList<Pallet>() ;
+		this.capacity = capacity;
+		positions = new Pallet[capacity];
 	}
 	public int size()
 	{
-		return position.size();
-	}
-	public void set(Pallet local)
-	{
-		position.add(local);
-	}
-	public Pallet get(int index)
-	{
-		return position.get(index);
-	}
-	public Pallet last()
-	{
-		return get((size()-1));
+		return positions.length;
 	}
 	public int getnextConveyor(){
 		return nextConveyor;
@@ -66,9 +55,9 @@ capacity :: Total number of positions
 	}
 	public void setCapacity(int capacity){
 		this.capacity = capacity;
-	}
-	public ArrayList<Pallet> getPosition() {
-		return position;
+		
+		//RESETS THE CONVEYORSEGMENT
+		positions = new Pallet[capacity];
 	}
 }
 

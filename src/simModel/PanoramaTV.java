@@ -31,27 +31,74 @@ public class PanoramaTV extends AOSimulationModel
 	
 	// References to RVP and DVP objects
 	protected RVPs rvp;  // Reference to rvp object - object created in constructor
-	protected DVPs dvp = new DVPs(this);  // Reference to dvp object
-	protected UDPs udp = new UDPs(this);
+	protected DVPs dvp;  // Reference to dvp object
+	protected UDPs udp;
 	public Pallet[] pallets;
 	public ManualNode [] manualNodes;
 	public ConveyorSegment [] conveyorSegments;
 	public AutoNode [] autoNodes;
 	public Maintenance maintenance;
 	// Output object
-	private Output output = new Output(this);
+	private Output output;
+	
+	public int [] segmentCapacities;
 	
 	// Output values - define the public methods that return values
 	// required for experimentation.
 
 
 	// Constructor
-	public PanoramaTV(double t0time, double tftime, /*define other args,*/ Seeds sd)
+	public PanoramaTV(double t0time, double tftime, int numPallets, int [] segmentCapacities, Seeds sd)
 	{
+		// A few fixed things
+		int numManualNodes = 8;
+		int numAutoNodes = 4;
+		int numConveyorSegments = 13;
+		
+		this.segmentCapacities = segmentCapacities;
+		
 		// Initialise parameters here
 		
 		// Create RVP object with given seed
 		rvp = new RVPs(this,sd);
+		dvp = new DVPs(this);  // Reference to dvp object
+		udp = new UDPs(this);
+		
+		output = new Output(this);
+		
+		//Initialize pallets
+		pallets = new Pallet[numPallets];
+		for(int i = 0; i < numPallets; i++)
+		{
+			pallets[i] = new Pallet();
+		}
+		
+		//Initialize manualNodes
+		manualNodes = new ManualNode[numManualNodes];
+		for(int i = 0; i < numManualNodes; i++)
+		{
+			manualNodes[i] = new ManualNode();
+		}
+		
+		//Initialize autoNodes
+		autoNodes = new AutoNode[numAutoNodes];
+		for(int i = 0; i < numAutoNodes; i++)
+		{
+			autoNodes[i] = new AutoNode();
+		}
+		
+		//Initialize conveyorSegments
+		conveyorSegments = new ConveyorSegment[numConveyorSegments];
+		for(int i = 0; i < numConveyorSegments; i++)
+		{
+			conveyorSegments[i] = new ConveyorSegment(segmentCapacities[i]);
+		}
+		
+		//Initialize Maintenance
+		
+		maintenance = new Maintenance();
+		
+		
 		
 		// rgCounter and qCustLine objects created in Initalise Action
 		

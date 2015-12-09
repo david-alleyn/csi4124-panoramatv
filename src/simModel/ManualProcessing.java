@@ -43,13 +43,13 @@ public class ManualProcessing extends ConditionalActivity {
 	protected void terminatingEvent() {
 		manualNodeId = model.udp.GetManualNodeReadyForProcessing();
 		// TODO OP10, OP60 and CS_ID
-		int CS_ID = 0;
-		int OP10 = -1;
-		int OP60 = -1;
-		if (manualNodeId == OP10) {
-			model.conveyorSegments[CS_ID].last().tvType = model.dvp.uTvType();
-		} else if (manualNodeId == OP60) {
-			model.conveyorSegments[CS_ID].last().tvType = null;
+		int size = model.conveyorSegments[manualNodeId].positions.length;
+		
+		if (manualNodeId == Const.CS_OP10) {
+			
+			model.conveyorSegments[Const.CS_OP10].positions[size].tvType = model.dvp.uTvType();
+		} else if (manualNodeId == Const.CS_OP60) {
+			model.conveyorSegments[Const.CS_OP60].positions[size].tvType = null;
 		}
 
 		model.manualNodes[manualNodeId].setBusy(false);

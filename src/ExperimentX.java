@@ -18,6 +18,7 @@ public class ExperimentX
 	public static void main(String[] args)
 	{
 		int numPallets = 40;
+		int [] segmentCapacities = {5,5,5,5,5,5,5,5,5,5,5,5,5};
 		int numRuns = 400;
 		int numDays = 90;
 
@@ -59,7 +60,7 @@ public class ExperimentX
 
 		for (i = 0; i < numRuns; i++){
 			System.out.print(i+1 + "\t");
-			mname = new PanoramaTV(startTime, endTime, sds[i]);
+			mname = new PanoramaTV(startTime, endTime, numPallets, segmentCapacities, sds[i]);
 
 			if (writeToCSV)
 				mname.getOutput().out = out;

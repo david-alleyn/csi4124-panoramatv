@@ -17,11 +17,14 @@ class Initialise extends ScheduledAction
 
 	double [] ts = { 0.0, -1.0 }; // -1.0 ends scheduling
 	int tsix = 0;  // set index to first entry.
+	
+	@Override
 	protected double timeSequence() 
 	{
 		return ts[tsix++];  // only invoked at t=0
 	}
 
+	@Override
 	protected void actionEvent() 
 	{
 		// System Initialisation
@@ -42,6 +45,16 @@ class Initialise extends ScheduledAction
 		{
 			model.pallets[i].setTVtype(TvType.Small);
 			model.pallets[i].moveRework(false);
+			model.pallets[i].currConveyor = Const.CS_OP10;
+		}
+		
+		for(int i = 0; i < model.conveyorSegments.length; i++)
+		{
+			// CHANGE THIS TO REFLECT THE DYNAMIC WAY TO SPECIFY CAPS
+			// CHANGE THIS TO REFLECT THE DYNAMIC WAY TO SPECIFY CAPS
+			// CHANGE THIS TO REFLECT THE DYNAMIC WAY TO SPECIFY CAPS
+			// CHANGE THIS TO REFLECT THE DYNAMIC WAY TO SPECIFY CAPS
+			model.conveyorSegments[i].setCapacity(Const.CAPACITY[i]);
 		}
 		
 		model.maintenance.setBusy(false);

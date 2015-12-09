@@ -60,6 +60,8 @@ public class UDPs
 				return Const.CS_OP40E;
 			case Const.REWORK:
 				return Const.CS_REWORK;
+			case Const.OP60:
+				return Const.CS_OP60;
 			default:
 				return -1;
 			}
@@ -78,8 +80,8 @@ public class UDPs
 				int palletID = i;
 				
 				if(model.autoNodes[palletID].getTimeUntilFailure() > model.dvp.uAutomaticProcessTime(palletID)
-					&& model.autoNodes[i].getlastTVType() == model.conveyorSegments[segmentID].getPosition().get(palletID).tvType
-					&& model.conveyorSegments[segmentID].getPosition().get(palletID).inMotion == false)
+					&& model.autoNodes[i].getlastTVType() == model.conveyorSegments[segmentID].positions[palletID].tvType
+					&& model.conveyorSegments[segmentID].positions[palletID].inMotion == false)
 				{
 					return i;
 				}
@@ -100,8 +102,8 @@ public class UDPs
 				int palletID = i;
 				
 				if(model.autoNodes[palletID].getTimeUntilFailure() < model.dvp.uAutomaticProcessTime(palletID)
-					&& model.autoNodes[i].getlastTVType() == model.conveyorSegments[segmentID].getPosition().get(palletID).tvType
-					&& model.conveyorSegments[segmentID].getPosition().get(palletID).inMotion == false)
+					&& model.autoNodes[i].getlastTVType() == model.conveyorSegments[segmentID].positions[palletID].tvType
+					&& model.conveyorSegments[segmentID].positions[palletID].inMotion == false)
 				{
 					return i;
 				}
@@ -136,8 +138,8 @@ public class UDPs
 			int capacity = model.conveyorSegments[segmentID].getCapacity();
 			
 			if((model.autoNodes[index].getTimeUntilFailure() > model.dvp.uAutomaticProcessTime(index))
-					&&(model.autoNodes[index].getlastTVType() != model.conveyorSegments[segmentID].getPosition().get(capacity - 1).tvType)
-					&&(model.conveyorSegments[segmentID].getPosition().get(capacity - 1).inMotion == false)
+					&&(model.autoNodes[index].getlastTVType() != model.conveyorSegments[segmentID].positions[capacity - 1].tvType)
+					&&(model.conveyorSegments[segmentID].positions[capacity - 1].inMotion == false)
 					&&(model.maintenance.busy == false))
 				return index;
 		}
@@ -176,10 +178,10 @@ public class UDPs
 		for (int index = model.manualNodes.length - 1; index >= 0 ; index--){
 			if (model.manualNodes[index].getBusy() == false){
 				int segmentID = this.GetAssociatedSegmentID(index, false);
-				ConveyorSegment capacity = model.conveyorSegments[segmentID];
+				int capacity = model.conveyorSegments[segmentID].getCapacity();
 				
-				if (model.conveyorSegments[index].get(model.manualNodes.length-1) != null) 
-						if(model.conveyorSegments[index].get(model.manualNodes.length-1).inMotion == false)
+				if (model.conveyorSegments[segmentID].positions[capacity - 1] != null) 
+						if(model.conveyorSegments[segmentID].positions[capacity - 1].inMotion == false)
 							return index;
 				
 			}
@@ -220,8 +222,8 @@ public class UDPs
 				int currPosition = model.pallets[i].currPosition;
 				if(currPosition < model.conveyorSegments[currConveyor].getCapacity() - 1)
 				{
-					if(model.conveyorSegments[currConveyor].getPosition().get(currPosition + 1) == null
-							|| model.conveyorSegments[currConveyor].getPosition().get(currPosition + 1).inMotion == true)
+					if(model.conveyorSegments[currConveyor].positions[currPosition + 1] == null
+							|| model.conveyorSegments[currConveyor].positions[currPosition + 1].inMotion == true)
 					{
 						return i;
 					}
@@ -236,8 +238,8 @@ public class UDPs
 					if(model.pallets[i].currConveyor == Const.CS_RETEST)
 					{
 						int testcapacity = model.conveyorSegments[Const.CS_TEST].getCapacity();
-						if(model.conveyorSegments[Const.CS_TEST].get(testcapacity - 1) == null
-								|| model.conveyorSegments[Const.CS_TEST].get(testcapacity - 1).inMotion == true)
+						if(model.conveyorSegments[Const.CS_TEST].positions[testcapacity - 1] == null
+								|| model.conveyorSegments[Const.CS_TEST].positions[testcapacity - 1].inMotion == true)
 						{
 							return i;
 						}
@@ -245,14 +247,14 @@ public class UDPs
 					else if(model.pallets[i].moveRework)
 					{
 						int reworkcapacity = model.conveyorSegments[Const.CS_REWORK].getCapacity();
-						if(model.conveyorSegments[Const.CS_REWORK].getPosition().get(reworkcapacity - 1) == null
-								|| model.conveyorSegments[Const.CS_REWORK].getPosition().get(reworkcapacity - 1).inMotion == true)
+						if(model.conveyorSegments[Const.CS_REWORK].positions[reworkcapacity - 1] == null
+								|| model.conveyorSegments[Const.CS_REWORK].positions[reworkcapacity - 1].inMotion == true)
 						{
 							return i;
 						}
 					}
-					else if(model.conveyorSegments[nextconveyor].getPosition().get(nextcapacity - 1) == null
-							|| model.conveyorSegments[nextconveyor].getPosition().get(nextcapacity - 1).inMotion == true)
+					else if(model.conveyorSegments[nextconveyor].positions[nextcapacity - 1] == null
+							|| model.conveyorSegments[nextconveyor].positions[nextcapacity - 1].inMotion == true)
 					{
 						return i;
 					}
