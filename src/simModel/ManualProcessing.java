@@ -47,9 +47,9 @@ public class ManualProcessing extends ConditionalActivity {
 		
 		if (manualNodeId == Const.CS_OP10) {
 			
-			model.conveyorSegments[Const.CS_OP10].positions[size].tvType = model.dvp.uTvType();
+			model.conveyorSegments[Const.CS_OP10].positions[size-1].tvType = model.dvp.uTvType();
 		} else if (manualNodeId == Const.CS_OP60) {
-			model.conveyorSegments[Const.CS_OP60].positions[size].tvType = null;
+			model.conveyorSegments[Const.CS_OP60].positions[size-1].tvType = null;
 		}
 
 		model.manualNodes[manualNodeId].setBusy(false);
