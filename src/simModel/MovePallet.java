@@ -13,6 +13,10 @@ public class MovePallet extends ConditionalActivity {
 
 	private PanoramaTV model;
 	private int pallet;
+	public MovePallet(PanoramaTV panoramaTV) {
+		model = panoramaTV;
+		// TODO Auto-generated constructor stub
+	}
 	@Override
 	protected double duration() {
 		// TODO Auto-generated method stub

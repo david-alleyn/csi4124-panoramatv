@@ -16,6 +16,11 @@ public class ManualProcessing extends ConditionalActivity {
 	private PanoramaTV model;
 	private static int manualNodeId;
 
+	public ManualProcessing(PanoramaTV panoramaTV) {
+		// TODO Auto-generated constructor stub
+		model = panoramaTV;
+	}
+
 	@Override
 	protected double duration() {
 		manualNodeId = model.udp.GetManualNodeReadyForProcessing();

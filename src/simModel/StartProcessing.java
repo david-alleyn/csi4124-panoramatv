@@ -17,8 +17,8 @@ public class StartProcessing extends ConditionalActivity {
 		return model.autoNodes[node].getTimeUntilFailure();
 	}
 /**
- * autoNode ← UDP.GetAutoNodeForPartialProcessing();
- * processTime ← DVP.uAutomaticProcessTime() - timeUntilFailure
+ * autoNode â†� UDP.GetAutoNodeForPartialProcessing();
+ * processTime â†� DVP.uAutomaticProcessTime() - timeUntilFailure
  * RC.AutoNode[autoNode].busy = TRUE;
  */
 	@Override
@@ -30,7 +30,7 @@ public class StartProcessing extends ConditionalActivity {
 		
 	}
 	/**
-	 * imeUntilFailure ← 0
+	 * imeUntilFailure â†� 0
 	 */
 	@Override
 	protected void terminatingEvent() {
@@ -38,10 +38,10 @@ public class StartProcessing extends ConditionalActivity {
 		model.autoNodes[node].setTimeUntilFailure(0);
 	}
 	/**
-	 * autoNode ← UDP.GetAutoNodeForPartialProcessing()
+	 * autoNode â†� UDP.GetAutoNodeForPartialProcessing()
 	 * @return
 	 */
-	public boolean precondition(PanoramaTV model)
+	public static boolean precondition(PanoramaTV model)
 	{
 		int node = model.udp.GetAutoNodeForPartialProcessing();
 		return (node != -1);

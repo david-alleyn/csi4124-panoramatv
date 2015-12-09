@@ -74,7 +74,7 @@ public class PanoramaTV extends AOSimulationModel
 		// Check preconditions of Conditional Activities
 		
 		// Check preconditions of Conditional Activities
-		if (MovePallet.precondition(this)){
+		if (MovePallet.preconditon(this)){
 			MovePallet act = new MovePallet(this);
 			act.startingEvent();
 			scheduleActivity(act);
