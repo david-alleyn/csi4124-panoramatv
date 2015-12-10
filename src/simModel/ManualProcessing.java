@@ -39,7 +39,7 @@ public class ManualProcessing extends ConditionalActivity {
 
 	@Override
 	protected void terminatingEvent() {
-		int segmentId = model.udp.GetAssociatedSegmentID(manualNodeId, true);
+		int segmentId = model.udp.GetAssociatedSegmentID(manualNodeId, false);
 		int headOfSegment = model.conveyorSegments[segmentId].getCapacity() - 1;
 		
 		if (manualNodeId == Const.OP10) {

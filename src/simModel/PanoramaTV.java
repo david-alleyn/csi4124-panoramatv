@@ -135,12 +135,6 @@ public class PanoramaTV extends AOSimulationModel
 		// Check preconditions of Conditional Activities
 		
 		// Check preconditions of Conditional Activities
-		if (MovePallet.preconditon(this)){
-			MovePallet act = new MovePallet(this);
-			act.startingEvent();
-			scheduleActivity(act);
-		}
-
 		if (AutoProcessing.precondition(this)){
 			AutoProcessing act = new AutoProcessing(this);
 			act.startingEvent();
@@ -167,6 +161,12 @@ public class PanoramaTV extends AOSimulationModel
 		
 		if (ManualProcessing.precondition(this)){
 			ManualProcessing act = new ManualProcessing(this);
+			act.startingEvent();
+			scheduleActivity(act);
+		}
+		
+		if (MovePallet.preconditon(this)){
+			MovePallet act = new MovePallet(this);
 			act.startingEvent();
 			scheduleActivity(act);
 		}
