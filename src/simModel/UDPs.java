@@ -237,10 +237,6 @@ public class UDPs
 					{
 						return i;
 					}
-					else {
-						//evaluate the another pallet
-						continue;
-					}
 				}
 				else if (currPosition == headOfSegment)
 				{
@@ -250,18 +246,11 @@ public class UDPs
 					
 					if(model.pallets[i].currConveyor == Const.CS_RETEST)
 					{
-						//The goal is to 
-						
 						int testcapacity = model.conveyorSegments[Const.CS_TEST].getCapacity();
 						if(model.conveyorSegments[Const.CS_TEST].positions[testcapacity - 1] == null
 								|| model.conveyorSegments[Const.CS_TEST].positions[testcapacity - 1].inMotion == true)
 						{
 							return i;
-						}
-						else
-						{
-							//if the pallet can't move, evaluate another pallet
-							continue;
 						}
 					} else if(model.pallets[i].moveRework)
 					{
@@ -271,11 +260,6 @@ public class UDPs
 						{
 							return i;
 						}
-						else
-						{
-							//evaluate another pallet
-							continue;
-						}
 					}
 					else if(model.pallets[i].finishedProcessing == true &&
 							(model.conveyorSegments[nextconveyor].positions[nextcapacity - 1] == null
@@ -283,11 +267,6 @@ public class UDPs
 							)
 					{
 						return i;
-					}
-					else
-					{
-						//evaluate another pallet
-						continue;
 					}
 				}
 			}
