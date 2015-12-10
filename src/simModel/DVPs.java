@@ -31,10 +31,6 @@ class DVPs {
 	 * ------------------------------------------------------------
 	 */
 
-	public double uManualProcessTime(int index) {
-		return -0.1;
-	}
-
 	public TvType uTvType() {
 		if (tvType == TvType.Small) {
 			if (numCurrentTV < Const.numSmallTvs) {

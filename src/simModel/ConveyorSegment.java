@@ -1,7 +1,5 @@
 package simModel;
 
-import java.util.ArrayList;
-
 /**
  * The 13 conveyor segments in the system. CS_OP10, CS_OP20, CS_OP30, CS_OP40a, CS_OP40b, CS_OP40c, CS_OP40d,
  *  CS_OP40e, CS_OP50, CS_TEST, CS_REWORK, CS_OP60, CS_RETEST are the nine identifiers of the segment

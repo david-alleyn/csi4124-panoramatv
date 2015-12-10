@@ -5,7 +5,6 @@ package simModel;
 import cern.jet.random.Exponential;
 import cern.jet.random.Normal;
 import cern.jet.random.engine.MersenneTwister;
-import cern.jet.random.engine.RandomEngine;
 import cern.jet.random.Distributions;
 
 import dataModelling.*;
@@ -13,8 +12,6 @@ import dataModelling.*;
 
 class RVPs extends java.lang.Object
 {
-	private PanoramaTV model; // for accessing the clock
-	private Seeds localSeeds;
     // Data Models - i.e. random veriate generators for distributions
 	// are created using Colt classes, define 
 	// reference variables here and create the objects in the
@@ -33,9 +30,6 @@ class RVPs extends java.lang.Object
 	
 	
 	public RVPs(PanoramaTV panoramaTV, Seeds sd) {
-		// TODO Auto-generated constructor stub
-		this.model = panoramaTV;
-		this.localSeeds = sd;
 	}
 	/**
 	 * Returns time to load a pallet and mould.

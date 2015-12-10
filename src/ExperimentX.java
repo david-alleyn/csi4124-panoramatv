@@ -18,7 +18,7 @@ public class ExperimentX
 	public static void main(String[] args)
 	{
 		int numPallets = 40;
-		int [] segmentCapacities = {5,5,5,5,5,5,5,5,5,5,5,5,5};
+		int [] segmentCapacities = {40,5,5,5,1,1,1,1,5,10,5,5,5};
 		int numRuns = 400;
 		int numDays = 90;
 

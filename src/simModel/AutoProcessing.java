@@ -4,15 +4,14 @@ import simulationModelling.ConditionalActivity;
  * The activity performs the necessary automatic assembly on the TV.
  * @author mush
  */
-import simulationModelling.ScheduledActivity;
-import simModel.*;
+
 
 public class AutoProcessing extends ConditionalActivity {
 	/**
 	 * Autonode OP should be Autonode processing... 
 	 */
 	private PanoramaTV model; 
-	private static int autoNodeId;
+	private int autoNodeId;
 	AutoNode node;
 	private int segmentID;
 	//  private double timeUntilFailure;
@@ -41,7 +40,7 @@ public class AutoProcessing extends ConditionalActivity {
 	}
 	
 	public static boolean precondition(PanoramaTV model){
-		autoNodeId = model.udp.GetAutoNodeReadyForProcessing();
+		int autoNodeId = model.udp.GetAutoNodeReadyForProcessing();
 		return autoNodeId != -1;
 	}
 

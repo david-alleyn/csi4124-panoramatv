@@ -1,10 +1,7 @@
 package simModel;
 
-import com.sun.javafx.tk.Toolkit.PaintAccessor;
-import com.sun.xml.internal.ws.dump.LoggingDumpTube.Position;
 
 import simulationModelling.ConditionalActivity;
-import simulationModelling.ScheduledActivity;
 
 /**
  * @author: mush
@@ -14,73 +11,49 @@ import simulationModelling.ScheduledActivity;
 public class ManualProcessing extends ConditionalActivity {
 
 	private PanoramaTV model;
-	private static int manualNodeId;
+	private int manualNodeId;
 
 	public ManualProcessing(PanoramaTV panoramaTV) {
-		// TODO Auto-generated constructor stub
 		model = panoramaTV;
+	}
+	
+	/**
+	 * manualNodeId <-- UDP.ManualNodesReadyForProcessing() if(manualNodeId !=
+	 * NULL) return TRUE else return FALSE;
+	 */
+	public static boolean precondition(PanoramaTV model) {
+		int manualNodeId = model.udp.GetManualNodeReadyForProcessing();
+		return (manualNodeId != -1);
+	}
+	
+	@Override
+	public void startingEvent() {
+		manualNodeId = model.udp.GetManualNodeReadyForProcessing();
+		model.manualNodes[manualNodeId].setBusy(true);
 	}
 
 	@Override
 	protected double duration() {
-		manualNodeId = model.udp.GetManualNodeReadyForProcessing();
-		// TODO Auto-generated method stub
-		return model.dvp.uManualProcessTime(manualNodeId);
+		return model.udp.GetManualNodeProcessTime(manualNodeId);
 	}
 
-	@Override
-	public void startingEvent() {
-		manualNodeId = model.udp.GetManualNodeReadyForProcessing();
-		model.manualNodes[manualNodeId].setBusy(false);
-	}
-
-	/**
-	 * Event ManualProcessing
-	 * 
-	 * @return RC.ManualNode[ID].busy = FALSE
-	 */
 	@Override
 	protected void terminatingEvent() {
-		manualNodeId = model.udp.GetManualNodeReadyForProcessing();
-		// TODO OP10, OP60 and CS_ID
-		int size = model.conveyorSegments[manualNodeId].positions.length;
+		int segmentId = model.udp.GetAssociatedSegmentID(manualNodeId, true);
+		int headOfSegment = model.conveyorSegments[segmentId].getCapacity() - 1;
 		
-		if (manualNodeId == Const.CS_OP10) {
+		if (manualNodeId == Const.OP10) {
 			
-			model.conveyorSegments[Const.CS_OP10].positions[size-1].tvType = model.dvp.uTvType();
-		} else if (manualNodeId == Const.CS_OP60) {
-			model.conveyorSegments[Const.CS_OP60].positions[size-1].tvType = null;
+			model.conveyorSegments[segmentId].positions[headOfSegment].tvType = model.dvp.uTvType();
+			
+		} else if (manualNodeId == Const.OP60) {
+			
+			model.conveyorSegments[segmentId].positions[headOfSegment].tvType = null;
+			
 		}
 
 		model.manualNodes[manualNodeId].setBusy(false);
-		int segmentID = model.udp.GetAssociatedSegmentID(manualNodeId, false);
-		int capacity = model.conveyorSegments[segmentID].getCapacity();
-		model.conveyorSegments[segmentID].positions[capacity - 1].finishedProcessing = true;
+		model.conveyorSegments[segmentId].positions[headOfSegment].finishedProcessing = true;
 
 	}
-
-	private void setManaulNode(PanoramaTV model) {
-		manualNodeId = model.udp.GetManualNodeReadyForProcessing();
-	}
-
-	/**
-	 * manualNodeId â†� UDP.ManualNodesReadyForProcessing() if(manualNodeId !=
-	 * NULL) return TRUE else return FALSE;
-	 */
-	public static boolean precondition(PanoramaTV model) {
-		manualNodeId = model.udp.GetManualNodeReadyForProcessing();
-		return (manualNodeId != -1);
-	}
-
-	public void Duraiton(PanoramaTV model) {
-		setManaulNode(model);
-	}
-
-	/**
-	 * @return
-	 */
-	public void ManualProcessing(AutoNode ID) {
-
-	}
-
 }

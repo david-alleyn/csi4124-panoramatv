@@ -4,7 +4,6 @@ package simModel;
  * @author mush
  */
 import simulationModelling.ConditionalActivity;
-import simulationModelling.ScheduledActivity;
 
 public class SetupEquipment extends ConditionalActivity {
 

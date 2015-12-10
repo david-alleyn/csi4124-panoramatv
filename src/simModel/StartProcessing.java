@@ -1,7 +1,6 @@
 package simModel;
 
 import simulationModelling.ConditionalActivity;
-import simulationModelling.ScheduledActivity;
 
 public class StartProcessing extends ConditionalActivity {
 	PanoramaTV model;

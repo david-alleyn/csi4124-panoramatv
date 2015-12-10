@@ -2,8 +2,6 @@ package simModel;
 /**
  * @author mush
  */
-import cern.jet.random.Normal;
-import cern.jet.random.engine.MersenneTwister;
 
 public class UDPs 
 {
@@ -71,19 +69,21 @@ public class UDPs
 	public int GetAutoNodeReadyForProcessing(){		
 		
 		//Iterate from the end to the beginning of the array.
-		for(int i = model.autoNodes.length - 1; i >= 0; i--)
+		for(int autoNodeId = model.autoNodes.length - 1; autoNodeId >= 0; autoNodeId--)
 		{
-			if(!model.autoNodes[i].getBusy())
+			if(!model.autoNodes[autoNodeId].getBusy())
 			{
-				int segmentID = model.udp.GetAssociatedSegmentID(i, true);
-				int capacity = model.conveyorSegments[segmentID].getCapacity();
-				int palletID = i;
+				int segmentID = model.udp.GetAssociatedSegmentID(autoNodeId, true);
+				int headOfSegment = model.conveyorSegments[segmentID].getCapacity() - 1;
 				
-				if(model.autoNodes[palletID].getTimeUntilFailure() > model.dvp.uAutomaticProcessTime(palletID)
-					&& model.autoNodes[i].getlastTVType() == model.conveyorSegments[segmentID].positions[palletID].tvType
-					&& model.conveyorSegments[segmentID].positions[palletID].inMotion == false)
+				if(model.conveyorSegments[segmentID].positions[headOfSegment] != null)
 				{
-					return i;
+					if(model.autoNodes[autoNodeId].getTimeUntilFailure() > model.dvp.uAutomaticProcessTime(autoNodeId)
+						&& model.autoNodes[autoNodeId].getlastTVType() == model.conveyorSegments[segmentID].positions[headOfSegment].tvType
+						&& model.conveyorSegments[segmentID].positions[headOfSegment].inMotion == false)
+					{
+						return autoNodeId;
+					}
 				}
 			}
 		}
@@ -93,19 +93,18 @@ public class UDPs
 	
 	public int GetAutoNodeForPartialProcessing(){
 		//Iterate from the end to the beginning of the array.
-		for(int i = model.autoNodes.length - 1; i >= 0; i--)
+		for(int autoNodeId = model.autoNodes.length - 1; autoNodeId >= 0; autoNodeId--)
 		{
-			if(!model.autoNodes[i].getBusy())
+			if(!model.autoNodes[autoNodeId].getBusy())
 			{
-				int segmentID = model.udp.GetAssociatedSegmentID(i, true);
+				int segmentID = model.udp.GetAssociatedSegmentID(autoNodeId, true);
 				int capacity = model.conveyorSegments[segmentID].getCapacity();
-				int palletID = i;
 				
-				if(model.autoNodes[palletID].getTimeUntilFailure() < model.dvp.uAutomaticProcessTime(palletID)
-					&& model.autoNodes[i].getlastTVType() == model.conveyorSegments[segmentID].positions[palletID].tvType
-					&& model.conveyorSegments[segmentID].positions[palletID].inMotion == false)
+				if(model.autoNodes[autoNodeId].getTimeUntilFailure() < model.dvp.uAutomaticProcessTime(autoNodeId)
+					&& model.autoNodes[autoNodeId].getlastTVType() == model.conveyorSegments[segmentID].positions[autoNodeId].tvType
+					&& model.conveyorSegments[segmentID].positions[autoNodeId].inMotion == false)
 				{
-					return i;
+					return autoNodeId;
 				}
 			}
 		}
@@ -133,15 +132,19 @@ public class UDPs
 	 * 
 	 */
 	public int GetAutoNodeRequiringRetooling(){
-		for (int index = model.autoNodes.length - 1; index >= 0 ; index--){
-			int segmentID = GetAssociatedSegmentID(index, true);
-			int capacity = model.conveyorSegments[segmentID].getCapacity();
+		for (int autoNodeId = model.autoNodes.length - 1; autoNodeId >= 0 ; autoNodeId--){
+			int segmentID = GetAssociatedSegmentID(autoNodeId, true);
+			int headOfSegment = model.conveyorSegments[segmentID].getCapacity() - 1;
 			
-			if((model.autoNodes[index].getTimeUntilFailure() > model.dvp.uAutomaticProcessTime(index))
-					&&(model.autoNodes[index].getlastTVType() != model.conveyorSegments[segmentID].positions[capacity - 1].tvType)
-					&&(model.conveyorSegments[segmentID].positions[capacity - 1].inMotion == false)
-					&&(model.maintenance.busy == false))
-				return index;
+			if (model.conveyorSegments[segmentID].positions[headOfSegment] != null) {
+				if((model.autoNodes[autoNodeId].getTimeUntilFailure() > model.dvp.uAutomaticProcessTime(autoNodeId))
+						&&(model.autoNodes[autoNodeId].getlastTVType() != model.conveyorSegments[segmentID].positions[headOfSegment].tvType)
+						&&(model.conveyorSegments[segmentID].positions[headOfSegment].inMotion == false)
+						&&(model.maintenance.busy == false))
+				{
+					return autoNodeId;
+				}
+			}
 		}
 		return -1;
 	}
@@ -174,19 +177,25 @@ public class UDPs
 	 * Else Return -1;
 	 * @return
 	 */
-	public int GetManualNodeReadyForProcessing(){
-		for (int index = model.manualNodes.length - 1; index >= 0 ; index--){
-			if (model.manualNodes[index].getBusy() == false){
-				int segmentID = this.GetAssociatedSegmentID(index, false);
-				int capacity = model.conveyorSegments[segmentID].getCapacity();
-				
-				if (model.conveyorSegments[segmentID].positions[capacity - 1] != null) 
-						if(model.conveyorSegments[segmentID].positions[capacity - 1].inMotion == false)
-							return index;
-				
+	public int GetManualNodeReadyForProcessing() {
+		for (int manualNodeId = model.manualNodes.length - 1; manualNodeId >= 0; manualNodeId--) {
+
+			if (model.manualNodes[manualNodeId].getBusy() == false) {
+
+				int segmentID = this.GetAssociatedSegmentID(manualNodeId, false);
+				int headOfSegment = model.conveyorSegments[segmentID].getCapacity() - 1;
+
+				if (model.conveyorSegments[segmentID].positions[headOfSegment] != null) {
+
+					if (model.conveyorSegments[segmentID].positions[headOfSegment].inMotion == false
+							&& model.conveyorSegments[segmentID].positions[headOfSegment].finishedProcessing == false) {
+
+						return manualNodeId;
+					}
+				}
 			}
 		}
-				return -1;
+		return -1;
 	}
 	/**
 	 * If (autoNodeID = OP20) THEN Return RVP.uOP20RepairTime()
@@ -220,16 +229,20 @@ public class UDPs
 			{
 				int currConveyor = model.pallets[i].currConveyor;
 				int currPosition = model.pallets[i].currPosition;
-				if(currPosition < model.conveyorSegments[currConveyor].getCapacity() - 1)
+				int headOfSegment = model.conveyorSegments[currConveyor].getCapacity() - 1;
+				if(currPosition < headOfSegment)
 				{
 					if(model.conveyorSegments[currConveyor].positions[currPosition + 1] == null
 							|| model.conveyorSegments[currConveyor].positions[currPosition + 1].inMotion == true)
 					{
 						return i;
 					}
+					else {
+						//evaluate the another pallet
+						continue;
+					}
 				}
-				else if (currPosition == model.conveyorSegments[currConveyor].getCapacity() - 1
-						&& model.pallets[i].finishedProcessing == true)
+				else if (currPosition == headOfSegment)
 				{
 					//evaluated much deeper in this ugly if tree
 					int nextconveyor = model.conveyorSegments[model.pallets[i].currConveyor].getnextConveyor();
@@ -237,14 +250,20 @@ public class UDPs
 					
 					if(model.pallets[i].currConveyor == Const.CS_RETEST)
 					{
+						//The goal is to 
+						
 						int testcapacity = model.conveyorSegments[Const.CS_TEST].getCapacity();
 						if(model.conveyorSegments[Const.CS_TEST].positions[testcapacity - 1] == null
 								|| model.conveyorSegments[Const.CS_TEST].positions[testcapacity - 1].inMotion == true)
 						{
 							return i;
 						}
-					}
-					else if(model.pallets[i].moveRework)
+						else
+						{
+							//if the pallet can't move, evaluate another pallet
+							continue;
+						}
+					} else if(model.pallets[i].moveRework)
 					{
 						int reworkcapacity = model.conveyorSegments[Const.CS_REWORK].getCapacity();
 						if(model.conveyorSegments[Const.CS_REWORK].positions[reworkcapacity - 1] == null
@@ -252,11 +271,23 @@ public class UDPs
 						{
 							return i;
 						}
+						else
+						{
+							//evaluate another pallet
+							continue;
+						}
 					}
-					else if(model.conveyorSegments[nextconveyor].positions[nextcapacity - 1] == null
+					else if(model.pallets[i].finishedProcessing == true &&
+							(model.conveyorSegments[nextconveyor].positions[nextcapacity - 1] == null
 							|| model.conveyorSegments[nextconveyor].positions[nextcapacity - 1].inMotion == true)
+							)
 					{
 						return i;
+					}
+					else
+					{
+						//evaluate another pallet
+						continue;
 					}
 				}
 			}

@@ -20,11 +20,14 @@ public class MovePallet extends ConditionalActivity {
 		model = panoramaTV;
 		// TODO Auto-generated constructor stub
 	}
-	@Override
-	protected double duration() {
-		// TODO Auto-generated method stub
-		return 0.5;
+	
+
+	public static boolean preconditon(PanoramaTV model)
+	{
+		int moveablePallet = model.udp.GetPalletReadyForMoving();
+		return (moveablePallet != -1);
 	}
+	
 	/**
 	 * pallet ← UDP.GetPalletReadyForMoving()
 	 * currPosition ← RC.Pallets[pallet].currPosition;
@@ -39,6 +42,11 @@ public class MovePallet extends ConditionalActivity {
 		
 		// TODO Auto-generated method stub
 
+	}
+	
+	@Override
+	protected double duration() {
+		return 0.5;
 	}
 	/**
 	 * 
@@ -60,11 +68,25 @@ RC.Pallets[pallet].currPosition = 0;
 	@Override
 	protected void terminatingEvent() {
 		
-		// TODO Auto-generated method stub
-		if(this.model.pallets[pallet].currPosition == (capacity-1)){
+		int headOfSegment = capacity - 1;
+		
+		if(this.model.pallets[pallet].currPosition < headOfSegment)
+		{
+			int tempVar =this.model.pallets[pallet].currPosition;
+			this.model.conveyorSegments[segmentID].positions[tempVar] = null;
+			this.model.pallets[pallet].currPosition++;
+			tempVar = this.model.pallets[pallet].currPosition;
+			this.model.conveyorSegments[segmentID].positions[tempVar] = this.model.pallets[pallet];
+		}
+		else if(this.model.pallets[pallet].currPosition == headOfSegment){
 			
-			
-			if(this.model.pallets[pallet].moveRework){
+			if(this.model.pallets[pallet].currConveyor == Const.CS_RETEST){
+				this.model.conveyorSegments[segmentID].positions[capacity-1]= null;
+				int testHeadOfSegment = this.model.conveyorSegments[Const.CS_TEST].getCapacity() - 1;
+				this.model.conveyorSegments[Const.CS_TEST].positions[testHeadOfSegment] = this.model.pallets[pallet];
+				this.model.pallets[pallet].currConveyor = Const.CS_TEST;
+				this.model.pallets[pallet].currPosition = testHeadOfSegment;
+			}else if(this.model.pallets[pallet].moveRework){
 				this.model.conveyorSegments[segmentID].positions[capacity-1]= null;
 				this.model.conveyorSegments[Const.CS_REWORK].positions[0] = this.model.pallets[pallet];
 				this.model.pallets[pallet].currConveyor = Const.CS_REWORK;
@@ -75,33 +97,11 @@ RC.Pallets[pallet].currPosition = 0;
 				this.model.conveyorSegments[nextSeg].positions[0] = this.model.pallets[pallet];
 				this.model.pallets[pallet].currConveyor = nextSeg;
 				this.model.pallets[pallet].currPosition = 0;
-				
 			}
-		} else {
-			int tempVar =this.model.pallets[pallet].currPosition;
-			this.model.conveyorSegments[segmentID].positions[tempVar]=null;
-			this.model.pallets[pallet].currPosition++;
-			tempVar = this.model.pallets[pallet].currPosition;
-			this.model.conveyorSegments[segmentID].positions[tempVar]= 
-					this.model.pallets[pallet];
 		}
-
+		
 		this.model.pallets[pallet].inMotion = false;
 		this.model.pallets[pallet].finishedProcessing = false;
-	
-
-	}
-	/**
-	 * moveablePallet ← UDP.GetPalletReadyForMoving()
-	 * TRUE if moveablePallet is NOT -1
-	 * FALSE if moveablePallet is -1
-
-	 * @param model
-	 */
-	public static boolean preconditon(PanoramaTV model)
-	{
-		int moveablePallet = model.udp.GetPalletReadyForMoving();
-		return (moveablePallet != -1);
 	}
 	
 
