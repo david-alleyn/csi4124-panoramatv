@@ -4,7 +4,7 @@ import simulationModelling.ConditionalActivity;
 
 public class StartProcessing extends ConditionalActivity {
 	PanoramaTV model;
-	int node;
+	int autoNodeId;
 	public StartProcessing(PanoramaTV localmodel) {
 		// TODO Auto-generated constructor stub
 		this.model = localmodel;
@@ -13,7 +13,7 @@ public class StartProcessing extends ConditionalActivity {
 	@Override
 	protected double duration() {
 		// TODO Auto-generated method stub
-		return model.autoNodes[node].getTimeUntilFailure();
+		return model.autoNodes[autoNodeId].getTimeUntilFailure();
 	}
 /**
  * autoNode â†� UDP.GetAutoNodeForPartialProcessing();
@@ -23,9 +23,14 @@ public class StartProcessing extends ConditionalActivity {
 	@Override
 	public void startingEvent() {
 		// TODO Auto-generated method stub
-		node =  model.udp.GetAutoNodeForPartialProcessing();
-		model.autoNodes[node].setBusy(true);
-		model.autoNodes[node].processTime = model.dvp.uAutomaticProcessTime(node) - model.autoNodes[node].getTimeUntilFailure();
+		autoNodeId =  model.udp.GetAutoNodeForPartialProcessing();
+		model.autoNodes[autoNodeId].setBusy(true);
+		model.autoNodes[autoNodeId].processTime = model.dvp.uAutomaticProcessTime(autoNodeId) - model.autoNodes[autoNodeId].getTimeUntilFailure();
+		
+		if(model.autoNodes[autoNodeId].processTime < 0)
+		{
+			model.autoNodes[autoNodeId].processTime = 0.00001;
+		}
 		
 	}
 	/**
@@ -33,8 +38,7 @@ public class StartProcessing extends ConditionalActivity {
 	 */
 	@Override
 	protected void terminatingEvent() {
-		// TODO Auto-generated method stub
-		model.autoNodes[node].setTimeUntilFailure(0);
+		model.autoNodes[autoNodeId].setTimeUntilFailure(0);
 	}
 	/**
 	 * autoNode â†� UDP.GetAutoNodeForPartialProcessing()

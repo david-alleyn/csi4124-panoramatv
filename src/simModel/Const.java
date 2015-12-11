@@ -10,7 +10,6 @@ public class Const
 	// Define constants as static
 	// Example: protected final static double realConstant = 8.0;
 	public static final int ELECTRONIC_ON_SIZE = 1;
-	public static final int numPallets = 40;
 	
 	/**
 	 * Conveyer ID.

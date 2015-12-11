@@ -30,7 +30,6 @@ public class AutoProcessing extends ConditionalActivity {
 
 	@Override
 	public void startingEvent() {
-		// TODO Auto-generated method stub
 		autoNodeId = model.udp.GetAutoNodeReadyForProcessing();
 		model.autoNodes[autoNodeId].setBusy(true);
 		
