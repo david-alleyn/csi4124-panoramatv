@@ -238,7 +238,7 @@ public class UDPs
 						return i;
 					}
 				}
-				else if (currPosition == headOfSegment)
+				else if (currPosition == headOfSegment && model.pallets[i].finishedProcessing)
 				{
 					//evaluated much deeper in this ugly if tree
 					int nextconveyor = model.conveyorSegments[model.pallets[i].currConveyor].getnextConveyor();
@@ -246,25 +246,26 @@ public class UDPs
 					
 					if(model.pallets[i].currConveyor == Const.CS_RETEST)
 					{
-						int testcapacity = model.conveyorSegments[Const.CS_TEST].getCapacity();
-						if(model.conveyorSegments[Const.CS_TEST].positions[testcapacity - 1] == null
-								|| model.conveyorSegments[Const.CS_TEST].positions[testcapacity - 1].inMotion == true)
+						int headOfTest = model.conveyorSegments[Const.CS_TEST].getCapacity() - 1;
+						if(model.conveyorSegments[Const.CS_TEST].positions[headOfTest] != null && model.conveyorSegments[Const.CS_TEST].positions[headOfTest].inMotion)
 						{
-							return i;
-						}
-					} else if(model.pallets[i].moveRework)
-					{
-						int reworkcapacity = model.conveyorSegments[Const.CS_REWORK].getCapacity();
-						if(model.conveyorSegments[Const.CS_REWORK].positions[reworkcapacity - 1] == null
-								|| model.conveyorSegments[Const.CS_REWORK].positions[reworkcapacity - 1].inMotion == true)
-						{
-							return i;
+							continue;
 						}
 					}
-					else if(model.pallets[i].finishedProcessing == true &&
-							(model.conveyorSegments[nextconveyor].positions[nextcapacity - 1] == null
-							|| model.conveyorSegments[nextconveyor].positions[nextcapacity - 1].inMotion == true)
-							)
+					
+					if(model.pallets[i].currConveyor == Const.CS_TEST)
+					{
+						int headOfRetest = model.conveyorSegments[Const.CS_RETEST].getCapacity() - 1;
+						if(model.conveyorSegments[Const.CS_RETEST].positions[headOfRetest] != null && model.conveyorSegments[Const.CS_RETEST].positions[headOfRetest].inMotion)
+						{
+							continue;
+						}
+					}
+					
+					int nextConveyor = model.conveyorSegments[model.pallets[i].currConveyor].nextConveyor;
+					
+					if(model.conveyorSegments[nextConveyor].positions[0] == null || 
+							(model.conveyorSegments[nextConveyor].positions[0] != null && model.conveyorSegments[nextConveyor].positions[0].inMotion))
 					{
 						return i;
 					}
