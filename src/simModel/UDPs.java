@@ -223,7 +223,7 @@ public class UDPs
 	 * @return
 	 */
 	public int GetPalletReadyForMoving(){
-		for(int i = model.pallets.length - 1; i >= 0; i--)
+		for(int i = 0; i < model.pallets.length; i++)
 		{
 			if(!model.pallets[i].inMotion)
 			{

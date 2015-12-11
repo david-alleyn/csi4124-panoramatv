@@ -20,7 +20,7 @@ capacity :: Total number of positions
 	private int numPallets;
 	/** The index of the next logical default segment which follows from this one.
 	 */
-	public int nextConveyor = -1;
+	public int nextConveyor;
 	public Pallet[] positions;
 	/** Total number of positions */
 	private int capacity;

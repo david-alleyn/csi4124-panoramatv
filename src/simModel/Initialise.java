@@ -46,18 +46,8 @@ class Initialise extends ScheduledAction
 		{
 			model.pallets[i].setTVtype(TvType.None);
 			model.pallets[i].moveRework(false);
-			model.pallets[i].currConveyor = Const.CS_OP10;
 			model.pallets[i].finishedProcessing = false;
 			model.pallets[i].inMotion = false;
-		}
-		
-		for(int i = 0; i < model.conveyorSegments.length; i++)
-		{
-			// CHANGE THIS TO REFLECT THE DYNAMIC WAY TO SPECIFY CAPS
-			// CHANGE THIS TO REFLECT THE DYNAMIC WAY TO SPECIFY CAPS
-			// CHANGE THIS TO REFLECT THE DYNAMIC WAY TO SPECIFY CAPS
-			// CHANGE THIS TO REFLECT THE DYNAMIC WAY TO SPECIFY CAPS
-			//model.conveyorSegments[i].setCapacity(Const.CAPACITY[i]);
 		}
 		
 		model.maintenance.setBusy(false);
