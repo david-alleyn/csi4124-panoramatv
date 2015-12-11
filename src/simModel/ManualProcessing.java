@@ -48,7 +48,7 @@ public class ManualProcessing extends ConditionalActivity {
 			
 		} else if (manualNodeId == Const.OP60) {
 			
-			model.conveyorSegments[segmentId].positions[headOfSegment].tvType = null;
+			model.conveyorSegments[segmentId].positions[headOfSegment].tvType = TvType.None;
 		} else if (manualNodeId == Const.REWORK) {
 			
 			model.conveyorSegments[segmentId].positions[headOfSegment].finishedProcessing = true;
