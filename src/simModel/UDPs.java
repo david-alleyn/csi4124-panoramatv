@@ -66,6 +66,40 @@ public class UDPs
 		}
 	}
 	
+	public int GetAssociatedNodeID(int segmentId){
+		
+		switch(segmentId)
+		{
+		case Const.CS_OP10:
+			return Const.OP10;
+		case Const.CS_OP20:
+			return Const.OP20;
+		case Const.CS_OP30:
+			return Const.OP30;
+		case Const.CS_OP40A:
+			return Const.OP40A;
+		case Const.CS_OP40B:
+			return Const.OP40B;
+		case Const.CS_OP40C:
+			return Const.OP40C;
+		case Const.CS_OP40D:
+			return Const.OP40D;
+		case Const.CS_OP40E:
+			return Const.OP40E;
+		case Const.CS_RETEST:
+		case Const.CS_TEST:
+			return Const.TEST;
+		case Const.CS_REWORK:
+			return Const.REWORK;
+		case Const.CS_OP50:
+			return Const.OP50;
+		case Const.CS_OP60:
+			return Const.OP60;
+			default:
+				return -1;
+		}
+	}
+	
 	public int GetAutoNodeReadyForProcessing(){		
 		
 		//Iterate from the end to the beginning of the array.
@@ -164,7 +198,7 @@ public class UDPs
 	public int GetAutoNodeRequiringRepair(){
 		for (int index = model.autoNodes.length - 1; index >= 0 ; index--){
 			if (model.autoNodes[index].getTimeUntilFailure() <= 0 && 
-				(model.maintenance.busy == false))
+				(model.maintenance.busy == false) && model.autoNodes[index].getBusy())
 				return index;
 		}
 		return -1;

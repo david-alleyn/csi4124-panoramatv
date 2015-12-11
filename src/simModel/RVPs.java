@@ -21,10 +21,10 @@ class RVPs extends java.lang.Object
 	Const localConstantClass;
 	private BimodalEmpDist localbinomialEmpDist = new BimodalEmpDist(this.histogram);
 	private double[] histogram = {0, 10, 20, 30, 40, 50, 60, 70};
-	private Exponential Mean20 = new Exponential( 20, new MersenneTwister() );
-	private Exponential Mean30 = new Exponential( 450, new MersenneTwister() );
-	private Exponential Mean50 = new Exponential( 370, new MersenneTwister() );
-	private Exponential MeanTEST = new Exponential( 250, new MersenneTwister() );
+	private Exponential Mean20 = new Exponential( 1.0/20, new MersenneTwister() );
+	private Exponential Mean30 = new Exponential( 1.0/450, new MersenneTwister() );
+	private Exponential Mean50 = new Exponential( 1.0/370, new MersenneTwister() );
+	private Exponential MeanTEST = new Exponential( 1.0/250, new MersenneTwister() );
 	private Normal localNorm = new Normal (1.9, 0.19, new MersenneTwister());
 	
 	

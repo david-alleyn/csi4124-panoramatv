@@ -12,7 +12,6 @@ public class AutoProcessing extends ConditionalActivity {
 	 */
 	private PanoramaTV model; 
 	private int autoNodeId;
-	AutoNode node;
 	private int segmentID;
 	//  private double timeUntilFailure;
 	
@@ -45,7 +44,6 @@ public class AutoProcessing extends ConditionalActivity {
 
 	@Override
 	protected void terminatingEvent() {
-		// TODO Auto-generated method stub
 		
 		if(autoNodeId == Const.CS_TEST)
 		{

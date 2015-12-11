@@ -20,7 +20,7 @@ public class RepairEquipment extends ConditionalActivity {
 	 * FALSE if autoNode is -1
 	 */
 	public static boolean precondition(PanoramaTV model){
-		return (model.udp.GetAutoNodeRequiringRepair() != -1);		
+		return (model.udp.GetAutoNodeRequiringRepair() != -1);
 	}
 	
 	/**
