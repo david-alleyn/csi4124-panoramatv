@@ -33,7 +33,7 @@ class Initialise extends ScheduledAction
 		for(int i = 0; i < model.autoNodes.length; i++)
 		{
 			model.autoNodes[i].setBusy(false);
-			model.autoNodes[i].setLastTVType(TvType.Small);
+			model.autoNodes[i].lastTVType = TvType.Small;
 			model.autoNodes[i].processTime = 0.0;
 			model.autoNodes[i].setTimeUntilFailure(model.rvp.uTimeUntilFailure(i));
 			

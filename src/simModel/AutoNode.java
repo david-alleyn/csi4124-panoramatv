@@ -17,26 +17,15 @@ public class AutoNode {
 	/** Used to compare the machine�s current configuration with the one required for 
 	 * processing the next TV. Is set to the correct type by SetupEquipment during operation. 
 	 * Is set by Initialize action during initialization. */
-	private TvType lastTVtype;
+	public TvType lastTVType;
 	/**Time left until next breakdown. This time is re-initialised 
 	 * after a repair and decremented after each processing of TV on the automatic node
 	 */	
 	private double timeUntilFailure;
-	/**Time left until next breakdown. This time is re-initialised 
-	 * after a repair and decremented after each processing of TV on the automatic node.	 */
-	public TvType lastTVType;
 	public double processTime;
 	
 	public void setBusy(Boolean busy){
 		this.busy = busy;
-	}
-	
-	public void setLastTVType(TvType tvtype){
-		this.lastTVType = tvtype;
-	}
-	
-	public TvType getlastTVType(){
-		return this.lastTVType;
 	}
 	
 	public boolean getBusy(){

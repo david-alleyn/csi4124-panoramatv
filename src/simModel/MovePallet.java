@@ -83,9 +83,11 @@ RC.Pallets[pallet].currPosition = 0;
 			if(this.model.pallets[pallet].currConveyor == Const.CS_RETEST){
 				this.model.conveyorSegments[segmentID].positions[headOfSegment]= null;
 				int testHeadOfSegment = this.model.conveyorSegments[Const.CS_TEST].getCapacity() - 1;
-				this.model.conveyorSegments[Const.CS_TEST].positions[testHeadOfSegment] = this.model.pallets[pallet];
+				this.model.conveyorSegments[Const.CS_TEST].positions[0] = this.model.pallets[pallet];
 				this.model.pallets[pallet].currConveyor = Const.CS_TEST;
-				this.model.pallets[pallet].currPosition = testHeadOfSegment;
+				this.model.pallets[pallet].currPosition = 0;
+				this.model.pallets[pallet].finishedProcessing = true;
+				
 			}else if(this.model.pallets[pallet].moveRework){
 				this.model.conveyorSegments[segmentID].positions[headOfSegment]= null;
 				this.model.conveyorSegments[Const.CS_REWORK].positions[0] = this.model.pallets[pallet];
@@ -98,6 +100,10 @@ RC.Pallets[pallet].currPosition = 0;
 				this.model.pallets[pallet].currConveyor = nextSeg;
 				this.model.pallets[pallet].currPosition = 0;
 			}
+		}
+		
+		if(segmentID == Const.OP60){
+			model.getOutput().numTVAssembled++;
 		}
 		
 		this.model.pallets[pallet].inMotion = false;
