@@ -79,6 +79,7 @@ RC.Pallets[pallet].currPosition = 0;
 			model.conveyorSegments[currConveyorId].positions[model.pallets[pallet].currPosition] = null;
 			model.pallets[pallet].currPosition = nextPosition;
 			model.conveyorSegments[currConveyorId].positions[nextPosition] = model.pallets[pallet];
+			model.pallets[pallet].finishedProcessing = false;
 		}
 		else
 		{
@@ -109,49 +110,6 @@ RC.Pallets[pallet].currPosition = 0;
 		}
 		
 		model.pallets[pallet].inMotion = false;
-		
-//		rcPallet.moving = false;
-//		
-//		int headOfSegment = capacity - 1;
-//		
-//		if(this.model.pallets[pallet].currPosition < headOfSegment)
-//		{
-//			int tempVar =this.model.pallets[pallet].currPosition;
-//			this.model.conveyorSegments[segmentID].positions[tempVar] = null;
-//			this.model.pallets[pallet].currPosition++;
-//			tempVar = this.model.pallets[pallet].currPosition;
-//			this.model.conveyorSegments[segmentID].positions[tempVar] = this.model.pallets[pallet];
-//		}
-//		else if(this.model.pallets[pallet].currPosition == headOfSegment){
-//			
-//			if(this.model.pallets[pallet].currConveyor == Const.CS_RETEST){
-//				this.model.conveyorSegments[segmentID].positions[headOfSegment]= null;
-//				int testHeadOfSegment = this.model.conveyorSegments[Const.CS_TEST].getCapacity() - 1;
-//				this.model.conveyorSegments[Const.CS_TEST].positions[0] = this.model.pallets[pallet];
-//				this.model.pallets[pallet].currConveyor = Const.CS_TEST;
-//				this.model.pallets[pallet].currPosition = 0;
-//				this.model.pallets[pallet].finishedProcessing = true;
-//				
-//			}else if(this.model.pallets[pallet].moveRework){
-//				this.model.conveyorSegments[segmentID].positions[headOfSegment]= null;
-//				this.model.conveyorSegments[Const.CS_REWORK].positions[0] = this.model.pallets[pallet];
-//				this.model.pallets[pallet].currConveyor = Const.CS_REWORK;
-//				this.model.pallets[pallet].currPosition = 0;
-//			}else{
-//				this.model.conveyorSegments[segmentID].positions[headOfSegment]= null;
-//				int nextSeg = this.model.conveyorSegments[segmentID].nextConveyor;
-//				this.model.conveyorSegments[nextSeg].positions[0] = this.model.pallets[pallet];
-//				this.model.pallets[pallet].currConveyor = nextSeg;
-//				this.model.pallets[pallet].currPosition = 0;
-//			}
-//		}
-//		
-//		if(segmentID == Const.OP60){
-//			model.output.numTVAssembled++;
-//		}
-//		
-//		this.model.pallets[pallet].inMotion = false;
-//		this.model.pallets[pallet].finishedProcessing = false;
 	}
 	
 

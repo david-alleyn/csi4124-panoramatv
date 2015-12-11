@@ -47,6 +47,13 @@ public class AutoProcessing extends ConditionalActivity {
 	@Override
 	protected void terminatingEvent() {
 		// TODO Auto-generated method stub
+		
+		if(autoNodeId == Const.CS_TEST)
+		{
+			int headOfSegment = model.conveyorSegments[autoNodeId].getCapacity() - 1;
+			model.pallets[headOfSegment].moveRework = model.rvp.uPassTvTesting();
+		}
+		
 		model.autoNodes[autoNodeId].setBusy(false);
 		segmentID = model.udp.GetAssociatedSegmentID(autoNodeId, true);
 		model.autoNodes[autoNodeId].setTimeUntilFailure(model.autoNodes[autoNodeId].getTimeUntilFailure() - model.autoNodes[autoNodeId].processTime);

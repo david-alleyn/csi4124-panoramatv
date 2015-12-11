@@ -4,6 +4,7 @@ package simModel;
  */
 import cern.jet.random.Exponential;
 import cern.jet.random.Normal;
+import cern.jet.random.Uniform;
 import cern.jet.random.engine.MersenneTwister;
 import cern.jet.random.Distributions;
 
@@ -40,13 +41,16 @@ class RVPs extends java.lang.Object
 		return this.localNorm.nextDouble(); // not sure about it.. 
 	}
 	
-	/**
-	 * public int uTimeUntilFailure(AutoNode OP){ NEGEXPO(OP); if(OP = OP20)
-	 * MEAN = 30 else if (OP = OP30) MEAN = 450 else if(OP = OP50) MEAN = 370
-	 * else if (OP = TEST) MEAN = 250 } I had problem understading.. how do
-	 * Autonode get hold of OP.. there should be a local copy of it.. I will
-	 * come back to it..
-	 */
+	public boolean uPassTvTesting()
+	{
+		cern.jet.random.Uniform random = new Uniform(new MersenneTwister());
+		double randomData = random.nextDoubleFromTo(1, 100);
+		if(randomData <= 5)
+			return true;
+		else
+			return false;
+	}
+	
 	/**
 	 * 
 	 * @return Returns time to rework a TV.
@@ -92,17 +96,7 @@ class RVPs extends java.lang.Object
 	 * @return Returns time to repair the equipment at OPTEST.
 	 */
 	public double uTESTRepairTime(){
-		
-		
 		return localbinomialEmpDist.getNext();
-	}
-	/**
-	 * 
-	 * @param node
-	 * @return Returns time to setup 
-	 */
-	public int SetupProcedTime(TvType node){
-		return -1;
 	}
 
 	

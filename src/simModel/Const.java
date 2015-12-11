@@ -49,23 +49,6 @@ public class Const
 	final static int REWORK = 6;
 	final static int OP60 = 7;
 	
-	final static int[] CAPACITY = 
-		{
-			40, // CS_OP10 ~ 40 - 120
-			5,  // CS_OP20 ~ 5-15
-			5,  // CS_OP30 ~ 5-15
-			5,  // CS_OP40A
-			1,  // CS_OP40B
-			1,  // CS_OP40C
-			1,  // CS_OP40D
-			1,  // CS_OP40E
-			5,  // CS_TEST ~ 5-15
-			10, // CS_REWORK ~ 10-30
-			5,  // CS_RETEST
-			5,  // CS_OP50 ~ 5-15
-			5   // CS_OP60 ~ 5-15
-		};
-	
 	final static int numSmallTvs = 20;
 	final static int numMediumTvs = 30;
 	final static int numLargeTvs = 40;
