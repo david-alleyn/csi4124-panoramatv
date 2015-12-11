@@ -30,6 +30,7 @@ public class RepairEquipment extends ConditionalActivity {
 	public void startingEvent() {
 		// TODO Auto-generated method stub
 		this.autoNodeId = model.udp.GetAutoNodeRequiringRepair();
+		model.maintenance.busy = true;
 	}
 	
 	/** t <-- UDP.GetNodeRepairTime(autoNode)
@@ -47,6 +48,7 @@ public class RepairEquipment extends ConditionalActivity {
 	protected void terminatingEvent() {
 		model.autoNodes[autoNodeId].setTimeUntilFailure(model.rvp.uTimeUntilFailure(autoNodeId));
 		model.autoNodes[autoNodeId].setBusy(false);
+		model.maintenance.busy = false;
 		
 
 	}

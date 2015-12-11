@@ -176,7 +176,7 @@ public class PanoramaTV extends AOSimulationModel
 		// Check preconditions of Interruptions in Extended Activities
 	}
 
-	boolean traceflag = false;
+	boolean traceflag = true;
 	
 	
 	int days = 0;
@@ -201,15 +201,15 @@ public class PanoramaTV extends AOSimulationModel
 		if (this.debug)
 			output.printConveyors(this.getClock());
 		
-//		if(traceflag)
-//		{
-//			// Can add other trace/log code to monitor the status of the system
-//			// See examples for suggestions on setup logging
-//			this.showSBL();
-//		    // PriorityQueue<SBNotice> sbl = this.getCopySBL();
-//			// explicitShowSBL(sbl);
-//
-//		}
+		if(traceflag)
+		{
+			// Can add other trace/log code to monitor the status of the system
+			// See examples for suggestions on setup logging
+			this.showSBL();
+		    // PriorityQueue<SBNotice> sbl = this.getCopySBL();
+			// explicitShowSBL(sbl);
+
+		}
 
 		// Setup an updateTrjSequences() method in the Output class
 		// and call here if you have Trajectory Sets

@@ -12,7 +12,7 @@ public class Output {
 	}
 
 	public void printConveyors(double clock) {
-		System.out.println("\nTime: " + clock);
+		System.out.println("\nTime: " + clock + ", # TVs Produced: " + numTVAssembled);
 		for (int j = 0; j < model.conveyorSegments.length; j++) {
 			System.out.print(j + " \t(" + model.conveyorSegments[j].getCapacity() + ")"
 					+ ((model.conveyorSegments[j].getCapacity() < 10) ? "  " : " ") + "<");

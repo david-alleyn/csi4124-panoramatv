@@ -36,6 +36,7 @@ public class SetupEquipment extends ConditionalActivity {
         segmentID = model.udp.GetAssociatedSegmentID(autoNodeId, true);
         localcapacity = model.conveyorSegments[segmentID].getCapacity();
         model.autoNodes[autoNodeId].setBusy(true);
+        model.maintenance.busy = true;
 
     }
 
@@ -45,6 +46,7 @@ public class SetupEquipment extends ConditionalActivity {
         model.autoNodes[autoNodeId].lastTVType
                 = model.conveyorSegments[segmentID].positions[localcapacity - 1].tvType;
         model.autoNodes[autoNodeId].setBusy(false);
+        model.maintenance.busy = false;
     }
 
 }

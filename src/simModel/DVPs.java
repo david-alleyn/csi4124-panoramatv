@@ -65,9 +65,21 @@ class DVPs {
 		return tvType;
 	}
 
-	public int uAutomaticProcessTime(int autoNodeId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public double uAutomaticProcessTime(int autoNodeId) {
+		switch(autoNodeId)
+		{
+		case Const.OP10:
+			return 2.1;
+		case Const.OP30:
+			return 2;
+		case Const.OP50:
+			return 2.1;
+		case Const.TEST:
+			return 1.5;
+		default:
+			return 0;
+				
+		}
 	}
 
 	public double uElectronicAssemblyTime() {

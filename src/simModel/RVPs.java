@@ -106,9 +106,6 @@ class RVPs extends java.lang.Object
 	 * @return  Returns time until failure of specified automatic node.
 	 */
 	public double uTimeUntilFailure(int OperationNode) {
-		// TODO Auto-generated method stub
-		
-	
 		if (OperationNode == Const.OP20)
 			return Mean20.nextDouble();
 		else if (OperationNode == Const.OP30)
