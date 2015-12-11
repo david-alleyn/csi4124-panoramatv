@@ -63,12 +63,12 @@ public class ExperimentX
 			mname = new PanoramaTV(startTime, endTime, numPallets, segmentCapacities, sds[i]);
 
 			if (writeToCSV)
-				mname.getOutput().out = out;
+				mname.output.out = out;
 
 			mname.runSimulation();
 
 			if (writeToCSV)
-				mname.getOutput().flushCSVline();
+				mname.output.flushCSVline();
 
 			System.out.println();
 		}

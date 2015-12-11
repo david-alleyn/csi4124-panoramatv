@@ -38,7 +38,7 @@ public class PanoramaTV extends AOSimulationModel
 	public AutoNode [] autoNodes;
 	public Maintenance maintenance;
 	// Output object
-	private Output output;
+	public Output output;
 	
 	public int [] segmentCapacities;
 	
@@ -258,10 +258,6 @@ public class PanoramaTV extends AOSimulationModel
 		scheduleActivity(seqAct);
 	}	
 	public double getClock() {return Math.abs( super.getClock());}
-
-	public Output getOutput() {
-		return output;
-	}
 
 	public void setOutput(Output output) {
 		this.output = output;
