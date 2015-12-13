@@ -113,8 +113,9 @@ public class UDPs
 				if(model.conveyorSegments[segmentID].positions[headOfSegment] != null)
 				{
 					if(model.autoNodes[autoNodeId].getTimeUntilFailure() > model.dvp.uAutomaticProcessTime(autoNodeId)
-						&& model.autoNodes[autoNodeId].lastTVType == model.conveyorSegments[segmentID].positions[headOfSegment].tvType
-						&& model.conveyorSegments[segmentID].positions[headOfSegment].inMotion == false)
+							&& model.autoNodes[autoNodeId].lastTVType == model.conveyorSegments[segmentID].positions[headOfSegment].tvType
+							&& model.conveyorSegments[segmentID].positions[headOfSegment].inMotion == false
+							&& model.conveyorSegments[segmentID].positions[headOfSegment].finishedProcessing == false)
 					{
 						return autoNodeId;
 					}
@@ -138,7 +139,8 @@ public class UDPs
 				{
 					if(model.autoNodes[autoNodeId].getTimeUntilFailure() < model.dvp.uAutomaticProcessTime(autoNodeId)
 						&& model.autoNodes[autoNodeId].lastTVType == model.conveyorSegments[segmentID].positions[headOfSegment].tvType
-						&& model.conveyorSegments[segmentID].positions[headOfSegment].inMotion == false)
+						&& model.conveyorSegments[segmentID].positions[headOfSegment].inMotion == false
+							&& model.conveyorSegments[segmentID].positions[headOfSegment].finishedProcessing == false)
 					{
 						return autoNodeId;
 					}
@@ -177,7 +179,8 @@ public class UDPs
 				if((model.autoNodes[autoNodeId].getTimeUntilFailure() > model.dvp.uAutomaticProcessTime(autoNodeId))
 						&&(model.autoNodes[autoNodeId].lastTVType != model.conveyorSegments[segmentID].positions[headOfSegment].tvType)
 						&&(model.conveyorSegments[segmentID].positions[headOfSegment].inMotion == false)
-						&&(model.maintenance.busy == false))
+						&&(model.maintenance.busy == false)
+						&& model.conveyorSegments[segmentID].positions[headOfSegment].finishedProcessing == false)
 				{
 					return autoNodeId;
 				}
@@ -278,8 +281,6 @@ public class UDPs
 				else if (currPosition == headOfSegment && model.pallets[i].finishedProcessing)
 				{
 					//evaluated much deeper in this ugly if tree
-					int nextconveyor = model.conveyorSegments[model.pallets[i].currConveyor].getnextConveyor();
-					int nextcapacity = model.conveyorSegments[nextconveyor].getCapacity();
 					
 					if(model.pallets[i].currConveyor == Const.CS_RETEST)
 					{

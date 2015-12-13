@@ -69,41 +69,43 @@ RC.Pallets[pallet].currPosition = 0;
 	protected void terminatingEvent() {
 		
 		int nextPosition;
-		int currConveyorId = model.pallets[pallet].currConveyor;
-		int headOfSegment = model.conveyorSegments[currConveyorId].getCapacity() - 1;
+		int headOfSegment = model.conveyorSegments[segmentID].getCapacity() - 1;
+
+		int breakpoint;
 
 		if(model.pallets[pallet].currPosition < headOfSegment)
 		{
 			nextPosition = model.pallets[pallet].currPosition + 1;
 
-			model.conveyorSegments[currConveyorId].positions[model.pallets[pallet].currPosition] = null;
+			model.conveyorSegments[segmentID].positions[model.pallets[pallet].currPosition] = null;
 			model.pallets[pallet].currPosition = nextPosition;
-			model.conveyorSegments[currConveyorId].positions[nextPosition] = model.pallets[pallet];
+			model.conveyorSegments[segmentID].positions[nextPosition] = model.pallets[pallet];
 			model.pallets[pallet].finishedProcessing = false;
 		}
 		else
 		{
-			if(currConveyorId == Const.CS_OP60)
+			if(segmentID == Const.CS_OP60)
 				model.output.numTVAssembled++;
 			
 			nextPosition = 0;
 			
-			model.conveyorSegments[currConveyorId].positions[model.pallets[pallet].currPosition] = null;
+			model.conveyorSegments[segmentID].positions[headOfSegment] = null;
 			model.pallets[pallet].currPosition = nextPosition;
 			
 			int nextConveyor;
 			if(model.pallets[pallet].moveRework)
 			{
 				nextConveyor = Const.CS_REWORK;
+				model.pallets[pallet].moveRework = false;
 			}
 			else{
-				nextConveyor = model.conveyorSegments[currConveyorId].nextConveyor;
+				nextConveyor = model.conveyorSegments[segmentID].nextConveyor;
 			}
 			
 			model.pallets[pallet].currConveyor = nextConveyor;
 			model.conveyorSegments[nextConveyor].positions[nextPosition] = model.pallets[pallet];
 
-			if(currConveyorId == Const.CS_RETEST)
+			if(segmentID == Const.CS_RETEST)
 				model.pallets[pallet].finishedProcessing = true;
 			else		   
 				model.pallets[pallet].finishedProcessing = false;

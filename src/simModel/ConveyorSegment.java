@@ -15,9 +15,6 @@ positions :: The array of Pallet entities on the conveyor segment
 capacity :: Total number of positions
 
  */
-	/** The number of Pallets on the conveyor segment
-	 */
-	private int numPallets;
 	/** The index of the next logical default segment which follows from this one.
 	 */
 	public int nextConveyor;
@@ -40,13 +37,7 @@ capacity :: Total number of positions
 	public void setnextConveyor(int nextConveyor){
 		this.nextConveyor = nextConveyor;
 	}
-	
-	public int getnextnumPallets(){
-		return numPallets;
-	}
-	public void setnumPallets(int numPallets){
-		this.numPallets = numPallets;
-	}
+
 	public int getCapacity() {
 		// TODO Auto-generated method stub
 		return this.capacity;

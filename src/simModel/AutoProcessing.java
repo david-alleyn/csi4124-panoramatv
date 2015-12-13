@@ -13,6 +13,7 @@ public class AutoProcessing extends ConditionalActivity {
 	private PanoramaTV model; 
 	private int autoNodeId;
 	private int segmentID;
+	private int headOfSegment;
 	//  private double timeUntilFailure;
 	
 	public AutoProcessing(PanoramaTV localTV){
@@ -30,6 +31,8 @@ public class AutoProcessing extends ConditionalActivity {
 	@Override
 	public void startingEvent() {
 		autoNodeId = model.udp.GetAutoNodeReadyForProcessing();
+		segmentID = model.udp.GetAssociatedSegmentID(autoNodeId,true);
+		headOfSegment = model.conveyorSegments[segmentID].getCapacity() - 1;
 		model.autoNodes[autoNodeId].setBusy(true);
 		
 		if(model.autoNodes[autoNodeId].processTime == 0){			
@@ -44,19 +47,18 @@ public class AutoProcessing extends ConditionalActivity {
 
 	@Override
 	protected void terminatingEvent() {
-		
-		if(autoNodeId == Const.CS_TEST)
+
+
+
+		if(autoNodeId == Const.TEST)
 		{
-			int headOfSegment = model.conveyorSegments[autoNodeId].getCapacity() - 1;
-			model.pallets[headOfSegment].moveRework = model.rvp.uPassTvTesting();
+			model.conveyorSegments[segmentID].positions[headOfSegment].moveRework = model.rvp.uPassTvTesting();
 		}
 		
 		model.autoNodes[autoNodeId].setBusy(false);
-		segmentID = model.udp.GetAssociatedSegmentID(autoNodeId, true);
 		model.autoNodes[autoNodeId].setTimeUntilFailure(model.autoNodes[autoNodeId].getTimeUntilFailure() - model.autoNodes[autoNodeId].processTime);
 		model.autoNodes[autoNodeId].processTime = 0;
-		int capacity = model.conveyorSegments[segmentID].getCapacity();
-		model.conveyorSegments[segmentID].positions[capacity - 1].finishedProcessing = true;
+		model.conveyorSegments[segmentID].positions[headOfSegment].finishedProcessing = true;
 		
 		
 	}

@@ -133,47 +133,59 @@ public class PanoramaTV extends AOSimulationModel
 	{
 		reschedule (behObj);
 		// Check preconditions of Conditional Activities
-		
+
+
+		while (scanPreconditions() == true) /* repeat */;
+		int breakpoint;
+
+	}
+
+	private boolean scanPreconditions()
+	{
+		boolean statusChanged = false;
 		// Check preconditions of Conditional Activities
 		if (AutoProcessing.precondition(this)){
 			AutoProcessing act = new AutoProcessing(this);
 			act.startingEvent();
 			scheduleActivity(act);
+			statusChanged = true;
 		}
-		
+
 		if (StartProcessing.precondition(this)){
 			StartProcessing act = new StartProcessing(this);
 			act.startingEvent();
 			scheduleActivity(act);
+			statusChanged = true;
 		}
-		
+
 		if (RepairEquipment.precondition(this)){
 			RepairEquipment act = new RepairEquipment(this);
 			act.startingEvent();
 			scheduleActivity(act);
+			statusChanged = true;
 		}
-		
+
 		if (SetupEquipment.precondition(this)){
 			SetupEquipment act = new SetupEquipment(this);
 			act.startingEvent();
 			scheduleActivity(act);
+			statusChanged = true;
 		}
-		
+
 		if (ManualProcessing.precondition(this)){
 			ManualProcessing act = new ManualProcessing(this);
 			act.startingEvent();
 			scheduleActivity(act);
+			statusChanged = true;
 		}
-		
+
 		if (MovePallet.preconditon(this)){
 			MovePallet act = new MovePallet(this);
 			act.startingEvent();
 			scheduleActivity(act);
+			statusChanged = true;
 		}
-
-		
-
-		// Check preconditions of Interruptions in Extended Activities
+		return (statusChanged);
 	}
 
 	boolean traceflag = true;
@@ -205,7 +217,7 @@ public class PanoramaTV extends AOSimulationModel
 		{
 			// Can add other trace/log code to monitor the status of the system
 			// See examples for suggestions on setup logging
-			this.showSBL();
+			this.explicitShowSBL(this.getCopySBL());
 		    // PriorityQueue<SBNotice> sbl = this.getCopySBL();
 			// explicitShowSBL(sbl);
 
@@ -227,16 +239,27 @@ public class PanoramaTV extends AOSimulationModel
 		System.out.println("------------SBL----------");
 		Object[] sbList = sbl.toArray();
 		Arrays.sort(sbList); // Sorts the array
+		int movePalletCount = 0;
 		for (ix = 0; ix < sbList.length; ix++)
 		{
 			notice = (SBNotice) sbList[ix];
-			System.out.print("TimeStamp:" + notice.timeStamp);
-			if (notice.behaviourInstance != null) 
+			if (notice.behaviourInstance != null)
 			{
-				System.out.print(" Activity/Action: "
-						         + notice.behaviourInstance.getClass().getName());
-				if(notice.behaviourInstance.name != null) 
-					System.out.println("("+notice.behaviourInstance.name+")");
+				if(!notice.behaviourInstance.getClass().getName().contains("MovePallet")) {
+					System.out.print("TimeStamp:" + notice.timeStamp);
+					System.out.print(" Activity/Action: "
+							+ notice.behaviourInstance.getClass().getName());
+
+					if(notice.behaviourInstance.name != null) {
+						System.out.println("(" + notice.behaviourInstance.name + ")");
+					}
+					System.out.println();
+				}
+				else {
+					movePalletCount++;
+				}
+
+
 			}
 			else System.out.print(" Stop Notification ");
 			if(ScheduledActivity.class.isInstance(notice.behaviourInstance))
@@ -246,9 +269,12 @@ public class PanoramaTV extends AOSimulationModel
 				    System.out.print("   (starting event scheduled)");
 				else
 				    System.out.print("   (terminating event scheduled)");
+
+				System.out.println();
 			}
-			System.out.println();
+			//System.out.println();
 		}
+		System.out.println("There are " + movePalletCount + " MovePallet SBL list entries.");
 		System.out.println("----------------------");
 	}
 	// Standard Procedure to start Sequel Activities with no parameters
