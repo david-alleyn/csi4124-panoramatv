@@ -176,8 +176,8 @@ public class UDPs
 			int headOfSegment = model.conveyorSegments[segmentID].getCapacity() - 1;
 			
 			if (model.conveyorSegments[segmentID].positions[headOfSegment] != null && !model.autoNodes[autoNodeId].getBusy()) {
-				if((model.autoNodes[autoNodeId].getTimeUntilFailure() > model.dvp.uAutomaticProcessTime(autoNodeId))
-						&&(model.autoNodes[autoNodeId].lastTVType != model.conveyorSegments[segmentID].positions[headOfSegment].tvType)
+				if(/*(model.autoNodes[autoNodeId].getTimeUntilFailure() > model.dvp.uAutomaticProcessTime(autoNodeId))
+						&&*/(model.autoNodes[autoNodeId].lastTVType != model.conveyorSegments[segmentID].positions[headOfSegment].tvType)
 						&&(model.conveyorSegments[segmentID].positions[headOfSegment].inMotion == false)
 						&&(model.maintenance.busy == false)
 						&& model.conveyorSegments[segmentID].positions[headOfSegment].finishedProcessing == false)

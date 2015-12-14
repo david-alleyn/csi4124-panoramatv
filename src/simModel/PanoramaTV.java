@@ -41,6 +41,10 @@ public class PanoramaTV extends AOSimulationModel
 	public Output output;
 	
 	public int [] segmentCapacities;
+
+	boolean traceflag = false;
+	boolean debug = false;
+	boolean writeToCSV = false;
 	
 	// Output values - define the public methods that return values
 	// required for experimentation.
@@ -187,14 +191,10 @@ public class PanoramaTV extends AOSimulationModel
 		}
 		return (statusChanged);
 	}
-
-	boolean traceflag = true;
 	
 	
 	int days = 0;
 	int nextDay = 1440;
-	private boolean writeToCSV = false;
-	private boolean debug = true;
 	
 	public void eventOccured()
 	{
