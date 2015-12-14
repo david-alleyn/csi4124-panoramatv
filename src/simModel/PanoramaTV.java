@@ -193,7 +193,7 @@ public class PanoramaTV extends AOSimulationModel
 	
 	int days = 0;
 	int nextDay = 1440;
-	private boolean writeToCSV = true;
+	private boolean writeToCSV = false;
 	private boolean debug = true;
 	
 	public void eventOccured()

@@ -175,7 +175,7 @@ public class UDPs
 			int segmentID = GetAssociatedSegmentID(autoNodeId, true);
 			int headOfSegment = model.conveyorSegments[segmentID].getCapacity() - 1;
 			
-			if (model.conveyorSegments[segmentID].positions[headOfSegment] != null) {
+			if (model.conveyorSegments[segmentID].positions[headOfSegment] != null && !model.autoNodes[autoNodeId].getBusy()) {
 				if((model.autoNodes[autoNodeId].getTimeUntilFailure() > model.dvp.uAutomaticProcessTime(autoNodeId))
 						&&(model.autoNodes[autoNodeId].lastTVType != model.conveyorSegments[segmentID].positions[headOfSegment].tvType)
 						&&(model.conveyorSegments[segmentID].positions[headOfSegment].inMotion == false)

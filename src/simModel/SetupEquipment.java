@@ -8,16 +8,15 @@ import simulationModelling.ConditionalActivity;
 public class SetupEquipment extends ConditionalActivity {
 
     private PanoramaTV model; //This represents the entire system
-    private static int autoNodeId;
+    private int autoNodeId;
     private int segmentID;
-    private int localcapacity;
     
     public SetupEquipment(PanoramaTV modelTV){
     	model = modelTV;
     }
     public static boolean precondition(PanoramaTV model) {
 
-        autoNodeId = model.udp.GetAutoNodeRequiringRetooling();
+        int autoNodeId = model.udp.GetAutoNodeRequiringRetooling();
         return (autoNodeId != -1);
 
     }
@@ -34,7 +33,6 @@ public class SetupEquipment extends ConditionalActivity {
         // TODO Auto-generated method stub
         autoNodeId = model.udp.GetAutoNodeRequiringRetooling();
         segmentID = model.udp.GetAssociatedSegmentID(autoNodeId, true);
-        localcapacity = model.conveyorSegments[segmentID].getCapacity();
         model.autoNodes[autoNodeId].setBusy(true);
         model.maintenance.busy = true;
 
@@ -43,8 +41,9 @@ public class SetupEquipment extends ConditionalActivity {
     @Override
     protected void terminatingEvent() {
         // TODO Auto-generated method stub
+        int headOfSegment = model.conveyorSegments[segmentID].getCapacity() - 1;
         model.autoNodes[autoNodeId].lastTVType
-                = model.conveyorSegments[segmentID].positions[localcapacity - 1].tvType;
+                = model.conveyorSegments[segmentID].positions[headOfSegment].tvType;
         model.autoNodes[autoNodeId].setBusy(false);
         model.maintenance.busy = false;
     }
