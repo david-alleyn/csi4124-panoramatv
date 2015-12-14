@@ -14,8 +14,7 @@ public class MovePallet extends ConditionalActivity {
 	private PanoramaTV model;
 	private int pallet;
 	private int segmentID;
-	private int capacity;
-	
+
 	public MovePallet(PanoramaTV panoramaTV) {
 		model = panoramaTV;
 		// TODO Auto-generated constructor stub
@@ -37,7 +36,7 @@ public class MovePallet extends ConditionalActivity {
 	public void startingEvent() {
 		pallet = this.model.udp.GetPalletReadyForMoving();
 		segmentID = this.model.pallets[pallet].currConveyor;
-		capacity = this.model.conveyorSegments[segmentID].getCapacity();
+		int capacity = this.model.conveyorSegments[segmentID].getCapacity();
 		model.pallets[pallet].inMotion = true;
 		
 		// TODO Auto-generated method stub
@@ -105,10 +104,7 @@ RC.Pallets[pallet].currPosition = 0;
 			model.pallets[pallet].currConveyor = nextConveyor;
 			model.conveyorSegments[nextConveyor].positions[nextPosition] = model.pallets[pallet];
 
-			if(segmentID == Const.CS_RETEST)
-				model.pallets[pallet].finishedProcessing = true;
-			else		   
-				model.pallets[pallet].finishedProcessing = false;
+			model.pallets[pallet].finishedProcessing = segmentID == Const.CS_RETEST;
 		}
 		
 		model.pallets[pallet].inMotion = false;

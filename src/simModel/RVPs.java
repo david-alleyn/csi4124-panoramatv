@@ -11,26 +11,32 @@ import cern.jet.random.Distributions;
 import dataModelling.*;
 
 
-class RVPs extends java.lang.Object
+class RVPs
 {
     // Data Models - i.e. random veriate generators for distributions
 	// are created using Colt classes, define 
 	// reference variables here and create the objects in the
 	// constructor with seeds
 	TriangularVariate localTriangularVariate;
-	Const localConstantClass;
 	private BimodalEmpDist localbinomialEmpDist = new BimodalEmpDist(this.histogram);
 	private double[] histogram = {0, 10, 20, 30, 40, 50, 60, 70};
-	private Exponential Mean20 = new Exponential( 1.0/20, new MersenneTwister() );
-	private Exponential Mean30 = new Exponential( 1.0/450, new MersenneTwister() );
-	private Exponential Mean50 = new Exponential( 1.0/370, new MersenneTwister() );
-	private Exponential MeanTEST = new Exponential( 1.0/250, new MersenneTwister() );
-	private Normal localNorm = new Normal (1.9, 0.19, new MersenneTwister());
+	private Exponential Mean20;
+	private Exponential Mean30;
+	private Exponential Mean50;
+	private Exponential MeanTEST;
+	private Normal localNorm;
 	
 	
 	
 	
 	public RVPs(PanoramaTV panoramaTV, Seeds sd) {
+		Mean20 = new Exponential( 1.0/20, new MersenneTwister(sd.seed1) );
+		Mean30 = new Exponential( 1.0/450, new MersenneTwister(sd.seed2) );
+		Mean50 = new Exponential( 1.0/370, new MersenneTwister(sd.seed3) );
+		MeanTEST = new Exponential( 1.0/250, new MersenneTwister(sd.seed4) );
+		localNorm = new Normal (1.9, 0.19, new MersenneTwister(sd.seed5));
+		localTriangularVariate = new TriangularVariate(5, 25, 60, new MersenneTwister(sd.seed6));
+
 	}
 	/**
 	 * Returns time to load a pallet and mould.
@@ -45,10 +51,7 @@ class RVPs extends java.lang.Object
 	{
 		cern.jet.random.Uniform random = new Uniform(new MersenneTwister());
 		double randomData = random.nextDoubleFromTo(1, 100);
-		if(randomData <= 5)
-			return true;
-		else
-			return false;
+		return randomData <= 5;
 	}
 	
 	/**
@@ -73,8 +76,6 @@ class RVPs extends java.lang.Object
 	 * Returns time to repair the equipment at OP20.
 	 * @return TRIANGLE(MIN, MODE, MAX), Where MIN = 5, MODE = 25, MAX = 60	 */
 	public double uOP20RepairTime(){
-		localTriangularVariate = new TriangularVariate(5, 25, 60, new MersenneTwister());
-
 		return localTriangularVariate.next();
 	}
 	/**

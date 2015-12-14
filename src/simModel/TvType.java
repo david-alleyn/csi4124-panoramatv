@@ -10,5 +10,5 @@ public enum TvType {
 	Medium,
 	Large,
 	Flat,
-	None;
+	None
 }

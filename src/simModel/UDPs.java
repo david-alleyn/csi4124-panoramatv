@@ -114,8 +114,8 @@ public class UDPs
 				{
 					if(model.autoNodes[autoNodeId].getTimeUntilFailure() > model.dvp.uAutomaticProcessTime(autoNodeId)
 							&& model.autoNodes[autoNodeId].lastTVType == model.conveyorSegments[segmentID].positions[headOfSegment].tvType
-							&& model.conveyorSegments[segmentID].positions[headOfSegment].inMotion == false
-							&& model.conveyorSegments[segmentID].positions[headOfSegment].finishedProcessing == false)
+							&& !model.conveyorSegments[segmentID].positions[headOfSegment].inMotion
+							&& !model.conveyorSegments[segmentID].positions[headOfSegment].finishedProcessing)
 					{
 						return autoNodeId;
 					}
@@ -139,8 +139,8 @@ public class UDPs
 				{
 					if(model.autoNodes[autoNodeId].getTimeUntilFailure() < model.dvp.uAutomaticProcessTime(autoNodeId)
 						&& model.autoNodes[autoNodeId].lastTVType == model.conveyorSegments[segmentID].positions[headOfSegment].tvType
-						&& model.conveyorSegments[segmentID].positions[headOfSegment].inMotion == false
-							&& model.conveyorSegments[segmentID].positions[headOfSegment].finishedProcessing == false)
+						&& !model.conveyorSegments[segmentID].positions[headOfSegment].inMotion
+							&& !model.conveyorSegments[segmentID].positions[headOfSegment].finishedProcessing)
 					{
 						return autoNodeId;
 					}
@@ -178,9 +178,9 @@ public class UDPs
 			if (model.conveyorSegments[segmentID].positions[headOfSegment] != null && !model.autoNodes[autoNodeId].getBusy()) {
 				if(/*(model.autoNodes[autoNodeId].getTimeUntilFailure() > model.dvp.uAutomaticProcessTime(autoNodeId))
 						&&*/(model.autoNodes[autoNodeId].lastTVType != model.conveyorSegments[segmentID].positions[headOfSegment].tvType)
-						&&(model.conveyorSegments[segmentID].positions[headOfSegment].inMotion == false)
-						&&(model.maintenance.busy == false)
-						&& model.conveyorSegments[segmentID].positions[headOfSegment].finishedProcessing == false)
+						&&(!model.conveyorSegments[segmentID].positions[headOfSegment].inMotion)
+						&&(!model.maintenance.busy)
+						&& !model.conveyorSegments[segmentID].positions[headOfSegment].finishedProcessing)
 				{
 					return autoNodeId;
 				}
@@ -201,7 +201,7 @@ public class UDPs
 	public int GetAutoNodeRequiringRepair(){
 		for (int index = model.autoNodes.length - 1; index >= 0 ; index--){
 			if (model.autoNodes[index].getTimeUntilFailure() <= 0 && 
-				(model.maintenance.busy == false) && model.autoNodes[index].getBusy())
+				(!model.maintenance.busy) && model.autoNodes[index].getBusy())
 				return index;
 		}
 		return -1;
@@ -220,15 +220,15 @@ public class UDPs
 	public int GetManualNodeReadyForProcessing() {
 		for (int manualNodeId = model.manualNodes.length - 1; manualNodeId >= 0; manualNodeId--) {
 
-			if (model.manualNodes[manualNodeId].getBusy() == false) {
+			if (!model.manualNodes[manualNodeId].getBusy()) {
 
 				int segmentID = this.GetAssociatedSegmentID(manualNodeId, false);
 				int headOfSegment = model.conveyorSegments[segmentID].getCapacity() - 1;
 
 				if (model.conveyorSegments[segmentID].positions[headOfSegment] != null) {
 
-					if (model.conveyorSegments[segmentID].positions[headOfSegment].inMotion == false
-							&& model.conveyorSegments[segmentID].positions[headOfSegment].finishedProcessing == false) {
+					if (!model.conveyorSegments[segmentID].positions[headOfSegment].inMotion
+							&& !model.conveyorSegments[segmentID].positions[headOfSegment].finishedProcessing) {
 
 						return manualNodeId;
 					}
@@ -273,7 +273,7 @@ public class UDPs
 				if(currPosition < headOfSegment)
 				{
 					if(model.conveyorSegments[currConveyor].positions[currPosition + 1] == null
-							|| model.conveyorSegments[currConveyor].positions[currPosition + 1].inMotion == true)
+							|| model.conveyorSegments[currConveyor].positions[currPosition + 1].inMotion)
 					{
 						return i;
 					}

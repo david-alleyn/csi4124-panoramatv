@@ -42,17 +42,21 @@ public class PanoramaTV extends AOSimulationModel
 	
 	public int [] segmentCapacities;
 
-	boolean traceflag = true;
-	boolean debug = true;
-	boolean writeToCSV = false;
-	
+	boolean traceflag; //These values are typically passed in ExperimentX
+	boolean debug; //These values are typically passed in ExperimentX
+	boolean writeToCSV; //These values are typically passed in ExperimentX
+
 	// Output values - define the public methods that return values
 	// required for experimentation.
 
 
 	// Constructor
-	public PanoramaTV(double t0time, double tftime, int numPallets, int [] segmentCapacities, Seeds sd)
+	public PanoramaTV(double t0time, double tftime, int numPallets, int [] segmentCapacities, Seeds sd, boolean traceflag, boolean debug, boolean writeToCSV)
 	{
+		this.traceflag = traceflag;
+		this.debug = debug;
+		this.writeToCSV = writeToCSV;
+
 		// A few fixed things
 		int numManualNodes = 8;
 		int numAutoNodes = 4;
@@ -139,7 +143,7 @@ public class PanoramaTV extends AOSimulationModel
 		// Check preconditions of Conditional Activities
 
 
-		while (scanPreconditions() == true) /* repeat */;
+		while (scanPreconditions()) /* repeat */;
 		int breakpoint;
 
 	}

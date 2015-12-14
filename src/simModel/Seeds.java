@@ -10,6 +10,8 @@ public class Seeds
 	int seed2;   // comment 2
 	int seed3;   // comment 3
 	int seed4;   // comment 4
+	int seed5;   // comment 3
+	int seed6;   // comment 4
 
 	public Seeds(RandomSeedGenerator rsg)
 	{
@@ -17,5 +19,7 @@ public class Seeds
 		seed2=rsg.nextSeed();
 		seed3=rsg.nextSeed();
 		seed4=rsg.nextSeed();
+		seed5=rsg.nextSeed();
+		seed6=rsg.nextSeed();
 	}
 }

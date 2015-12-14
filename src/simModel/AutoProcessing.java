@@ -31,7 +31,7 @@ public class AutoProcessing extends ConditionalActivity {
 	@Override
 	public void startingEvent() {
 		autoNodeId = model.udp.GetAutoNodeReadyForProcessing();
-		segmentID = model.udp.GetAssociatedSegmentID(autoNodeId,true);
+		segmentID = model.udp.GetAssociatedSegmentID(autoNodeId, true);
 		headOfSegment = model.conveyorSegments[segmentID].getCapacity() - 1;
 		model.autoNodes[autoNodeId].setBusy(true);
 		
@@ -47,7 +47,6 @@ public class AutoProcessing extends ConditionalActivity {
 
 	@Override
 	protected void terminatingEvent() {
-
 
 
 		if(autoNodeId == Const.TEST)

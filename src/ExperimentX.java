@@ -13,6 +13,7 @@ public class ExperimentX
 {
 	static boolean debug = false;
 	static boolean writeToCSV = false;
+	static boolean traceflag = false;
 
 	
 	public static void main(String[] args)
@@ -24,7 +25,7 @@ public class ExperimentX
 
 		double startTime=0.0;
 		double endTime = 1440 * numDays + 1; /* +1 for throwaway day */
-		PanoramaTV mname;
+		PanoramaTV pTVModel;
 
 		RandomSeedGenerator rsg = new RandomSeedGenerator();
 		Seeds [] sds = new Seeds[numRuns];
@@ -32,14 +33,6 @@ public class ExperimentX
 		int i;
 		for (i = 0; i < numRuns; i++){
 			sds[i] = new Seeds(rsg);
-				/*rsg.nextSeed(),
-				rsg.nextSeed(),
-				rsg.nextSeed(),
-				rsg.nextSeed(),
-				rsg.nextSeed(),
-				rsg.nextSeed(),
-				rsg.nextSeed(),
-				rsg.nextSeed());*/
 		}
 
 		/* Table Header */
@@ -60,15 +53,15 @@ public class ExperimentX
 
 		for (i = 0; i < numRuns; i++){
 			System.out.print(i+1 + "\t");
-			mname = new PanoramaTV(startTime, endTime, numPallets, segmentCapacities, sds[i]);
+			pTVModel = new PanoramaTV(startTime, endTime, numPallets, segmentCapacities, sds[i], traceflag, debug, writeToCSV);
 
 			if (writeToCSV)
-				mname.output.out = out;
+				pTVModel.output.out = out;
 
-			mname.runSimulation();
+			pTVModel.runSimulation();
 
 			if (writeToCSV)
-				mname.output.flushCSVline();
+				pTVModel.output.flushCSVline();
 
 			System.out.println();
 		}
