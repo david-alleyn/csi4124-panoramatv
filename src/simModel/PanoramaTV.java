@@ -42,8 +42,8 @@ public class PanoramaTV extends AOSimulationModel
 	
 	public int [] segmentCapacities;
 
-	boolean traceflag = false;
-	boolean debug = false;
+	boolean traceflag = true;
+	boolean debug = true;
 	boolean writeToCSV = false;
 	
 	// Output values - define the public methods that return values
