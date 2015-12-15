@@ -151,6 +151,7 @@ public class PanoramaTV extends AOSimulationModel
 	private boolean scanPreconditions()
 	{
 		boolean statusChanged = false;
+
 		// Check preconditions of Conditional Activities
 		if (AutoProcessing.precondition(this)){
 			AutoProcessing act = new AutoProcessing(this);
@@ -193,12 +194,19 @@ public class PanoramaTV extends AOSimulationModel
 			scheduleActivity(act);
 			statusChanged = true;
 		}
+		if(this.getClock() > 129590.0)
+		{
+			int value = 3;
+			//debug = true;
+			//traceflag = true;
+		}
+
 		return (statusChanged);
 	}
-	
-	
-	int days = 0;
-	int nextDay = 1440;
+
+
+	public int days = 0;
+	public int nextDay = 1440;
 	
 	public void eventOccured()
 	{

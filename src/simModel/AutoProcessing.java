@@ -14,7 +14,6 @@ public class AutoProcessing extends ConditionalActivity {
 	private int autoNodeId;
 	private int segmentID;
 	private int headOfSegment;
-	//  private double timeUntilFailure;
 	
 	public AutoProcessing(PanoramaTV localTV){
 		model = localTV; // a local instance of PanoramaTV.
