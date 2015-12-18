@@ -30,7 +30,7 @@ public class ExperimentX
 
 		//CHERRY PICKED CAPACITIES
 		//First segment value is ignored. It will be forced to the numPallets quantity
-		int [] segmentCapacities = {40,2,2,2,1,1,1,1,2,4,2,2,2};
+		int [] segmentCapacities = {40,15,15,15,1,1,1,1,15,30,15,15,15};
 
 		int numRuns = 400;
 		int numDays = 90;
