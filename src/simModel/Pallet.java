@@ -19,12 +19,6 @@ public class Pallet {
 		// TODO Auto-generated method stub
 		tvType = tv;
 	}
-	public boolean moveRework(boolean b) {
-		// TODO Auto-generated method stub
-		
-		return false;//currently a dummy
-		
-	}
 	
 
 }

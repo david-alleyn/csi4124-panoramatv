@@ -6,12 +6,20 @@ import cern.jet.random.engine.RandomSeedGenerator;
 
 public class Seeds 
 {
-	int seed1;   // comment 1
-	int seed2;   // comment 2
-	int seed3;   // comment 3
-	int seed4;   // comment 4
-	int seed5;   // comment 3
-	int seed6;   // comment 4
+	int seed1;
+	int seed2;
+	int seed3;
+	int seed4;
+	int seed5;
+	int seed6;
+	int seed7;
+	int seed8;
+	int seed9;
+	int seed10;
+	int seed11;
+	int seed12;
+	int seed13;
+	int seed14;
 
 	public Seeds(RandomSeedGenerator rsg)
 	{
@@ -21,5 +29,13 @@ public class Seeds
 		seed4=rsg.nextSeed();
 		seed5=rsg.nextSeed();
 		seed6=rsg.nextSeed();
+		seed7=rsg.nextSeed();
+		seed8=rsg.nextSeed();
+		seed9=rsg.nextSeed();
+		seed10=rsg.nextSeed();
+		seed11=rsg.nextSeed();
+		seed12=rsg.nextSeed();
+		seed13=rsg.nextSeed();
+		seed14=rsg.nextSeed();
 	}
 }

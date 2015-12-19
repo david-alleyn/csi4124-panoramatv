@@ -22,7 +22,6 @@ public class AutoProcessing extends ConditionalActivity {
 
 	@Override
 	protected double duration() {
-		// TODO Auto-generated method stub
 		return model.autoNodes[autoNodeId].processTime;
 		
 	}

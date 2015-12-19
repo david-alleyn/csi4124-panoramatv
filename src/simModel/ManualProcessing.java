@@ -12,6 +12,11 @@ public class ManualProcessing extends ConditionalActivity {
 
 	private PanoramaTV model;
 	private int manualNodeId;
+	private int segmentId;
+	private int headOfSegment;
+
+	//ONLY FOR DEBUGGING PURPOSES
+	private Pallet debugPallet;
 
 	public ManualProcessing(PanoramaTV panoramaTV) {
 		model = panoramaTV;
@@ -29,6 +34,12 @@ public class ManualProcessing extends ConditionalActivity {
 	@Override
 	public void startingEvent() {
 		manualNodeId = model.udp.GetManualNodeReadyForProcessing();
+		segmentId = model.udp.GetAssociatedSegmentID(manualNodeId, false);
+		headOfSegment = model.conveyorSegments[segmentId].getCapacity() - 1;
+
+		//DEBUG PURPOSES ONLY
+		debugPallet = model.conveyorSegments[segmentId].positions[headOfSegment];
+
 		model.manualNodes[manualNodeId].setBusy(true);
 	}
 
@@ -39,15 +50,12 @@ public class ManualProcessing extends ConditionalActivity {
 
 	@Override
 	protected void terminatingEvent() {
-		int segmentId = model.udp.GetAssociatedSegmentID(manualNodeId, false);
-		int headOfSegment = model.conveyorSegments[segmentId].getCapacity() - 1;
-		
 		if (manualNodeId == Const.OP10) {
 			
 			model.conveyorSegments[segmentId].positions[headOfSegment].tvType = model.dvp.uTvType();
-			
+
 		} else if (manualNodeId == Const.OP60) {
-			
+
 			model.conveyorSegments[segmentId].positions[headOfSegment].tvType = TvType.None;
 		} 
 

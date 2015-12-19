@@ -37,7 +37,7 @@ public class RepairEquipment extends ConditionalActivity {
 	 * */
 	@Override
 	protected double duration() {
-		return model.udp.GetNodeRepairTime(autoNodeId);
+		return model.rvp.GetNodeRepairTime(autoNodeId);
 	}
 
 	/**

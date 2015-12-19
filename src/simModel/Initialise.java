@@ -36,6 +36,7 @@ class Initialise extends ScheduledAction
 			model.autoNodes[i].lastTVType = TvType.Small;
 			model.autoNodes[i].processTime = 0.0;
 			model.autoNodes[i].setTimeUntilFailure(model.rvp.uTimeUntilFailure(i));
+			//model.autoNodes[i].setTimeUntilFailure(Double.MAX_VALUE);
 			
 		}
 		for(int i = 0; i < model.manualNodes.length; i++)
@@ -45,7 +46,7 @@ class Initialise extends ScheduledAction
 		for(int i = 0; i < model.pallets.length; i++)
 		{
 			model.pallets[i].setTVtype(TvType.None);
-			model.pallets[i].moveRework(false);
+			model.pallets[i].moveRework = false;
 			model.pallets[i].finishedProcessing = false;
 			model.pallets[i].inMotion = false;
 		}
