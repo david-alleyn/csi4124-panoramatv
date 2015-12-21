@@ -18,11 +18,11 @@ public class ExperimentX
 	
 	public static void main(String[] args)
 	{
-		int numPallets = 5;
+		int numPallets = 20;
 
-		//NORMAL CAPACITIES
+		//ORIGINAL CAPACITIES
 		//First segment value is ignored. It will be forced to the numPallets quantity
-		//int [] segmentCapacities = {40,5,5,5,1,1,1,1,5,10,5,5,5};
+		int [] segmentCapacities = {40,5,5,5,1,1,1,1,5,10,5,5,5};
 
 		//MAX CAPACITIES
 		//First segment value is ignored. It will be forced to the numPallets quantity
@@ -30,9 +30,9 @@ public class ExperimentX
 
 		//CHERRY PICKED CAPACITIES
 		//First segment value is ignored. It will be forced to the numPallets quantity
-		int [] segmentCapacities = {40,2,2,2,1,1,1,1,2,4,2,2,2};
+		//int [] segmentCapacities = {40,2,2,2,1,1,1,1,2,4,2,2,2};
 
-		int numRuns = 400;
+		int numRuns = 20;
 		int numDays = 90;
 
 		double startTime=0.0;
