@@ -14,11 +14,12 @@ public class AutoProcessing extends ConditionalActivity {
 	private int autoNodeId;
 	private int segmentID;
 	private int headOfSegment;
+	private int palletID;
 	
 	public AutoProcessing(PanoramaTV localTV){
 		model = localTV; // a local instance of PanoramaTV.
 	}
-	
+
 
 	@Override
 	protected double duration() {
@@ -31,9 +32,12 @@ public class AutoProcessing extends ConditionalActivity {
 		autoNodeId = model.udp.GetAutoNodeReadyForProcessing();
 		segmentID = model.udp.GetAssociatedSegmentID(autoNodeId, true);
 		headOfSegment = model.conveyorSegments[segmentID].getCapacity() - 1;
-		model.autoNodes[autoNodeId].setBusy(true);
-		
-		if(model.autoNodes[autoNodeId].processTime == 0){			
+		palletID = model.conveyorSegments[segmentID].palletPositions[headOfSegment];
+
+		model.autoNodes[autoNodeId].busy = true;
+		model.pallets[palletID].finishedProcessing = false;
+
+		if(model.autoNodes[autoNodeId].processTime == 0){
 			model.autoNodes[autoNodeId].processTime = model.dvp.uAutomaticProcessTime(autoNodeId);
 		}
 	}
@@ -49,13 +53,13 @@ public class AutoProcessing extends ConditionalActivity {
 
 		if(autoNodeId == Const.TEST)
 		{
-			model.conveyorSegments[segmentID].positions[headOfSegment].moveRework = model.rvp.uPassTvTesting();
+			model.pallets[palletID].moveRework = model.rvp.uPassTvTesting();
 		}
 		
-		model.autoNodes[autoNodeId].setBusy(false);
+		model.autoNodes[autoNodeId].busy = false;
 		model.autoNodes[autoNodeId].setTimeUntilFailure(model.autoNodes[autoNodeId].getTimeUntilFailure() - model.autoNodes[autoNodeId].processTime);
 		model.autoNodes[autoNodeId].processTime = 0;
-		model.conveyorSegments[segmentID].positions[headOfSegment].finishedProcessing = true;
+		model.pallets[palletID].finishedProcessing = true;
 		
 		
 	}

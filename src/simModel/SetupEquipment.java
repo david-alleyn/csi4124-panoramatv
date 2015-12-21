@@ -10,6 +10,8 @@ public class SetupEquipment extends ConditionalActivity {
     private PanoramaTV model; //This represents the entire system
     private int autoNodeId;
     private int segmentID;
+    private int headOfSegment;
+    private int palletID;
     
     public SetupEquipment(PanoramaTV modelTV){
     	model = modelTV;
@@ -21,30 +23,29 @@ public class SetupEquipment extends ConditionalActivity {
 
     }
 
-
-    @Override
-    protected double duration() {
-        // TODO Auto-generated method stub
-        return model.rvp.uSetupProcedTime(autoNodeId);
-    }
-
     @Override
     public void startingEvent() {
-        // TODO Auto-generated method stub
         autoNodeId = model.udp.GetAutoNodeRequiringRetooling();
         segmentID = model.udp.GetAssociatedSegmentID(autoNodeId, true);
-        model.autoNodes[autoNodeId].setBusy(true);
+        headOfSegment = model.conveyorSegments[segmentID].getCapacity() - 1;
+        palletID = model.conveyorSegments[segmentID].palletPositions[headOfSegment];
+
+        model.autoNodes[autoNodeId].busy = true;
         model.maintenance.busy = true;
 
     }
 
     @Override
+    protected double duration() {
+        return model.rvp.uSetupProcedTime(autoNodeId);
+    }
+
+
+    @Override
     protected void terminatingEvent() {
-        // TODO Auto-generated method stub
-        int headOfSegment = model.conveyorSegments[segmentID].getCapacity() - 1;
-        model.autoNodes[autoNodeId].lastTVType
-                = model.conveyorSegments[segmentID].positions[headOfSegment].tvType;
-        model.autoNodes[autoNodeId].setBusy(false);
+
+        model.autoNodes[autoNodeId].lastTVType = model.pallets[palletID].tvType;
+        model.autoNodes[autoNodeId].busy = false;
         model.maintenance.busy = false;
     }
 

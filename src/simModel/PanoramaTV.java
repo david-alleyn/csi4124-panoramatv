@@ -42,9 +42,9 @@ public class PanoramaTV extends AOSimulationModel
 	
 	public int [] segmentCapacities;
 
-	boolean traceflag; //These values are typically passed in ExperimentX
-	boolean debug; //These values are typically passed in ExperimentX
-	boolean writeToCSV; //These values are typically passed in ExperimentX
+	public boolean traceflag; //These values are typically passed in ExperimentX
+	public boolean debug; //These values are typically passed in ExperimentX
+	public boolean writeToCSV; //These values are typically passed in ExperimentX
 
 	// Output values - define the public methods that return values
 	// required for experimentation.
@@ -109,9 +109,9 @@ public class PanoramaTV extends AOSimulationModel
 		}
 		
 		//Install the pallets onto Segment OP10
-		for(int i = 0; i < numPallets; i++)
+		for(int i = 0; i < pallets.length; i++)
 		{
-			conveyorSegments[Const.CS_OP10].positions[i] = pallets[i];
+			conveyorSegments[Const.CS_OP10].palletPositions[i] = i;
 			pallets[i].currConveyor = Const.CS_OP10;
 			pallets[i].currPosition = i;
 		}
@@ -125,7 +125,8 @@ public class PanoramaTV extends AOSimulationModel
 		// rgCounter and qCustLine objects created in Initalise Action
 		
 		// Initialise the simulation model
-		initAOSimulModel(t0time,tftime);   
+		initAOSimulModel(t0time);
+		addStopNotice(tftime);
 
 		     // Schedule the first arrivals and employee scheduling
 		Initialise init = new Initialise(this);
@@ -142,9 +143,16 @@ public class PanoramaTV extends AOSimulationModel
 		reschedule (behObj);
 		// Check preconditions of Conditional Activities
 
+//		try {
+//			Thread.sleep(25);
+//		}catch(InterruptedException e)
+//		{
+//			//do nothing
+//		}
+		while (scanPreconditions()) { } /* repeat */
 
-		while (scanPreconditions()) /* repeat */;
-		int breakpoint;
+//		int breakpoint =
+//				3 * segmentCapacities[0];
 
 	}
 
@@ -193,12 +201,6 @@ public class PanoramaTV extends AOSimulationModel
 			act.startingEvent();
 			scheduleActivity(act);
 			statusChanged = true;
-		}
-		if(this.getClock() > 129590.0)
-		{
-			int value = 3;
-			//debug = true;
-			//traceflag = true;
 		}
 
 		return (statusChanged);

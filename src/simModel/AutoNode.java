@@ -13,7 +13,7 @@ processTimeAfterFailure
 public class AutoNode {
 	/**	Set to TRUE when the Automatic Segment begins one of the following activities: CRTAssembly, 
 	CoilAssembly, Test and BackAssembly: otherwise set to FALSE.*/
-	private Boolean busy;
+	public Boolean busy;
 	/** Used to compare the machine�s current configuration with the one required for 
 	 * processing the next TV. Is set to the correct type by SetupEquipment during operation. 
 	 * Is set by Initialize action during initialization. */
@@ -23,14 +23,6 @@ public class AutoNode {
 	 */	
 	private double timeUntilFailure;
 	public double processTime;
-	
-	public void setBusy(Boolean busy){
-		this.busy = busy;
-	}
-	
-	public boolean getBusy(){
-		return this.busy;
-	}
 	
 	public double getTimeUntilFailure() {
 		return this.timeUntilFailure;

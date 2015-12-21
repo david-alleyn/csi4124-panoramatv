@@ -32,7 +32,7 @@ class Initialise extends ScheduledAction
 		
 		for(int i = 0; i < model.autoNodes.length; i++)
 		{
-			model.autoNodes[i].setBusy(false);
+			model.autoNodes[i].busy = false;
 			model.autoNodes[i].lastTVType = TvType.Small;
 			model.autoNodes[i].processTime = 0.0;
 			model.autoNodes[i].setTimeUntilFailure(model.rvp.uTimeUntilFailure(i));
@@ -41,7 +41,7 @@ class Initialise extends ScheduledAction
 		}
 		for(int i = 0; i < model.manualNodes.length; i++)
 		{
-			model.manualNodes[i].setBusy(false);
+			model.manualNodes[i].busy = false;
 		}
 		for(int i = 0; i < model.pallets.length; i++)
 		{
@@ -51,7 +51,7 @@ class Initialise extends ScheduledAction
 			model.pallets[i].inMotion = false;
 		}
 		
-		model.maintenance.setBusy(false);
+		model.maintenance.busy = false;
 		
 		model.conveyorSegments[Const.CS_OP10].nextConveyor = Const.CS_OP20;
 		model.conveyorSegments[Const.CS_OP20].nextConveyor = Const.CS_OP30;

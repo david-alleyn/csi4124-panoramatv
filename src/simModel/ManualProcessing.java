@@ -14,9 +14,7 @@ public class ManualProcessing extends ConditionalActivity {
 	private int manualNodeId;
 	private int segmentId;
 	private int headOfSegment;
-
-	//ONLY FOR DEBUGGING PURPOSES
-	private Pallet debugPallet;
+	private int palletID;
 
 	public ManualProcessing(PanoramaTV panoramaTV) {
 		model = panoramaTV;
@@ -36,15 +34,14 @@ public class ManualProcessing extends ConditionalActivity {
 		manualNodeId = model.udp.GetManualNodeReadyForProcessing();
 		segmentId = model.udp.GetAssociatedSegmentID(manualNodeId, false);
 		headOfSegment = model.conveyorSegments[segmentId].getCapacity() - 1;
+		palletID = model.conveyorSegments[segmentId].palletPositions[headOfSegment];
 
-		//DEBUG PURPOSES ONLY
-		debugPallet = model.conveyorSegments[segmentId].positions[headOfSegment];
-
-		model.manualNodes[manualNodeId].setBusy(true);
+		model.manualNodes[manualNodeId].busy = true;
 	}
 
 	@Override
 	protected double duration() {
+
 		return model.udp.GetManualNodeProcessTime(manualNodeId);
 	}
 
@@ -52,15 +49,15 @@ public class ManualProcessing extends ConditionalActivity {
 	protected void terminatingEvent() {
 		if (manualNodeId == Const.OP10) {
 			
-			model.conveyorSegments[segmentId].positions[headOfSegment].tvType = model.dvp.uTvType();
+			model.pallets[palletID].tvType = model.dvp.uTvType();
 
 		} else if (manualNodeId == Const.OP60) {
 
-			model.conveyorSegments[segmentId].positions[headOfSegment].tvType = TvType.None;
+			model.pallets[palletID].tvType = TvType.None;
 		} 
 
-		model.manualNodes[manualNodeId].setBusy(false);
-		model.conveyorSegments[segmentId].positions[headOfSegment].finishedProcessing = true;
+		model.manualNodes[manualNodeId].busy = false;
+		model.pallets[palletID].finishedProcessing = true;
 
 	}
 }

@@ -11,25 +11,29 @@ public class ConveyorSegment {
 /**
  * 
 numPallet The number of Pallets on the conveyor segment
-positions :: The array of Pallet entities on the conveyor segment
-capacity :: Total number of positions
+palletPositions :: The array of Pallet entities on the conveyor segment
+capacity :: Total number of palletPositions
 
  */
 	/** The index of the next logical default segment which follows from this one.
 	 */
 	public int nextConveyor;
-	public Pallet[] positions;
-	/** Total number of positions */
+	public int[] palletPositions;
+	/** Total number of palletPositions */
 	private int capacity;
 	
 	public ConveyorSegment(int capacity)
 	{
 		this.capacity = capacity;
-		positions = new Pallet[capacity];
+		palletPositions = new int[capacity];
+		for(int i = 0; i < capacity; i++)
+		{
+			palletPositions[i] = -1;
+		}
 	}
 	public int size()
 	{
-		return positions.length;
+		return palletPositions.length;
 	}
 	public int getnextConveyor(){
 		return nextConveyor;
@@ -39,14 +43,7 @@ capacity :: Total number of positions
 	}
 
 	public int getCapacity() {
-		// TODO Auto-generated method stub
 		return this.capacity;
-	}
-	public void setCapacity(int capacity){
-		this.capacity = capacity;
-		
-		//RESETS THE CONVEYORSEGMENT
-		positions = new Pallet[capacity];
 	}
 }
 

@@ -14,15 +14,57 @@ public class Output {
 	public void printConveyors(double clock) {
 		System.out.println("\nTime: " + clock + ", # TVs Produced: " + numTVAssembled);
 		for (int j = 0; j < model.conveyorSegments.length; j++) {
-			System.out.print(j + " \t(" + model.conveyorSegments[j].getCapacity() + ")"
+			switch(j) {
+				case Const.CS_OP10:
+					System.out.print(j + " CS_OP10  ");
+					break;
+				case Const.CS_OP20:
+					System.out.print(j + " CS_OP20  ");
+					break;
+				case Const.CS_OP30:
+					System.out.print(j + " CS_OP30  ");
+					break;
+				case Const.CS_OP40A:
+					System.out.print(j + " CS_OP40A ");
+					break;
+				case Const.CS_OP40B:
+					System.out.print(j + " CS_OP40B ");
+					break;
+				case Const.CS_OP40C:
+					System.out.print(j + " CS_OP40C ");
+					break;
+				case Const.CS_OP40D:
+					System.out.print(j + " CS_OP40D ");
+					break;
+				case Const.CS_OP40E:
+					System.out.print(j + " CS_OP40E ");
+					break;
+				case Const.CS_TEST:
+					System.out.print(j + " CS_TEST  ");
+					break;
+				case Const.CS_REWORK:
+					System.out.print(j + " CS_REWORK");
+					break;
+				case Const.CS_RETEST:
+					System.out.print(j + " CS_RETEST");
+					break;
+				case Const.CS_OP50:
+					System.out.print(j + " CS_OP50  ");
+					break;
+				case Const.CS_OP60:
+					System.out.print(j + " CS_OP60  ");
+					break;
+			}
+			System.out.print(" \t(" + model.conveyorSegments[j].getCapacity() + ")"
 					+ ((model.conveyorSegments[j].getCapacity() < 10) ? "  " : " ") + "<");
 
 			for (int i = model.conveyorSegments[j].getCapacity() - 1; i >= 0; i--) {
-				if (model.conveyorSegments[j].positions[i] == null)
-					System.out.print("_");
+				int palletID = model.conveyorSegments[j].palletPositions[i];
+				if (palletID == -1)
+					System.out.print("_____");
 				else {
 					String tvType;
-					switch (model.conveyorSegments[j].positions[i].tvType) {
+					switch (model.pallets[palletID].tvType) {
 					case Small:
 						tvType = "S";
 						break;
@@ -38,8 +80,8 @@ public class Output {
 					default:
 						tvType = "E";
 					}
-					System.out.print("[" + tvType + ((model.conveyorSegments[j].positions[i].inMotion) ? "m" : "")
-							+ ((model.conveyorSegments[j].positions[i].finishedProcessing) ? "s]" : "]"));
+					System.out.print("[" + tvType + ((model.pallets[palletID].inMotion) ? "m" : " ")
+							+ ((model.pallets[palletID].finishedProcessing) ? "s]" : " ]"));
 				}
 				System.out.print((i == 0) ? ">\n" : ",");
 			}

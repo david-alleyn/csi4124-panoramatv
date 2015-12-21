@@ -4,51 +4,46 @@ import simulationModelling.ConditionalActivity;
 
 public class StartProcessing extends ConditionalActivity {
 	PanoramaTV model;
-	int autoNodeId;
+	private int autoNodeId;
+	private int segmentID;
+	private int headOfSegment;
+	private int palletID;
+
 	public StartProcessing(PanoramaTV localmodel) {
-		// TODO Auto-generated constructor stub
 		this.model = localmodel;
 	}
-	
-	/**
-	 * autoNode â†� UDP.GetAutoNodeForPartialProcessing()
-	 * @return
-	 */
+
 	public static boolean precondition(PanoramaTV model)
 	{
 		int node = model.udp.GetAutoNodeForPartialProcessing();
 		return (node != -1);
-	 
 	}
-	
-	/**
-	 * autoNode â†� UDP.GetAutoNodeForPartialProcessing();
-	 * processTime â†� DVP.uAutomaticProcessTime() - timeUntilFailure
-	 * RC.AutoNode[autoNode].busy = TRUE;
-	 */
-		@Override
-		public void startingEvent() {
-			// TODO Auto-generated method stub
-			autoNodeId =  model.udp.GetAutoNodeForPartialProcessing();
-			model.autoNodes[autoNodeId].setBusy(true);
-			model.autoNodes[autoNodeId].processTime = model.dvp.uAutomaticProcessTime(autoNodeId) - model.autoNodes[autoNodeId].getTimeUntilFailure();
-			
-			if(model.autoNodes[autoNodeId].processTime < 0)
-			{
-				model.autoNodes[autoNodeId].processTime = 0.001;
-			}
-			
-		}
+
+	@Override
+	public void startingEvent() {
+		autoNodeId =  model.udp.GetAutoNodeForPartialProcessing();
+		segmentID = model.udp.GetAssociatedSegmentID(autoNodeId, true);
+		headOfSegment = model.conveyorSegments[segmentID].getCapacity() - 1;
+		palletID = model.conveyorSegments[segmentID].palletPositions[headOfSegment];
+
+		model.autoNodes[autoNodeId].busy = true;
+	}
 
 	@Override
 	protected double duration() {
-		// TODO Auto-generated method stub
-		return model.autoNodes[autoNodeId].getTimeUntilFailure();
+		double timeUntilFailure = model.autoNodes[autoNodeId].getTimeUntilFailure();
+		model.autoNodes[autoNodeId].processTime = model.dvp.uAutomaticProcessTime(autoNodeId) - timeUntilFailure;
+
+		//This is to stave off a theoretical anomaly that is driven by the double querying of
+		//the DVP.uAutomaticProcessTime(autoNodeId) during the startingEvent and duration calls.
+		//This cannot change as it is used to facilitate the behaviors AutoProcessing and StartProcessing
+		if(model.autoNodes[autoNodeId].processTime < 0)
+		{
+			model.autoNodes[autoNodeId].processTime = 0.001;
+		}
+		return timeUntilFailure;
 	}
 
-	/**
-	 * imeUntilFailure â†� 0
-	 */
 	@Override
 	protected void terminatingEvent() {
 		model.autoNodes[autoNodeId].setTimeUntilFailure(0);

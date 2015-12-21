@@ -18,7 +18,7 @@ public class ExperimentX
 	
 	public static void main(String[] args)
 	{
-		int numPallets = 80;
+		int numPallets = 5;
 
 		//NORMAL CAPACITIES
 		//First segment value is ignored. It will be forced to the numPallets quantity
@@ -30,7 +30,7 @@ public class ExperimentX
 
 		//CHERRY PICKED CAPACITIES
 		//First segment value is ignored. It will be forced to the numPallets quantity
-		int [] segmentCapacities = {40,15,15,15,1,1,1,1,15,30,15,15,15};
+		int [] segmentCapacities = {40,2,2,2,1,1,1,1,2,4,2,2,2};
 
 		int numRuns = 400;
 		int numDays = 90;
@@ -56,9 +56,9 @@ public class ExperimentX
 		}*/
 
 		/* Table Header */
-		System.out.println("\t30days:"+numPallets+"pallets"
-			+ "\t60days:"+numPallets+"pallets"
-			+ "\t90days:"+numPallets+"pallets");
+		System.out.println("\t30days: "+numPallets+" pallets"
+			+ "\t60days: "+numPallets+" pallets"
+			+ "\t90days: "+numPallets+" pallets");
 
 		FileWriter fstream;
 		BufferedWriter out = null;
@@ -80,6 +80,8 @@ public class ExperimentX
 
 			try {
 				pTVModel.runSimulation();
+
+				int breakpoint = 3;
 			}
 			catch (Exception e) {
 				e.printStackTrace();

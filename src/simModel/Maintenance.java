@@ -1,39 +1,35 @@
 package simModel;
 
-import java.util.Queue;
+import java.util.PriorityQueue;
 
 
 /**
  * @author mush
  */
 public class Maintenance {
-	
-	private Queue<AutoNode>   Repair;
-	private Queue<AutoNode>   Setup;
+
+
+	//since autonodes are specified in ascending order, the default comparator is used for integers
+	private PriorityQueue<Integer> repairQueue;
+	private PriorityQueue<Integer> setupQueue;
 	public boolean busy = false;
-	
-	public void addRepair(AutoNode current){
-		Repair.add(current);
-	}
-	public void addSetup(AutoNode current){
-		Setup.add(current);
-	}
-	public AutoNode getRepair(){
-		return Repair.remove();
-	}
-	public AutoNode getSetup(){
-		return Setup.remove();
+
+	public Maintenance(){
+		repairQueue = new PriorityQueue<Integer>();
+		setupQueue = new PriorityQueue<Integer>();
 	}
 	
-
-	public void setBusy(boolean b) {
-		// TODO Auto-generated method stub
-		
+	public void addRepair(int autoNodeID){
+		repairQueue.add(autoNodeID);
 	}
-
-	public boolean getBusy() {
-		// TODO Auto-generated method stub
-		return busy;
+	public void addSetup(int autoNodeID){
+		setupQueue.add(autoNodeID);
+	}
+	public int getRepair(){
+		return repairQueue.remove();
+	}
+	public int getSetup(){
+		return setupQueue.remove();
 	}
 
 }

@@ -105,17 +105,18 @@ public class UDPs
 		//Iterate from the end to the beginning of the array.
 		for(int autoNodeId = model.autoNodes.length - 1; autoNodeId >= 0; autoNodeId--)
 		{
-			if(!model.autoNodes[autoNodeId].getBusy())
+			if(!model.autoNodes[autoNodeId].busy)
 			{
 				int segmentID = model.udp.GetAssociatedSegmentID(autoNodeId, true);
 				int headOfSegment = model.conveyorSegments[segmentID].getCapacity() - 1;
+				int palletID = model.conveyorSegments[segmentID].palletPositions[headOfSegment];
 				
-				if(model.conveyorSegments[segmentID].positions[headOfSegment] != null)
+				if(palletID != -1)
 				{
 					if(model.autoNodes[autoNodeId].getTimeUntilFailure() > model.dvp.uAutomaticProcessTime(autoNodeId)
-							&& model.autoNodes[autoNodeId].lastTVType == model.conveyorSegments[segmentID].positions[headOfSegment].tvType
-							&& !model.conveyorSegments[segmentID].positions[headOfSegment].inMotion
-							&& !model.conveyorSegments[segmentID].positions[headOfSegment].finishedProcessing)
+							&& model.autoNodes[autoNodeId].lastTVType == model.pallets[palletID].tvType
+							&& !model.pallets[palletID].inMotion
+							&& !model.pallets[palletID].finishedProcessing)
 					{
 						return autoNodeId;
 					}
@@ -130,17 +131,18 @@ public class UDPs
 		//Iterate from the end to the beginning of the array.
 		for(int autoNodeId = model.autoNodes.length - 1; autoNodeId >= 0; autoNodeId--)
 		{
-			if(!model.autoNodes[autoNodeId].getBusy())
+			if(!model.autoNodes[autoNodeId].busy)
 			{
 				int segmentID = model.udp.GetAssociatedSegmentID(autoNodeId, true);
 				int headOfSegment = model.conveyorSegments[segmentID].getCapacity() - 1;
+				int palletID = model.conveyorSegments[segmentID].palletPositions[headOfSegment];
 				
-				if(model.conveyorSegments[segmentID].positions[headOfSegment] != null)
+				if(palletID != -1)
 				{
 					if(model.autoNodes[autoNodeId].getTimeUntilFailure() < model.dvp.uAutomaticProcessTime(autoNodeId)
-						&& model.autoNodes[autoNodeId].lastTVType == model.conveyorSegments[segmentID].positions[headOfSegment].tvType
-						&& !model.conveyorSegments[segmentID].positions[headOfSegment].inMotion
-							&& !model.conveyorSegments[segmentID].positions[headOfSegment].finishedProcessing)
+						&& model.autoNodes[autoNodeId].lastTVType == model.pallets[palletID].tvType
+						&& !model.pallets[palletID].inMotion
+							&& !model.pallets[palletID].finishedProcessing)
 					{
 						return autoNodeId;
 					}
@@ -150,37 +152,19 @@ public class UDPs
 		
 		return -1;
 	}
-	/**
-	 * For every RC.AutoNode (nodeID) in the system which is not busy:
-	 * segmentID ← GetAssociatedSegmentID(nodeID)
-	 * capacity ← RQ.ConveyorSegment[segmentID].capacity
-	 * palletID ← RQ.ConveyorSegment[segmentID].positions[capacity - 1]
-	 * If (node.timeUntilFailure > RVP.uAutomaticProcessTime()
-	 * 
-	 * AND RQ.ConveyorSegment[SegmentID].positions[capacity - 1].lastTVType 
-	 * 
-	 * NOT EQUAL TO RQ.ConveyorSegment[SegmentID].positions[palletID].tvType
-	 * 
-	 * AND RQ.ConveyorSegment[SegmentID].positions[palletID].inMotion = FALSE
-	 * 
-	 * AND R.Maintenance.busy = FALSE) 
-	 * 
-	 * Then @return the nodeID
-	 * 
-	 * Else @return -1	 
-	 * 
-	 */
+
 	public int GetAutoNodeRequiringRetooling(){
 		for (int autoNodeId = model.autoNodes.length - 1; autoNodeId >= 0 ; autoNodeId--){
 			int segmentID = GetAssociatedSegmentID(autoNodeId, true);
 			int headOfSegment = model.conveyorSegments[segmentID].getCapacity() - 1;
+			int palletID = model.conveyorSegments[segmentID].palletPositions[headOfSegment];
 			
-			if (model.conveyorSegments[segmentID].positions[headOfSegment] != null && !model.autoNodes[autoNodeId].getBusy()) {
+			if (palletID != -1 && !model.autoNodes[autoNodeId].busy) {
 				if(/*(model.autoNodes[autoNodeId].getTimeUntilFailure() > model.dvp.uAutomaticProcessTime(autoNodeId))
-						&&*/(model.autoNodes[autoNodeId].lastTVType != model.conveyorSegments[segmentID].positions[headOfSegment].tvType)
-						&&(!model.conveyorSegments[segmentID].positions[headOfSegment].inMotion)
+						&&*/(model.autoNodes[autoNodeId].lastTVType != model.pallets[palletID].tvType)
+						&&(!model.pallets[palletID].inMotion)
 						&&(!model.maintenance.busy)
-						&& !model.conveyorSegments[segmentID].positions[headOfSegment].finishedProcessing)
+						&& !model.pallets[palletID].finishedProcessing)
 				{
 					return autoNodeId;
 				}
@@ -188,64 +172,36 @@ public class UDPs
 		}
 		return -1;
 	}
-	/**
-	 * For every RC.AutoNode (nodeID) in the system which is busy:
-	 * If (node.timeUntilFailure LESS THAN OR EQUAL TO 0 
-	 * AND
-	 * R.Maintenance.busy = FALSE)
-	 * Then return the nodeID
-	 * Else Return -1
 
-	 * @return
-	 */
 	public int GetAutoNodeRequiringRepair(){
 		for (int index = model.autoNodes.length - 1; index >= 0 ; index--){
 			if (model.autoNodes[index].getTimeUntilFailure() <= 0 && 
-				(!model.maintenance.busy) && model.autoNodes[index].getBusy())
+				(!model.maintenance.busy) && model.autoNodes[index].busy)
 				return index;
 		}
 		return -1;
 	}
-	/**
-	 * For every R.ManualNode (nodeID) in the system which is not busy:
-	 * segmentID ← GetAssociatedSegmentID(nodeID, isAutoNode)
-	 * capacity ← RQ.ConveyorSegment[segmentID].capacity
-	 * if(RQ.ConveyorSegment[segmentID].positions[capacity - 1] is NOT NULL
-	 * AND
-	 * RQ.ConveyorSegment[segmentID].positions[capacity - 1].inMotion = FALSE)
-	 * Return nodeID
-	 * Else Return -1;
-	 * @return
-	 */
+
 	public int GetManualNodeReadyForProcessing() {
 		for (int manualNodeId = model.manualNodes.length - 1; manualNodeId >= 0; manualNodeId--) {
 
-			if (!model.manualNodes[manualNodeId].getBusy()) {
+			if (!model.manualNodes[manualNodeId].busy) {
 
 				int segmentID = this.GetAssociatedSegmentID(manualNodeId, false);
 				int headOfSegment = model.conveyorSegments[segmentID].getCapacity() - 1;
+				int palletID = model.conveyorSegments[segmentID].palletPositions[headOfSegment];
 
-				if (model.conveyorSegments[segmentID].positions[headOfSegment] != null) {
+				if (palletID != -1 &&
+						!model.pallets[palletID].inMotion &&
+						!model.pallets[palletID].finishedProcessing) {
 
-					if (!model.conveyorSegments[segmentID].positions[headOfSegment].inMotion
-							&& !model.conveyorSegments[segmentID].positions[headOfSegment].finishedProcessing) {
-
-						return manualNodeId;
-					}
+					return manualNodeId;
 				}
 			}
 		}
 		return -1;
 	}
-	/**
-	 * If (autoNodeID = OP20) THEN Return RVP.uOP20RepairTime()
-	 * Else If (autoNodeID = OP30) THEN Return RVP.uOP30RepairTime()
-	 * Else If (autoNodeID = OP50) THEN Return RVP.uOP50RepairTime()
-	 * Else If (autoNodeID = TEST) THEN Return RVP.uTESTRepairTime()
 
-	 * @param autoNodeID
-	 * @return 
-	 */
 	public double GetNodeRepairTime(int autoNodeID){
 		if (autoNodeID == Const.OP20)
 			return model.rvp.uOP20RepairTime();		
@@ -258,59 +214,171 @@ public class UDPs
 		
 		return -1;
 	}
-	/**
-	 * 
-	 * @return
-	 */
+
 	public int GetPalletReadyForMoving(){
-		for(int i = 0; i < model.pallets.length; i++)
+
+		int selectedPallet = -1;
+
+		for(int segIter = model.conveyorSegments.length - 1; segIter >= 0; segIter--)
 		{
-			if(!model.pallets[i].inMotion)
+			int headOfSegment = model.conveyorSegments[segIter].getCapacity() - 1;
+
+			for(int posIter = model.conveyorSegments[segIter].palletPositions.length - 1; posIter >=0; posIter--)
 			{
-				int currConveyor = model.pallets[i].currConveyor;
-				int currPosition = model.pallets[i].currPosition;
-				int headOfSegment = model.conveyorSegments[currConveyor].getCapacity() - 1;
-				if(currPosition < headOfSegment)
+
+				if(model.conveyorSegments[segIter].palletPositions[posIter] != -1)
 				{
-					if(model.conveyorSegments[currConveyor].positions[currPosition + 1] == null
-							|| model.conveyorSegments[currConveyor].positions[currPosition + 1].inMotion)
+					int palletID = model.conveyorSegments[segIter].palletPositions[posIter];
+
+					if(model.pallets[palletID].inMotion)
 					{
-						return i;
+						continue;
 					}
-				}
-				else if (currPosition == headOfSegment && model.pallets[i].finishedProcessing)
-				{
-					//evaluated much deeper in this ugly if tree
-					
-					if(model.pallets[i].currConveyor == Const.CS_RETEST)
+
+					if(posIter < headOfSegment)
 					{
-						int headOfTest = model.conveyorSegments[Const.CS_TEST].getCapacity() - 1;
-						if(model.conveyorSegments[Const.CS_TEST].positions[headOfTest] != null && model.conveyorSegments[Const.CS_TEST].positions[headOfTest].inMotion)
+						//If the pallet is on CS_TEST in the second last position on the conveyor
+						// If there is a pallet waiting to arrive from CS_RETEST, skip the pallet being evaluated.
+						// This is to free up the next space to allow reworked TVs to be tested first
+
+						if(segIter == Const.CS_TEST && posIter == headOfSegment - 1)
 						{
-							continue;
+							int retestConveyorHead = model.conveyorSegments[Const.CS_RETEST].getCapacity() - 1;
+							int retestHeadPallet = model.conveyorSegments[Const.CS_RETEST].palletPositions[retestConveyorHead];
+							if(retestHeadPallet != -1)
+							{
+								continue;
+							}
+						}
+
+						//otherwise proceed if the conditions are right
+
+						int palletAhead = model.conveyorSegments[segIter].palletPositions[posIter + 1];
+
+						if(palletAhead == -1 /*|| model.pallets[palletAhead].inMotion*/)
+						{
+							selectedPallet = palletID;
+							break;
 						}
 					}
-					
-					if(model.pallets[i].currConveyor == Const.CS_TEST)
+					else if (posIter == headOfSegment && model.pallets[palletID].finishedProcessing)
 					{
-						int headOfRetest = model.conveyorSegments[Const.CS_RETEST].getCapacity() - 1;
-						if(model.conveyorSegments[Const.CS_RETEST].positions[headOfRetest] != null && model.conveyorSegments[Const.CS_RETEST].positions[headOfRetest].inMotion)
+						//evaluated much deeper in this ugly if tree
+
+						if(segIter == Const.CS_RETEST)
 						{
-							continue;
+							int headOfTest = model.conveyorSegments[Const.CS_TEST].getCapacity() - 1;
+							int testHeadPallet = model.conveyorSegments[Const.CS_TEST].palletPositions[headOfTest];
+
+							//head of segment CS_TEST
+							//if there is a pallet and it is in motion
+							if(testHeadPallet != -1 && !model.pallets[testHeadPallet].inMotion)
+							{
+								continue;
+							}
+							else{
+								selectedPallet = palletID;
+								break;
+							}
 						}
-					}
-					
-					int nextConveyor = model.conveyorSegments[model.pallets[i].currConveyor].nextConveyor;
-					
-					if(model.conveyorSegments[nextConveyor].positions[0] == null || 
-							(model.conveyorSegments[nextConveyor].positions[0] != null && model.conveyorSegments[nextConveyor].positions[0].inMotion))
-					{
-						return i;
+
+						if(segIter == Const.CS_TEST && model.pallets[palletID].moveRework)
+						{
+							//int headOfRetest = model.conveyorSegments[Const.CS_RETEST].getCapacity() - 1;
+
+							int reworkTailPallet = model.conveyorSegments[Const.CS_REWORK].palletPositions[0];
+
+							if(reworkTailPallet == -1 /*|| ( reworkTailPallet != -1 && !model.pallets[reworkTailPallet].inMotion)*/) {
+								selectedPallet = palletID;
+								break;
+							}
+							else
+								continue;
+						}
+
+						int nextConveyor = model.conveyorSegments[segIter].nextConveyor;
+						int nextPalletPosition = model.conveyorSegments[nextConveyor].palletPositions[0];
+
+						//I've had to disable inter-segment transfer returns, where the pallet we're evaluating,
+						if(nextPalletPosition == -1 /*||
+							(model.conveyorSegments[nextConveyor].palletPositions[0] != -1 && model.pallets[nextPalletPosition].inMotion)*/)
+						{
+							selectedPallet = palletID;
+							break;
+						}
 					}
 				}
 			}
 		}
-		return -1;
+
+
+
+//		for(int i = 0; i < model.pallets.length; i++)
+//		{
+//			if(!model.pallets[i].inMotion)
+//			{
+//				int currConveyor = model.pallets[i].currConveyor;
+//				int currPosition = model.pallets[i].currPosition;
+//				int headOfSegment = model.conveyorSegments[currConveyor].getCapacity() - 1;
+//				if(currPosition < headOfSegment)
+//				{
+//					//If the pallet is on CS_TEST in the second last position on the conveyor
+//					// If there is a pallet waiting to arrive from CS_RETEST, skip the pallet being evaluated.
+//					// This is to free up the next space to allow reworked TVs to be tested first
+//
+//					if(currConveyor == Const.CS_TEST && currPosition == headOfSegment - 1)
+//					{
+//						int retestConveyorHead = model.conveyorSegments[Const.CS_RETEST].getCapacity() - 1;
+//						if(model.conveyorSegments[Const.CS_RETEST].palletPositions[retestConveyorHead] != null)
+//						{
+//							continue;
+//						}
+//					}
+//
+//					//otherwise proceed
+//
+//					if(model.conveyorSegments[currConveyor].palletPositions[currPosition + 1] == null
+//							|| model.conveyorSegments[currConveyor].palletPositions[currPosition + 1].inMotion)
+//					{
+//						return i;
+//					}
+//				}
+//				else if (currPosition == headOfSegment && model.pallets[i].finishedProcessing)
+//				{
+//					//evaluated much deeper in this ugly if tree
+//
+//					if(model.pallets[i].currConveyor == Const.CS_RETEST)
+//					{
+//						int headOfTest = model.conveyorSegments[Const.CS_TEST].getCapacity() - 1;
+//
+//						//head of segment CS_TEST
+//						//if there is a pallet and it is in motion
+//						if(model.conveyorSegments[Const.CS_TEST].palletPositions[headOfTest] != null && !model.conveyorSegments[Const.CS_TEST].palletPositions[headOfTest].inMotion)
+//						{
+//							continue;
+//						}
+//					}
+//
+//					if(model.pallets[i].currConveyor == Const.CS_TEST && model.pallets[i].moveRework)
+//					{
+//						int headOfRetest = model.conveyorSegments[Const.CS_RETEST].getCapacity() - 1;
+//						if(model.conveyorSegments[Const.CS_REWORK].palletPositions[0] == null || ( model.conveyorSegments[Const.CS_REWORK].palletPositions[0] != null && !model.conveyorSegments[Const.CS_REWORK].palletPositions[0].inMotion)) {
+//							return i;
+//						}
+//					}
+//
+//					int nextConveyor = model.conveyorSegments[model.pallets[i].currConveyor].nextConveyor;
+//
+//					//I've had to disable inter-segment transfer returns, where the pallet we're evaluating,
+//					if(model.conveyorSegments[nextConveyor].palletPositions[0] == null /*||
+//							(model.conveyorSegments[nextConveyor].palletPositions[0] != null && model.conveyorSegments[nextConveyor].palletPositions[0].inMotion)*/)
+//					{
+//						return i;
+//					}
+//				}
+//			}
+//		}
+		return selectedPallet;
 	}
 
 
